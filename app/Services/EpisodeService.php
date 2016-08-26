@@ -5,7 +5,7 @@ use fsociety\Episode;
 
 class EpisodeService
 {
-    public function getEpisodes() {
-        return Episode::all();
+    public function getEpisodes($season = null) {
+        return $season ? Episode::whereSeasonId($season)->get() : Episode::all();
     }
 }

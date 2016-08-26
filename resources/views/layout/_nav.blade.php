@@ -8,7 +8,7 @@
             <li><a href="{{ url('/login') }}">Login</a></li>
             <li><a href="{{ url('/register') }}">Register</a></li>
         @else
-            <li class="uk-parent" data-uk-dropdown>
+            <li class="uk-parent right-nav" data-uk-dropdown>
                 <a href="">{{ Auth::user()->name }} <i class="uk-icon-caret-down"></i></a>
                 <div class="uk-dropdown uk-dropdown-navbar">
                     <ul class="uk-nav uk-nav-navbar">

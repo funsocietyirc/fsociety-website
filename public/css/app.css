@@ -70,7 +70,7 @@ hr {
     .main-nav .uk-nav-navbar > li > a:hover {
       background: black;
       color: white; }
-  .main-nav .uk-dropdown, .main-nav .uk-dropdown-blank {
+  .main-nav .right-nav .uk-dropdown, .main-nav .right-nav .uk-dropdown-blank {
     width: 100px; }
 
 .wrapper {
@@ -139,5 +139,11 @@ hr {
     color: #D32027; }
     .episodes .hovered img {
       border-bottom: 2px solid #D32027; }
+
+.right-margin-5 {
+  margin-right: 5px; }
+
+.left-margin-5 {
+  margin-left: 5px; }
 
 /*# sourceMappingURL=app.css.map */

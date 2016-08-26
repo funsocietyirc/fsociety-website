@@ -10,7 +10,7 @@
                                 @if($episode['imageMedium'] )
                                     <img src="{!! $episode['imageMedium'] !!}" alt="">
                                 @else
-                                    <img src="{!! asset('images/episodes/placeholdermed.jpg') !!}" alt="">
+                                    <img src="{!! asset('images/episodes/fsociety.png') !!}" alt="">
                                 @endif
                                 <p>
                                     {!! $episode['name'] !!}

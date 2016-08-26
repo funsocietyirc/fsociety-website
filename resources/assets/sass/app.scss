@@ -99,8 +99,10 @@ hr {
       color:white;
     }
   }
-  .uk-dropdown, .uk-dropdown-blank {
-    width:100px;
+  .right-nav {
+    .uk-dropdown, .uk-dropdown-blank {
+      width:100px;
+    }
   }
 }
 
@@ -170,4 +172,12 @@ hr {
       border-bottom: 2px solid $mrRobotHoverColor;
     }
   }
+}
+
+// MISC
+.right-margin-5 {
+  margin-right:5px;
+}
+.left-margin-5 {
+  margin-left:5px;
 }

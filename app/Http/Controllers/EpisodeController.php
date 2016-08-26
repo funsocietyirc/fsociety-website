@@ -18,4 +18,8 @@ class EpisodeController extends Controller
     public function index() {
         return view('episodes')->with('episodes', $this->episodeService->getEpisodes());
     }
+
+    public function season($season) {
+        return view('episodes')->with('episodes', $this->episodeService->getEpisodes($season));
+    }
 }
