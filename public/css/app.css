@@ -140,7 +140,8 @@ hr {
   cursor: pointer; }
 
 .episodes {
-  margin: 10px 5px; }
+  margin: 0 5px 0;
+  padding-top: 10px; }
   .episodes img {
     border-bottom: 2px solid #D12026; }
   .episodes .season-button {

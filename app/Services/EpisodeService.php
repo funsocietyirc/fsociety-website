@@ -11,7 +11,7 @@ class EpisodeService
             'imageMedium',
             'season_id',
             'number'
-        ])->whereSeasonId($season)->orderBy('number')->get() : Episode::orderBy('number')->get();
+        ])->whereSeasonId($season)->orderBy('season_id')->orderBy('number')->get() : Episode::orderBy('season_id')->orderBy('number')->get();
     }
 
     public function getEpisodePage($season, $episode)
