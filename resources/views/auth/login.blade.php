@@ -31,10 +31,15 @@
                                     </div>
                                 @endif
                             </div>
-                            <div class="uk-form-row">
+                            <div class="uk-form-row{{ $errors->has('g-recaptcha-response') ? ' uk-form-danger' : '' }}">
                                 <div class="uk-container-center">
                                         {!! app('captcha')->display()!!}
                                 </div>
+                                @if ($errors->has('password'))
+                                    <div class="uk-form-help-block">
+                                        <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
+                                    </div>
+                                @endif
                             </div>
                             <div class="uk-form-row">
                                 <div class="col-md-6 col-md-offset-4">
