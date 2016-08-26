@@ -13,7 +13,7 @@
                 </li>
                 @foreach($episodes as $episode)
                     <li class="uk-animation-fade uk-width-small-1-3 uk-width-medium-1-3 uk-width-large-1-5">
-                        <div class="episode-item" data-episode-link="">
+                        <div class="episode-item" data-episode-link="{!! route('episode',['season' => $episode['season_id'], 'episode' => $episode['number']]) !!}">
                             <figure class="uk-overlay uk-overlay">
                                 @if($episode['imageMedium'] )
                                     <img src="{!! $episode['imageMedium'] !!}" alt="">

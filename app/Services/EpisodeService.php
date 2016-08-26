@@ -8,7 +8,9 @@ class EpisodeService
     public function getEpisodesIndex($season = null) {
         return $season ? Episode::select([
             'name',
-            'imageMedium'
+            'imageMedium',
+            'season_id',
+            'number'
         ])->whereSeasonId($season)->get() : Episode::all();
     }
 

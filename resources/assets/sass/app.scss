@@ -201,3 +201,21 @@ hr {
 .left-margin-5 {
   margin-left:5px;
 }
+
+
+/// Show episode
+.show-episode {
+  h1 {
+    background-color:rgba(0,0,0,0.5);
+  }
+  .uk-description-list-horizontal {
+    border-top: 2px solid $mrRobotPrimaryColor;
+    border-bottom: 2px solid $mrRobotPrimaryColor;
+    padding:5px;
+    background-color:rgba(0,0,0,0.5);
+    dt{
+      font-weight: bolder;
+      color:$mrRobotPrimaryColor;
+    }
+  }
+}

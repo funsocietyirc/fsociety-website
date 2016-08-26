@@ -139,20 +139,36 @@ hr {
   margin: 10px 5px; }
   .episodes img {
     border-bottom: 2px solid #D12026; }
-  .episodes p {
-    color: white;
-    font-size: 1.5em; }
-  .episodes .hovered {
-    color: #D32027; }
-    .episodes .hovered img {
-      border-bottom: 2px solid #D32027; }
   .episodes .season-button {
     max-width: 252px; }
+  .episodes figcaption .text {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 2px;
+    border-radius: 2px;
+    width: 100%;
+    display: inline-block; }
+  .episodes figcaption:hover {
+    color: #D32027;
+    background-color: rgba(0, 0, 0, 0.6); }
+    .episodes figcaption:hover .text {
+      background: rgba(0, 0, 0, 0.9); }
 
 .right-margin-5 {
   margin-right: 5px; }
 
 .left-margin-5 {
   margin-left: 5px; }
+
+.show-episode h1 {
+  background-color: rgba(0, 0, 0, 0.5); }
+
+.show-episode .uk-description-list-horizontal {
+  border-top: 2px solid #D12026;
+  border-bottom: 2px solid #D12026;
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0.5); }
+  .show-episode .uk-description-list-horizontal dt {
+    font-weight: bolder;
+    color: #D12026; }
 
 /*# sourceMappingURL=app.css.map */
