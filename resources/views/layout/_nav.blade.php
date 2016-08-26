@@ -1,15 +1,7 @@
 <nav class="uk-navbar main-nav">
     <a class="uk-navbar-brand uk-hidden-small" href="/">#fsociety</a>
     <ul class="uk-navbar-nav uk-hidden-small">
-        <li>
-            <a href="{{route('chat')}}">
-                Chat
-            </a>
-        </li>
-        <li>
-            {{--<a href="">ARG Links</a>--}}
-        </li>
-
+        @include('layout._offcanvasLinks')
     </ul>
     <ul class="uk-navbar-nav uk-navbar-flip">
         @if (Auth::guest())
@@ -38,3 +30,10 @@
     </ul>
     <a href="#" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas="{target:'#offcanvas-1'}"></a>
 </nav>
+<div id="offcanvas-1" class="uk-offcanvas">
+    <div class="uk-offcanvas-bar">
+        <ul class="uk-nav uk-nav-offcanvas" data-uk-nav>
+            @include('layout._offcanvasLinks')
+        </ul>
+    </div>
+</div>
