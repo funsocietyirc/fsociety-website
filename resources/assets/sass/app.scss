@@ -88,10 +88,6 @@ hr {
   .uk-navbar-nav>li.uk-open>a, .uk-navbar-nav>li:hover>a, .uk-navbar-nav>li>a:focus{
     background:none;
   }
-  .uk-dropdown-navbar {
-    margin-top:4px;
-    background: rgba(255, 255, 255, 0.5);
-  }
   .uk-nav-navbar>li>a {
     color: black;
     &:hover {
@@ -103,6 +99,11 @@ hr {
     .uk-dropdown, .uk-dropdown-blank {
       width:100px;
     }
+    .uk-dropdown-navbar {
+      margin-top:4px;
+      background: rgba(255, 255, 255, 0.5);
+    }
+
   }
 }
 
@@ -153,6 +154,16 @@ hr {
   }
 }
 
+.uk-button-danger {
+  background: none;
+  color: #fff;
+  border:1px solid $mrRobotPrimaryColor;
+  &:hover, &:focus {
+    background: rgba(211, 32, 39, 0.5);
+  }
+}
+
+
 .episode-item{
   cursor:pointer;
 }
@@ -171,6 +182,9 @@ hr {
     img {
       border-bottom: 2px solid $mrRobotHoverColor;
     }
+  }
+  .season-button {
+    max-width:252px;
   }
 }
 

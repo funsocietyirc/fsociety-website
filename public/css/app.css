@@ -62,9 +62,6 @@ hr {
       color: #D32027; }
   .main-nav .uk-navbar-nav > li.uk-open > a, .main-nav .uk-navbar-nav > li:hover > a, .main-nav .uk-navbar-nav > li > a:focus {
     background: none; }
-  .main-nav .uk-dropdown-navbar {
-    margin-top: 4px;
-    background: rgba(255, 255, 255, 0.5); }
   .main-nav .uk-nav-navbar > li > a {
     color: black; }
     .main-nav .uk-nav-navbar > li > a:hover {
@@ -72,6 +69,9 @@ hr {
       color: white; }
   .main-nav .right-nav .uk-dropdown, .main-nav .right-nav .uk-dropdown-blank {
     width: 100px; }
+  .main-nav .right-nav .uk-dropdown-navbar {
+    margin-top: 4px;
+    background: rgba(255, 255, 255, 0.5); }
 
 .wrapper {
   width: 100%;
@@ -125,6 +125,13 @@ hr {
   .uk-button-primary:hover, .uk-button-primary:focus {
     background: rgba(79, 85, 255, 0.5); }
 
+.uk-button-danger {
+  background: none;
+  color: #fff;
+  border: 1px solid #D12026; }
+  .uk-button-danger:hover, .uk-button-danger:focus {
+    background: rgba(211, 32, 39, 0.5); }
+
 .episode-item {
   cursor: pointer; }
 
@@ -139,6 +146,8 @@ hr {
     color: #D32027; }
     .episodes .hovered img {
       border-bottom: 2px solid #D32027; }
+  .episodes .season-button {
+    max-width: 252px; }
 
 .right-margin-5 {
   margin-right: 5px; }
