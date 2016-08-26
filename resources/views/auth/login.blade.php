@@ -33,10 +33,9 @@
                             </div>
                             <div class="uk-form-row">
                                 <div class="uk-container-center">
-                                    {!! app('captcha')->display()!!}
+                                        {!! app('captcha')->display()!!}
                                 </div>
                             </div>
-
                             <div class="uk-form-row">
                                 <div class="col-md-6 col-md-offset-4">
                                     <div class="checkbox">
