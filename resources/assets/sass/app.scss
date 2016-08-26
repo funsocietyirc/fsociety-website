@@ -151,19 +151,23 @@ hr {
   }
 }
 
+.episode-item{
+  cursor:pointer;
+}
 // Episode Gallery
 .episodes {
   margin: 10px 5px;
   img {
     border-bottom: 2px solid $mrRobotPrimaryColor;
   }
-  li {
-    p{
-      color:white;
-      font-size:1.5em;
-      &:hover {
-        color: $mrRobotHoverColor;
-      }
+  p{
+    color:white;
+    font-size:1.5em;
+  }
+  .hovered {
+    color: $mrRobotHoverColor;
+    img {
+      border-bottom: 2px solid $mrRobotHoverColor;
     }
   }
 }

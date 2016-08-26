@@ -125,14 +125,19 @@ hr {
   .uk-button-primary:hover, .uk-button-primary:focus {
     background: rgba(79, 85, 255, 0.5); }
 
+.episode-item {
+  cursor: pointer; }
+
 .episodes {
   margin: 10px 5px; }
   .episodes img {
     border-bottom: 2px solid #D12026; }
-  .episodes li p {
+  .episodes p {
     color: white;
     font-size: 1.5em; }
-    .episodes li p:hover {
-      color: #D32027; }
+  .episodes .hovered {
+    color: #D32027; }
+    .episodes .hovered img {
+      border-bottom: 2px solid #D32027; }
 
 /*# sourceMappingURL=app.css.map */
