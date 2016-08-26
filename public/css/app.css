@@ -70,6 +70,8 @@ hr {
     .main-nav .uk-nav-navbar > li > a:hover {
       background: black;
       color: white; }
+  .main-nav .uk-dropdown, .main-nav .uk-dropdown-blank {
+    width: 124px; }
 
 .wrapper {
   width: 100%;
