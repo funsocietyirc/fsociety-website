@@ -22,7 +22,8 @@ Route::get('chat', function() {
 
 Route::group(['prefix' => 'episodes'], function () {
     Route::get('/', 'EpisodeController@index')->name('episodes');
-    Route::get('/season/{season}','EpisodeController@season')->name('season');
+    Route::get('season/{season}','EpisodeController@season')->name('season');
+    Route::get('show/{season}/{episode}','EpisodeController@show')->name('episode');
 });
 
 Auth::routes();

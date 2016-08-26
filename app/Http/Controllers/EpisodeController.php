@@ -16,10 +16,14 @@ class EpisodeController extends Controller
     }
 
     public function index() {
-        return view('episodes')->with('episodes', $this->episodeService->getEpisodes());
+        return view('episodes.index')->with('episodes', $this->episodeService->getEpisodesIndex());
     }
 
     public function season($season) {
-        return view('episodes')->with('episodes', $this->episodeService->getEpisodes($season));
+        return view('episodes.index')->with('episodes', $this->episodeService->getEpisodesIndex($season));
+    }
+
+    public function show($season, $episode) {
+        return view('episodes.show')->with('episode', $this->episodeService->getEpisodePage($season, $episode));
     }
 }

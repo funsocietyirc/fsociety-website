@@ -173,18 +173,24 @@ hr {
   img {
     border-bottom: 2px solid $mrRobotPrimaryColor;
   }
-  p{
-    color:white;
-    font-size:1.5em;
-  }
-  .hovered {
-    color: $mrRobotHoverColor;
-    img {
-      border-bottom: 2px solid $mrRobotHoverColor;
-    }
-  }
   .season-button {
     max-width:252px;
+  }
+  figcaption {
+    .text {
+      background-color:rgba(0,0,0,0.5);
+      padding:2px;
+      border-radius:2px;
+      width:100%;
+      display:inline-block;
+    }
+    &:hover {
+      color: $mrRobotHoverColor;
+      background-color:rgba(0,0,0,0.6);
+      .text {
+        background:rgba(0,0,0,0.9);
+      }
+    }
   }
 }
 
