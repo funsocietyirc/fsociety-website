@@ -49,7 +49,9 @@
                                     </div>
                                 @endif
                             </div>
-                            @include('layout._recaptcha')
+                            @if(config('app.env') !== 'local')
+                                @include('layout._recaptcha')
+                            @endif
                             <div class="uk-form-row">
                                 <button type="submit" class="uk-button uk-button-success uk-width-1-1">
                                     Register

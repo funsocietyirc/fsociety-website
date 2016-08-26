@@ -31,7 +31,9 @@
                                     </div>
                                 @endif
                             </div>
-                            @include('layout._recaptcha')
+                            @if(config('app.env') !== 'local')
+                                @include('layout._recaptcha')
+                            @endif
                             <div class="uk-form-row">
                                 <div class="col-md-6 col-md-offset-4">
                                     <div class="checkbox">
