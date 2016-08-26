@@ -1,38 +1,6 @@
 <nav class="uk-navbar main-nav">
-
     <a class="uk-navbar-brand uk-hidden-small" href="/">#fsociety</a>
-
     <ul class="uk-navbar-nav uk-hidden-small">
-
-        {{--<li class="uk-parent" data-uk-dropdown>--}}
-        {{--<a href="">Parent</a>--}}
-        {{--<div class="uk-dropdown uk-dropdown-navbar">--}}
-        {{--<ul class="uk-nav uk-nav-navbar">--}}
-        {{--<li class="uk-nav-header">Header</li>--}}
-        {{--<li><a href="#">Item</a></li>--}}
-        {{--<li><a href="#">Item</a></li>--}}
-        {{--<li class="uk-nav-divider"></li>--}}
-        {{--<li><a href="#">Separated item</a></li>--}}
-        {{--<li class="uk-parent">--}}
-        {{--<a href="#">Parent</a>--}}
-        {{--<ul class="uk-nav-sub">--}}
-        {{--<li><a href="#">Sub item</a>--}}
-        {{--<ul>--}}
-        {{--<li><a href="#">Sub item</a></li>--}}
-        {{--</ul>--}}
-        {{--</li>--}}
-        {{--</ul>--}}
-        {{--</li>--}}
-        {{--</ul>--}}
-        {{--</div>--}}
-        {{--</li>--}}
-
-        {{--<li class="uk-parent uk-active" data-uk-dropdown>--}}
-        {{--<a href="">Active</a>--}}
-        {{--<div class="uk-dropdown uk-dropdown-navbar">--}}
-        {{--<div class="uk-panel">Lorem ipsum dolor sit amet, consectetur <a href="#">adipisicing</a> elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>--}}
-        {{--</div>--}}
-        {{--</li>--}}
         <li>
             <a href="{{route('chat')}}">
                 Chat
