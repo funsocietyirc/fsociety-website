@@ -31,6 +31,9 @@
                                     </div>
                                 @endif
                             </div>
+                            <div class="uk-form-row">
+                                {!! app('captcha')->display()!!}
+                            </div>
 
                             <div class="uk-form-row">
                                 <div class="col-md-6 col-md-offset-4">
