@@ -2,6 +2,7 @@
 
 namespace fsociety\Console;
 
+use fsociety\Console\Commands\fetchEpisodeInformation;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -13,7 +14,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        fetchEpisodeInformation::class
     ];
 
     /**
@@ -24,8 +25,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+         $schedule->command('fsociety:fetchEpisodes')->daily();
     }
 
     /**
