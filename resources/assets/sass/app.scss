@@ -58,6 +58,13 @@ body,h1,h2,h3,h4,p {
   color:white;
 }
 
+a {
+  &:hover {
+    text-decoration: none;
+    color:$mrRobotHoverColor;
+  }
+}
+
 hr {
   color:$mrRobotPrimaryColor;
 }
