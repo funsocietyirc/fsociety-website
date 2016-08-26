@@ -41,16 +41,21 @@ class LoginController extends Controller
     /**
      * Validate the user login request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return void
      */
     protected function validateLogin(Request $request)
     {
-        $this->validate($request, [
+        $valOptions = config('app.env') === 'local' ? [
+            $this->username() => 'required',
+            'password' => 'required',
+        ] : [
             $this->username() => 'required',
             'password' => 'required',
             'g-recaptcha-response' => 'required|captcha'
-        ]);
+        ];
+        $this->validate($request, $valOptions);
+
     }
 
 }
