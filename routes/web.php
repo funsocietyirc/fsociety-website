@@ -20,4 +20,4 @@ Route::get('chat', function() {
 })->name('chat');
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Route::get('episodes', 'EpisodeController@index')->name('episodes');

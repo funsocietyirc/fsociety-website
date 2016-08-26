@@ -36,9 +36,9 @@ html {
   background-size: cover;
   font-family: 'Fira Sans', sans-serif; }
 
-body {
-  background-color: rgba(0, 0, 0, 0.8);
-  font-family: 'Fira Sans', sans-serif; }
+body, h1, h2, h3, h4, p {
+  font-family: 'Fira Sans', sans-serif;
+  color: white; }
 
 hr {
   color: #D12026; }
@@ -71,12 +71,11 @@ hr {
       background: black;
       color: white; }
   .main-nav .uk-dropdown, .main-nav .uk-dropdown-blank {
-    width: 124px; }
+    width: 100px; }
 
 .wrapper {
   width: 100%;
-  margin: 0 auto;
-  background: #CCC; }
+  margin: 0 auto; }
 
 .h_iframe {
   position: relative;
@@ -126,7 +125,14 @@ hr {
   .uk-button-primary:hover, .uk-button-primary:focus {
     background: rgba(79, 85, 255, 0.5); }
 
-.rc-anchor-light, .rc-anchor {
-  background: none; }
+.episodes {
+  margin: 10px 5px; }
+  .episodes img {
+    border-bottom: 2px solid #D12026; }
+  .episodes li p {
+    color: white;
+    font-size: 1.5em; }
+    .episodes li p:hover {
+      color: #D32027; }
 
 /*# sourceMappingURL=app.css.map */
