@@ -85,7 +85,6 @@ hr {
       color:$mrRobotHoverColor;
     }
   }
-
   .uk-navbar-nav>li.uk-open>a, .uk-navbar-nav>li:hover>a, .uk-navbar-nav>li>a:focus{
     background:none;
   }
@@ -99,6 +98,9 @@ hr {
       background:black;
       color:white;
     }
+  }
+  .uk-dropdown, .uk-dropdown-blank {
+    width:124px;
   }
 }
 
