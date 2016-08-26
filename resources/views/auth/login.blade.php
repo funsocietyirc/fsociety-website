@@ -32,7 +32,9 @@
                                 @endif
                             </div>
                             <div class="uk-form-row">
-                                {!! app('captcha')->display()!!}
+                                <div class="uk-container-center">
+                                    {!! app('captcha')->display()!!}
+                                </div>
                             </div>
 
                             <div class="uk-form-row">

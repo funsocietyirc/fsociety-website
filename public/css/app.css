@@ -126,4 +126,7 @@ hr {
   .uk-button-primary:hover, .uk-button-primary:focus {
     background: rgba(79, 85, 255, 0.5); }
 
+.rc-anchor-light, .rc-anchor {
+  background: none; }
+
 /*# sourceMappingURL=app.css.map */
