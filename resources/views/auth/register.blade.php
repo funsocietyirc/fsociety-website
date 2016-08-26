@@ -49,11 +49,7 @@
                                     </div>
                                 @endif
                             </div>
-                            <div class="uk-form-row">
-                                <div class="uk-container-center">
-                                    {!! app('captcha')->display()!!}
-                                </div>
-                            </div>
+                            @include('layout._recaptcha')
                             <div class="uk-form-row">
                                 <button type="submit" class="uk-button uk-button-success uk-width-1-1">
                                     Register
