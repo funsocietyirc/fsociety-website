@@ -5,7 +5,7 @@
             <div class="arg-items uk-width-1-1">
                 <header class="uk-block  uk-cover-background">
                     <h1 class="uk-text-truncate uk-text-center">
-                        Alternate Reality Tracker
+                        Alternate Reality Links
                     </h1>
                 </header>
                 <div class="arg-nav">
