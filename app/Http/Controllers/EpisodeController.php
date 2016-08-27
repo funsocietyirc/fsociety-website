@@ -1,15 +1,18 @@
 <?php
 
-namespace fsociety\Http\Controllers;
+namespace Fsociety\Http\Controllers;
 
-use fsociety\Services\EpisodeService;
+use Fsociety\Services\EpisodeNotFoundException;
+use Fsociety\Services\EpisodeService;
 use Illuminate\Http\Request;
 
-use fsociety\Http\Requests;
+use Fsociety\Http\Requests;
 
 class EpisodeController extends Controller
 {
     protected $episodeService;
+    const EpisodeNotFoundMessage = 'Our systems have been compromised, or the Episode you seek does not yet exist.';
+    const EpisodeNotFoundTitle = 'I am unable to do that...';
     public function __construct(EpisodeService $episodeService)
     {
         $this->episodeService = $episodeService;
@@ -20,10 +23,20 @@ class EpisodeController extends Controller
     }
 
     public function season($season) {
-        return view('episodes.index')->with('episodes', $this->episodeService->getEpisodesIndex($season));
+        try {
+            return view('episodes.index')->with('episodes', $this->episodeService->getEpisodesIndex($season));
+        } catch (EpisodeNotFoundException $exception) {
+            flash()->overlay(self::EpisodeNotFoundMessage, self::EpisodeNotFoundTitle);
+            return route('home');
+        }
     }
 
     public function show($season, $episode) {
-        return view('episodes.show')->with('episode', $this->episodeService->getEpisodePage($season, $episode));
+        try {
+            return view('episodes.show')->with('episode', $this->episodeService->getEpisodePage($season, $episode));
+        } catch (EpisodeNotFoundException $exception) {
+            flash()->overlay(self::EpisodeNotFoundMessage, self::EpisodeNotFoundTitle);
+            return redirect()->route('home');
+        }
     }
 }

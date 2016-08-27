@@ -1,4 +1,4 @@
-@extends('layout/_main')
+@extends('layout/_main', ['fullHeight' => true])
 @section('content')
     <div class="wrapper full-height">
         <div class="h_iframe full-height">

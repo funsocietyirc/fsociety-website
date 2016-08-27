@@ -1,7 +1,9 @@
 <?php
 
-namespace fsociety\Providers;
+namespace Fsociety\Providers;
 
+use Fsociety\ArgTracking;
+use Fsociety\Policies\ArgPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -13,7 +15,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'fsociety\Model' => 'fsociety\Policies\ModelPolicy',
+        'Fsociety\Model' => 'Fsociety\Policies\ModelPolicy',
+        ArgTracking::class => ArgPolicy::class
     ];
 
     /**

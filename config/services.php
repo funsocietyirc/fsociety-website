@@ -30,7 +30,7 @@ return [
     ],
 
     'stripe' => [
-        'model' => fsociety\User::class,
+        'model' => Fsociety\User::class,
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],

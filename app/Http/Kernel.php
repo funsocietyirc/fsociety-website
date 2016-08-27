@@ -1,6 +1,6 @@
 <?php
 
-namespace fsociety\Http;
+namespace Fsociety\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -24,11 +24,11 @@ class Kernel extends HttpKernel
      */
     protected $middlewareGroups = [
         'web' => [
-            \fsociety\Http\Middleware\EncryptCookies::class,
+            \Fsociety\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \fsociety\Http\Middleware\VerifyCsrfToken::class,
+            \Fsociety\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
 
@@ -50,7 +50,7 @@ class Kernel extends HttpKernel
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
-        'guest' => \fsociety\Http\Middleware\RedirectIfAuthenticated::class,
+        'guest' => \Fsociety\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
     ];
 }

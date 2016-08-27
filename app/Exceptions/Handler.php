@@ -1,6 +1,6 @@
 <?php
 
-namespace fsociety\Exceptions;
+namespace Fsociety\Exceptions;
 
 use Exception;
 use Illuminate\Auth\AuthenticationException;

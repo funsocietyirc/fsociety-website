@@ -1,6 +1,6 @@
 <?php
 
-namespace fsociety\Providers;
+namespace Fsociety\Providers;
 
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -13,8 +13,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'fsociety\Events\SomeEvent' => [
-            'fsociety\Listeners\EventListener',
+        'Fsociety\Events\SomeEvent' => [
+            'Fsociety\Listeners\EventListener',
         ],
     ];
 

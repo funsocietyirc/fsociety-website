@@ -1,8 +1,8 @@
 <?php
 
-namespace fsociety\Console;
+namespace Fsociety\Console;
 
-use fsociety\Console\Commands\fetchEpisodeInformation;
+use Fsociety\Console\Commands\fetchEpisodeInformation;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 

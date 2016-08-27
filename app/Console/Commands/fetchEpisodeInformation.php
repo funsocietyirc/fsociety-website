@@ -1,9 +1,9 @@
 <?php
 
-namespace fsociety\Console\Commands;
+namespace Fsociety\Console\Commands;
 
 use Illuminate\Console\Command;
-use fsociety\Episode;
+use Fsociety\Episode;
 use GuzzleHttp;
 use File;
 

@@ -1,21 +1,29 @@
 <?php
-namespace fsociety\Services;
+namespace Fsociety\Services;
 
-use fsociety\Episode;
+use Fsociety\Episode;
 
 class EpisodeService
 {
     public function getEpisodesIndex($season = null) {
-        return $season ? Episode::select([
+        $result = $season ? Episode::select([
             'name',
             'imageMedium',
             'season_id',
             'number'
         ])->whereSeasonId($season)->orderBy('season_id')->orderBy('number')->get() : Episode::orderBy('season_id')->orderBy('number')->get();
+        if(!$result) {
+            throw new EpisodeNotFoundException;
+        }
+        return $result;
     }
 
     public function getEpisodePage($season, $episode)
     {
-        return Episode::whereNumber($episode)->whereSeasonId($season)->first();
+        $result = Episode::whereNumber($episode)->whereSeasonId($season)->first();
+        if(!$result) {
+            throw new EpisodeNotFoundException;
+        }
+        return $result;
     }
 }

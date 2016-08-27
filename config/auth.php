@@ -67,7 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => fsociety\User::class,
+            'model' => Fsociety\User::class,
         ],
 
         // 'users' => [

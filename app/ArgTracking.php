@@ -1,6 +1,6 @@
 <?php
 
-namespace fsociety;
+namespace Fsociety;
 
 use Illuminate\Database\Eloquent\Model;
 

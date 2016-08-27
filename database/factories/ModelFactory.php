@@ -11,7 +11,7 @@
 |
 */
 
-$factory->define(fsociety\User::class, function (Faker\Generator $faker) {
+$factory->define(Fsociety\User::class, function (Faker\Generator $faker) {
     static $password;
 
     return [

@@ -9,6 +9,17 @@
   min-width: calc(100% - 20%);
   display: inline-block; }
 
+.explanation {
+  font-size: 2em;
+  margin-top: 10px;
+  position: fixed;
+  top: 65%;
+  right: 50%; }
+  .explanation a {
+    color: rgba(255, 255, 255, 0.2); }
+    .explanation a:hover, .explanation a:active {
+      color: rgba(255, 255, 255, 0.8); }
+
 .typed-cursor {
   opacity: 1;
   -webkit-animation: blink 0.7s infinite;
@@ -46,6 +57,9 @@ a:hover {
 
 hr {
   color: #D12026; }
+
+a, .uk-link {
+  color: #3d96dd; }
 
 .full-height {
   height: calc(100% - 45px); }
@@ -175,5 +189,34 @@ hr {
   .show-episode .uk-description-list-horizontal dt {
     font-weight: bolder;
     color: #D12026; }
+
+.uk-modal .uk-modal-dialog {
+  background: black;
+  box-shadow: -2px 0px 200px -4px rgba(209, 32, 38, 0.5);
+  border-radius: 8px;
+  width: 640px; }
+  .uk-modal .uk-modal-dialog .uk-modal-header {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    font-weight: lighter;
+    letter-spacing: 1.25px;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+    font-size: 1.55em; }
+  .uk-modal .uk-modal-dialog .uk-modal-footer {
+    background: none;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px; }
+    .uk-modal .uk-modal-dialog .uk-modal-footer a {
+      width: 100%;
+      display: inline-block;
+      border-top-right-radius: 0;
+      border-top-left-radius: 0;
+      font-style: italic; }
+  .uk-modal .uk-modal-dialog p {
+    text-align: center;
+    padding: 5px; }
 
 /*# sourceMappingURL=app.css.map */

@@ -168,15 +168,16 @@ return [
          */
 
         Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
+        Laracasts\Flash\FlashServiceProvider::class,
 
         /*
          * Application Service Providers...
          */
-        fsociety\Providers\AppServiceProvider::class,
-        // fsociety\Providers\BroadcastServiceProvider::class,
-        fsociety\Providers\AuthServiceProvider::class,
-        fsociety\Providers\EventServiceProvider::class,
-        fsociety\Providers\RouteServiceProvider::class,
+        Fsociety\Providers\AppServiceProvider::class,
+        // Fsociety\Providers\BroadcastServiceProvider::class,
+        Fsociety\Providers\AuthServiceProvider::class,
+        Fsociety\Providers\EventServiceProvider::class,
+        Fsociety\Providers\RouteServiceProvider::class,
 
     ],
 
