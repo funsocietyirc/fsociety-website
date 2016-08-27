@@ -9,4 +9,7 @@ class Season extends Model
     protected $fillable = [
         'number','tagline'
     ];
+    public function episodes() {
+        return $this->hasMany(Episode::class);
+    }
 }

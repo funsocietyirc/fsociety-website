@@ -9,4 +9,8 @@ class Episode extends Model
     protected $fillable = [
       'name','number','season_id'
     ];
+
+    public function season() {
+        return $this->belongsTo(Season::class);
+    }
 }

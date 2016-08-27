@@ -1,0 +1,46 @@
+html {
+  /* give this to all tags from html to .fullscreen */
+  background: url('../images/MrNodeBot.png')  no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  font-family: 'Fira Sans', sans-serif;
+
+}
+
+body,h1,h2,h3,h4,p {
+  font-family: 'Fira Sans', sans-serif;
+  color:white;
+}
+
+a, .uk-link {
+  color: #3d96dd;
+  &:hover {
+    text-decoration: none;
+    color:$mrRobotHoverColor;
+  }
+}
+
+hr {
+  color:$mrRobotPrimaryColor;
+}
+
+// MISC
+.right-margin-5 {
+  margin-right:5px;
+}
+.left-margin-5 {
+  margin-left:5px;
+}
+
+// Positioning
+.full-height {
+  height: calc(100% - #{$navHeight});
+}
+
+// Chat Iframe wrapper
+.wrapper         {width:100%; margin:0 auto;}
+.h_iframe        {position:relative; height:100%;}
+.h_iframe .ratio {display:block;width:100%;height: 100%;}
+.h_iframe iframe {position:absolute;top:0;left:0;width:100%; height: 100%}

@@ -1,4 +1,4 @@
-@extends('layout._main')
+@extends('layout/_main', [ 'fullHeight' => true])
 @section('content')
 <div class="container">
     <div class="row">

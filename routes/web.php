@@ -1,5 +1,4 @@
 <?php
-
 // Base Routes
 Route::group(['prefix' => '/'], function () {
     Route::get('/', function () {
@@ -15,6 +14,8 @@ Route::group(['prefix' => 'episodes'], function () {
     Route::get('season/{season}','EpisodeController@season')->name('season');
     Route::get('show/{season}/{episode}','EpisodeController@show')->name('episode');
 });
+// Arg Routes
+Route::resource('arg', 'ArgController');
 // Authentication Routes
 Auth::routes();
 

@@ -1,4 +1,55 @@
 @import 'https://fonts.googleapis.com/css?family=Fira+Sans';
+html {
+  /* give this to all tags from html to .fullscreen */
+  background: url("../images/MrNodeBot.png") no-repeat center center fixed;
+  background-size: cover;
+  font-family: 'Fira Sans', sans-serif; }
+
+body, h1, h2, h3, h4, p {
+  font-family: 'Fira Sans', sans-serif;
+  color: white; }
+
+a, .uk-link {
+  color: #3d96dd; }
+  a:hover, .uk-link:hover {
+    text-decoration: none;
+    color: #D32027; }
+
+hr {
+  color: #D12026; }
+
+.right-margin-5 {
+  margin-right: 5px; }
+
+.left-margin-5 {
+  margin-left: 5px; }
+
+.full-height {
+  height: calc(100% - 45px); }
+
+.wrapper {
+  width: 100%;
+  margin: 0 auto; }
+
+.h_iframe {
+  position: relative;
+  height: 100%; }
+
+.h_iframe .ratio {
+  display: block;
+  width: 100%;
+  height: 100%; }
+
+.h_iframe iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; }
+
+h1, h2, h3, h4, h5, h6 {
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4); }
+
 .typed-cursor, .message {
   font-size: 2em;
   line-height: 1.2em;
@@ -8,17 +59,6 @@
 .message-container {
   min-width: calc(100% - 20%);
   display: inline-block; }
-
-.explanation {
-  font-size: 2em;
-  margin-top: 10px;
-  position: fixed;
-  top: 65%;
-  right: 50%; }
-  .explanation a {
-    color: rgba(255, 255, 255, 0.2); }
-    .explanation a:hover, .explanation a:active {
-      color: rgba(255, 255, 255, 0.8); }
 
 .typed-cursor {
   opacity: 1;
@@ -40,29 +80,6 @@
     opacity: 0; }
   100% {
     opacity: 1; } }
-
-html {
-  /* give this to all tags from html to .fullscreen */
-  background: url("../images/MrNodeBot.png") no-repeat center center fixed;
-  background-size: cover;
-  font-family: 'Fira Sans', sans-serif; }
-
-body, h1, h2, h3, h4, p {
-  font-family: 'Fira Sans', sans-serif;
-  color: white; }
-
-a:hover {
-  text-decoration: none;
-  color: #D32027; }
-
-hr {
-  color: #D12026; }
-
-a, .uk-link {
-  color: #3d96dd; }
-
-.full-height {
-  height: calc(100% - 45px); }
 
 .main-nav {
   height: calc(45px - 4px);
@@ -91,41 +108,6 @@ a, .uk-link {
     margin-top: 4px;
     background: rgba(255, 255, 255, 0.5); }
 
-.wrapper {
-  width: 100%;
-  margin: 0 auto; }
-
-.h_iframe {
-  position: relative;
-  height: 100%; }
-
-.h_iframe .ratio {
-  display: block;
-  width: 100%;
-  height: 100%; }
-
-.h_iframe iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%; }
-
-.login {
-  color: white;
-  min-width: 320px;
-  background: rgba(0, 0, 0, 0.5); }
-  .login .uk-panel-header, .login .uk-panel-title {
-    color: white;
-    font-size: 2em;
-    border-bottom: 2px solid #D12026; }
-  .login .uk-form-danger {
-    background: none !important;
-    color: #D12026 !important; }
-  .login .uk-form input:not([type]), .login .uk-form input[type=text], .login .uk-form input[type=password], .login .uk-form input[type=email], .login .uk-form input[type=url], .login .uk-form input[type=search], .login .uk-form input[type=tel], .login .uk-form input[type=number], .login .uk-form input[type=datetime], .login .uk-form input[type=datetime-local], .login .uk-form input[type=date], .login .uk-form input[type=month], .login .uk-form input[type=time], .login .uk-form input[type=week], .login .uk-form input[type=color], .login .uk-form select, .login .uk-form textarea {
-    border-radius: 5px;
-    text-align: center; }
-
 .uk-button {
   border-radius: 5px; }
 
@@ -150,6 +132,68 @@ a, .uk-link {
   .uk-button-danger:hover, .uk-button-danger:focus {
     background: rgba(211, 32, 39, 0.5); }
 
+.uk-modal .uk-modal-dialog {
+  background: black;
+  box-shadow: -2px 0px 200px -4px rgba(209, 32, 38, 0.5);
+  border-radius: 8px;
+  width: 640px; }
+  .uk-modal .uk-modal-dialog .uk-modal-header {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    font-weight: lighter;
+    letter-spacing: 1.25px;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+    font-size: 1.55em; }
+  .uk-modal .uk-modal-dialog .uk-modal-footer {
+    background: none;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px; }
+    .uk-modal .uk-modal-dialog .uk-modal-footer a {
+      padding-top: 5px;
+      width: 100%;
+      display: inline-block;
+      border-top-right-radius: 0;
+      border-top-left-radius: 0;
+      font-style: italic;
+      color: #D32027;
+      line-height: 1.2em; }
+      .uk-modal .uk-modal-dialog .uk-modal-footer a .typed-cursor {
+        font-size: 1em !important;
+        font-style: normal;
+        margin-right: 4px; }
+  .uk-modal .uk-modal-dialog p {
+    text-align: center;
+    padding: 5px; }
+
+.login {
+  color: white;
+  min-width: 320px;
+  background: rgba(0, 0, 0, 0.5); }
+  .login .uk-panel-header, .login .uk-panel-title {
+    color: white;
+    font-size: 2em;
+    border-bottom: 2px solid #D12026; }
+  .login .uk-form-danger {
+    background: none !important;
+    color: #D12026 !important; }
+  .login .uk-form input:not([type]), .login .uk-form input[type=text], .login .uk-form input[type=password], .login .uk-form input[type=email], .login .uk-form input[type=url], .login .uk-form input[type=search], .login .uk-form input[type=tel], .login .uk-form input[type=number], .login .uk-form input[type=datetime], .login .uk-form input[type=datetime-local], .login .uk-form input[type=date], .login .uk-form input[type=month], .login .uk-form input[type=time], .login .uk-form input[type=week], .login .uk-form input[type=color], .login .uk-form select, .login .uk-form textarea {
+    border-radius: 5px;
+    text-align: center; }
+
+.explanation {
+  font-size: 2em;
+  margin-top: 10px;
+  position: fixed;
+  top: 65%;
+  right: 50%; }
+  .explanation a {
+    color: rgba(255, 255, 255, 0.2); }
+    .explanation a:hover, .explanation a:active {
+      color: rgba(255, 255, 255, 0.8); }
+
 .episode-item {
   cursor: pointer; }
 
@@ -172,12 +216,6 @@ a, .uk-link {
     .episodes figcaption:hover .text {
       background: rgba(0, 0, 0, 0.9); }
 
-.right-margin-5 {
-  margin-right: 5px; }
-
-.left-margin-5 {
-  margin-left: 5px; }
-
 .show-episode h1 {
   background-color: rgba(0, 0, 0, 0.5); }
 
@@ -190,33 +228,38 @@ a, .uk-link {
     font-weight: bolder;
     color: #D12026; }
 
-.uk-modal .uk-modal-dialog {
-  background: black;
-  box-shadow: -2px 0px 200px -4px rgba(209, 32, 38, 0.5);
-  border-radius: 8px;
-  width: 640px; }
-  .uk-modal .uk-modal-dialog .uk-modal-header {
-    text-align: center;
-    background: rgba(255, 255, 255, 0.1);
-    color: #ffffff;
-    font-weight: lighter;
-    letter-spacing: 1.25px;
-    border-top-right-radius: 4px;
-    border-top-left-radius: 4px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
-    font-size: 1.55em; }
-  .uk-modal .uk-modal-dialog .uk-modal-footer {
-    background: none;
-    border-bottom-right-radius: 4px;
-    border-bottom-left-radius: 4px; }
-    .uk-modal .uk-modal-dialog .uk-modal-footer a {
-      width: 100%;
-      display: inline-block;
-      border-top-right-radius: 0;
-      border-top-left-radius: 0;
-      font-style: italic; }
-  .uk-modal .uk-modal-dialog p {
-    text-align: center;
-    padding: 5px; }
+.arg-layout header {
+  background-image: url("../images/arg/banner.png"); }
+
+.arg-layout hr {
+  border-color: #D12026; }
+
+.arg-layout .arg-items {
+  background: rgba(46, 46, 45, 0.5); }
+
+.arg-layout .hvr-underline-from-center:before {
+  background: #D12026; }
+
+.arg-layout .arg-nav {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white; }
+  .arg-layout .arg-nav .uk-subnav {
+    margin-top: 0;
+    font-size: 1.5em; }
+  .arg-layout .arg-nav .uk-subnav-pill > * > * {
+    padding: 4px 23px;
+    border-radius: 4px !important;
+    border: 1px solid rgba(255, 255, 255, 0.5); }
+  .arg-layout .arg-nav .uk-subnav-pill > .uk-active > * {
+    background: rgba(13, 13, 97, 0.6);
+    color: white; }
+    .arg-layout .arg-nav .uk-subnav-pill > .uk-active > *:hover, .arg-layout .arg-nav .uk-subnav-pill > .uk-active > *:focus {
+      background: #0d0d61;
+      color: #b3b3b3; }
+  .arg-layout .arg-nav .uk-subnav-pill > * > :focus, .arg-layout .arg-nav .uk-subnav-pill > * > :hover {
+    background: rgba(54, 168, 21, 0.69);
+    color: #444;
+    text-decoration: none;
+    outline: 0; }
 
 /*# sourceMappingURL=app.css.map */

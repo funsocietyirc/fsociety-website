@@ -1,6 +1,6 @@
 @extends('layout/_main')
 @section('content')
-    <div class="full-height show-episode">
+    <div class="show-episode">
         <div class="uk-grid">
             <div class="uk-width-1-1">
                 <div class="uk-block uk-block-medium uk-cover-background" style="@if($episode['imageOriginal'])background-image:url({!! $episode['imageOriginal'] !!}); @else background-image:url({!! asset('images/episodes/banner.png') !!});@endif">

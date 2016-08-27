@@ -1,0 +1,49 @@
+.arg-layout {
+  header {
+    background-image: url('../images/arg/banner.png');
+  }
+  hr {
+    border-color: $mrRobotPrimaryColor;
+  }
+  article {
+
+  }
+  .arg-items {
+    background: rgba(46, 46, 45,0.5);
+  }
+  .arg-item {
+  }
+  .hvr-underline-from-center:before {
+    background: $mrRobotPrimaryColor;
+  }
+  .arg-nav {
+    background-color:rgba(0,0,0,0.7);
+    color:white;
+    .uk-subnav {
+      margin-top:0;
+      font-size:1.5em;
+    }
+    .uk-subnav-pill {
+      &>*>* {
+        padding: 4px 23px;
+        border-radius:4px !important;
+        border: 1px solid rgba(255,255,255,0.5);
+      }
+      &>.uk-active>* {
+        background: rgba(13, 13, 97, 0.6);
+        color: white;
+        &:hover, &:focus {
+          background: rgba(13, 13, 97, 1);
+          color:darken(white, 30);
+        }
+      }
+      &>*>:focus, &>*>:hover {
+        background: rgba(54, 168, 21, 0.69);
+        color: #444;
+        text-decoration: none;
+        outline: 0;
+      }
+
+    }
+  }
+}

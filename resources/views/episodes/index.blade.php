@@ -1,6 +1,6 @@
 @extends('layout/_main')
 @section('content')
-    <div class="full-height">
+
         <div class="episodes uk-text-center">
             <ul class="uk-grid" data-uk-grid-margin>
                 <li class="uk-width-small-1-3 uk-width-medium-1-3 uk-width-large-1-5">
@@ -21,16 +21,14 @@
                                     <img src="{!! asset('images/episodes/fsociety.png') !!}" alt="">
                                 @endif
                                 <figcaption class="uk-overlay-panel">
-                                    <span class="text">
-                                        {!! $episode['name'] !!}</figcaption>
-                                    </span>
+                                    <span class="text">{!! $episode['name'] !!}</span>
+                                </figcaption>
                             </figure>
                         </div>
                     </li>
                 @endforeach
             </ul>
         </div>
-    </div>
 @endsection
 @section('scripts')
     <script>
