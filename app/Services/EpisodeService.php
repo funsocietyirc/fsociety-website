@@ -12,7 +12,7 @@ class EpisodeService
             'season_id',
             'number'
         ])->whereSeasonId($season)->orderBy('season_id')->orderBy('number')->get() : Episode::orderBy('season_id')->orderBy('number')->get();
-        if(!$result) {
+        if(!$result->count()) {
             throw new EpisodeNotFoundException;
         }
         return $result;

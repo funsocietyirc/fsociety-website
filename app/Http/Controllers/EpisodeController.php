@@ -27,7 +27,7 @@ class EpisodeController extends Controller
             return view('episodes.index')->with('episodes', $this->episodeService->getEpisodesIndex($season));
         } catch (EpisodeNotFoundException $exception) {
             flash()->overlay(self::EpisodeNotFoundMessage, self::EpisodeNotFoundTitle);
-            return route('home');
+            return redirect()->route('episodes');
         }
     }
 
@@ -36,7 +36,7 @@ class EpisodeController extends Controller
             return view('episodes.show')->with('episode', $this->episodeService->getEpisodePage($season, $episode));
         } catch (EpisodeNotFoundException $exception) {
             flash()->overlay(self::EpisodeNotFoundMessage, self::EpisodeNotFoundTitle);
-            return redirect()->route('home');
+            return redirect()->route('episodes');
         }
     }
 }

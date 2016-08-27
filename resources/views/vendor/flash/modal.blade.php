@@ -8,7 +8,7 @@
             {!! $body !!}
         </p>
         <div class="uk-modal-footer">
-            <a class="uk-button uk-button-danger uk-modal-close">Agreed</a>
+            <a class="uk-button uk-button-danger uk-modal-close">exit<span class="typed-cursor">|</span></a>
         </div>
     </div>
 </div>

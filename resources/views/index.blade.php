@@ -26,7 +26,7 @@
                 Currently, I am but one developer, if you care to join me you can find us on <a href="https://github.com/funsocietyirc/fsociety-website">Github</a>.
             </p>
             <div class="uk-modal-footer">
-                <a class="uk-button uk-button-danger uk-modal-close">Agreed</a>
+                <a class="uk-button uk-button-danger uk-modal-close">exit<span class="typed-cursor">|</span></a>
             </div>
         </div>
     </div>
