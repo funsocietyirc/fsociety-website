@@ -33,8 +33,8 @@
                 <div>
                     <div class="uk-container uk-container-center">
                         <div class="uk-block">
-                            <h3>Episode Info</h3>
-                                @include('partials/_disqus',['slug' => $episode->slug])
+                            <h3>Conversation</h3>
+                            @include('partials/_disqus',['slug' => $episode->slug])
                         </div>
                     </div>
                 </div>
