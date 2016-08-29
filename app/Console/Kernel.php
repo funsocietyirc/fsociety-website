@@ -2,7 +2,8 @@
 
 namespace Fsociety\Console;
 
-use Fsociety\Console\Commands\fetchEpisodeInformation;
+use Fsociety\Console\Commands\ArgScreencap;
+use Fsociety\Console\Commands\FetchEpisodeInformation;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -14,7 +15,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        fetchEpisodeInformation::class
+        FetchEpisodeInformation::class,
+        ArgScreencap::class
     ];
 
     /**

@@ -7,7 +7,7 @@ use Fsociety\Models\Episode;
 use GuzzleHttp;
 use File;
 
-class fetchEpisodeInformation extends Command
+class FetchEpisodeInformation extends Command
 {
 
     protected $signature = 'fsociety:fetchEpisodes';
