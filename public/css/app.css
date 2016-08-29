@@ -202,7 +202,7 @@ h1, h2, h3, h4, h5, h6 {
       color: rgba(255, 255, 255, 0.8); }
 
 .episode-header {
-  box-shadow: inset -4px -12px 28px 15px black; }
+  box-shadow: inset -4px -12px 28px -4px black; }
 
 .episodes {
   margin: 0 5px 0;
@@ -229,7 +229,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .show-episode .episode-info {
   background-image: url("../images/arg/banner.png");
-  box-shadow: inset -4px -12px 28px 15px black; }
+  box-shadow: inset -4px -12px 28px -4px black; }
 
 .show-episode .uk-description-list-horizontal {
   border-top: 1px solid #D12026;
@@ -245,8 +245,13 @@ h1, h2, h3, h4, h5, h6 {
 .arg-layout hr {
   border-color: #D12026; }
 
-.arg-layout .arg-items {
-  background: rgba(46, 46, 45, 0.5); }
+.arg-layout .uk-description-list-horizontal {
+  padding: 4px 10px;
+  background: rgba(0, 0, 0, 0.8);
+  box-shadow: inset -4px -12px 28px -4px black;
+  border-radius: 4px; }
+  .arg-layout .uk-description-list-horizontal dt {
+    color: #a5191e; }
 
 .arg-layout .hvr-underline-from-center:before {
   background: #D12026; }
