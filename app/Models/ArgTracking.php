@@ -2,6 +2,7 @@
 
 namespace Fsociety\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -26,12 +27,22 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ArgTracking extends Model
 {
+    public function sluggable()
+    {
+        return [
+            'slug' => ['source' => 'name']
+        ];
+    }
+
+    use Sluggable;
+
     protected $table = 'arg_tracking';
     protected $fillable = [
-        'url','description','user_id','name'
+        'url', 'description', 'user_id', 'name'
     ];
 
-    public function creator() {
-        return $this->belongsTo(User::class,'user_id');
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

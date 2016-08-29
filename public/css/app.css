@@ -201,8 +201,8 @@ h1, h2, h3, h4, h5, h6 {
     .explanation a:hover, .explanation a:active {
       color: rgba(255, 255, 255, 0.8); }
 
-.episode-item {
-  cursor: pointer; }
+.episode-header {
+  box-shadow: inset -4px -12px 28px 15px black; }
 
 .episodes {
   margin: 0 5px 0;
@@ -212,22 +212,24 @@ h1, h2, h3, h4, h5, h6 {
   .episodes .season-button {
     max-width: 252px; }
   .episodes figcaption .text {
-    background-color: rgba(0, 0, 0, 0.5);
     padding: 2px;
-    border-radius: 2px;
     width: 100%;
     display: inline-block; }
   .episodes figcaption:hover {
-    color: #D32027;
-    background-color: rgba(0, 0, 0, 0.6); }
-    .episodes figcaption:hover .text {
-      background: rgba(0, 0, 0, 0.9); }
+    color: #D32027; }
+  .episodes .episode-item {
+    cursor: pointer; }
+  .episodes .uk-overlay-top {
+    background: rgba(0, 0, 0, 0.5); }
+  .episodes .uk-overlay-bottom a {
+    text-decoration: none; }
 
 .show-episode h1 {
   background-color: rgba(0, 0, 0, 0.5); }
 
 .show-episode .episode-info {
-  background-image: url("../images/arg/banner.png"); }
+  background-image: url("../images/arg/banner.png");
+  box-shadow: inset -4px -12px 28px 15px black; }
 
 .show-episode .uk-description-list-horizontal {
   border-top: 1px solid #D12026;

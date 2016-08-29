@@ -31,9 +31,10 @@ class EpisodeController extends Controller
         }
     }
 
-    public function show($season, $episode) {
+    public function show($slug) {
         try {
-            return view('episodes.show')->with('episode', $this->episodeService->getEpisodePage($season, $episode));
+            return view('episodes.show')
+                ->with('episode', $this->episodeService->getEpisodePage($slug));
         } catch (EpisodeNotFoundException $exception) {
             flash()->overlay(self::EpisodeNotFoundMessage, self::EpisodeNotFoundTitle);
             return redirect()->route('episodes');

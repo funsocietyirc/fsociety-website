@@ -1,6 +1,5 @@
-// Episode Gallery
-.episode-item{
-  cursor:pointer;
+.episode-header {
+  box-shadow: inset -4px -12px 28px 15px rgb(0, 0, 0);
 }
 .episodes {
   margin: 0 5px 0;
@@ -13,21 +12,28 @@
   }
   figcaption {
     .text {
-      background-color:rgba(0,0,0,0.5);
       padding:2px;
-      border-radius:2px;
       width:100%;
       display:inline-block;
     }
     &:hover {
       color: $mrRobotHoverColor;
-      background-color:rgba(0,0,0,0.6);
-      .text {
-        background:rgba(0,0,0,0.9);
-      }
+    }
+  }
+  // Episode Gallery
+  .episode-item {
+    cursor:pointer;
+  }
+  .uk-overlay-top{
+    background:rgba(0,0,0,0.5);
+  }
+  .uk-overlay-bottom {
+    a {
+      text-decoration: none;
     }
   }
 }
+
 
 /// Show episode
 .show-episode {
@@ -36,6 +42,7 @@
   }
   .episode-info {
     background-image: url('../images/arg/banner.png');
+    box-shadow: inset -4px -12px 28px 15px rgb(0, 0, 0);
   }
   .uk-description-list-horizontal {
     border-top: 1px solid $mrRobotPrimaryColor;

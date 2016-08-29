@@ -2,6 +2,7 @@
 
 namespace Fsociety\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -38,6 +39,14 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Episode extends Model
 {
+    use Sluggable;
+    public function sluggable()
+    {
+        return [
+            'slug' => ['source' => 'name']
+        ];
+    }
+
     protected $fillable = [
       'name','number','season_id'
     ];

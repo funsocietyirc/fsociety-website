@@ -10,7 +10,8 @@ class EpisodeService
             'name',
             'imageMedium',
             'season_id',
-            'number'
+            'number',
+            'slug'
         ])->whereSeasonId($season)->orderBy('season_id')->orderBy('number')->get() : Episode::orderBy('season_id')->orderBy('number')->get();
         if(!$result->count()) {
             throw new EpisodeNotFoundException;
@@ -18,9 +19,9 @@ class EpisodeService
         return $result;
     }
 
-    public function getEpisodePage($season, $episode)
+    public function getEpisodePage($slug)
     {
-        $result = Episode::whereNumber($episode)->whereSeasonId($season)->first();
+        $result = Episode::whereSlug($slug)->first();
         if(!$result) {
             throw new EpisodeNotFoundException;
         }
