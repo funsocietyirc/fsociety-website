@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <div class="arg-items">
-                    <div class="uk-grid uk-grid-large" data-uk-grid>
+                    <div class="uk-grid uk-grid-large" data-uk-grid-margin>
                         @foreach($results as $result)
                             <article class="arg-item uk-width-large-1-3 uk-width-medium-1-2">
                                 <div class="uk-block uk-cover-background" @if(File::exists(public_path('images/arg/tiles/'.$result->id.'.png'))) style="background:url('{!! asset('images/arg/tiles/' . $result->id .'.png') !!}') "@endif>
