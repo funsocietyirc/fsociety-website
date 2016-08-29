@@ -20,7 +20,7 @@
                                 <dt>Episode</dt>
                                 <dd>{!! $episode->number !!}</dd>
                                 <dt>Air Date</dt>
-                                <dd>{!! $episode->airdate !!}</dd>
+                                <dd>{!! $episode->airtime !!}</dd>
                                 <dt>Run Time</dt>
                                 <dd>{!! $episode->runtime !!} minuets</dd>
                                 <dt>Summary</dt>
@@ -33,7 +33,7 @@
                 <div>
                     <div class="uk-container uk-container-center">
                         <div class="uk-block">
-                            <h3>Conversation</h3>
+                            <h3>Discussion</h3>
                             @include('partials/_disqus',['slug' => $episode->slug])
                         </div>
                     </div>
