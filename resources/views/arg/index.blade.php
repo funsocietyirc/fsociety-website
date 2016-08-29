@@ -14,11 +14,9 @@
                             <li class="uk-active">
                                 <a href="{!! route('arg.index') !!}"><i class="uk-icon-book"></i></a>
                             </li>
-                            @if(Auth::check())
-                                <li>
-                                    <a href="{!! route('arg.create') !!}"><i class="uk-icon-plus"></i></a>
-                                </li>
-                            @endif
+                            <li>
+                                <a href="{!! route('arg.create') !!}"><i class="uk-icon-plus"></i></a>
+                            </li>
                         </ul>
                     </div>
                 </div>
