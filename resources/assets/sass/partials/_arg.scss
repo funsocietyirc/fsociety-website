@@ -6,11 +6,8 @@
     border-color: $mrRobotPrimaryColor;
   }
   .arg-item-content {
-    background: rgba(0, 0, 0,0.8);
+    background: rgba(0, 0, 0,0.95);
     padding:4px 10px;
-    box-shadow: $boxShadow;
-    border-radius: 4px;
-
   }
   .uk-description-list-horizontal {
     dt {
@@ -19,6 +16,9 @@
   }
   .hvr-underline-from-center:before {
     background: $mrRobotPrimaryColor;
+  }
+  .uk-grid {
+    padding: 5px;
   }
   .arg-nav {
     background-color:rgba(0,0,0,0.7);
