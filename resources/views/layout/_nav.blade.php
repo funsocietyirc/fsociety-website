@@ -5,8 +5,8 @@
     </ul>
     <ul class="uk-navbar-nav uk-navbar-flip">
         @if (Auth::guest())
-            <li><a href="{{ url('/login') }}">Login</a></li>
-            <li><a href="{{ url('/register') }}">Register</a></li>
+            <li class="{{ isActiveRoute('login')}}"><a href="{{ url('/login') }}">Login</a></li>
+            <li class="{{ isActiveRoute('register') }}"><a href="{{ url('/register') }}">Register</a></li>
         @else
             <li class="uk-parent right-nav" data-uk-dropdown>
                 <a href="">{{ Auth::user()->name }} <i class="uk-icon-caret-down"></i></a>

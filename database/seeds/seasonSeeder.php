@@ -1,5 +1,5 @@
 <?php
-use Fsociety\Season;
+use Fsociety\Models\Season;
 use Illuminate\Database\Seeder;
 
 

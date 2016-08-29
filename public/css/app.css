@@ -1,4 +1,19 @@
 @import 'https://fonts.googleapis.com/css?family=Fira+Sans';
+.fs-panel, .login, .arg-create-container .uk-panel {
+  color: white;
+  min-width: 320px;
+  background: rgba(0, 0, 0, 0.5); }
+  .fs-panel .uk-panel-header, .login .uk-panel-header, .arg-create-container .uk-panel .uk-panel-header, .fs-panel .uk-panel-title, .login .uk-panel-title, .arg-create-container .uk-panel .uk-panel-title {
+    color: white;
+    font-size: 2em;
+    border-bottom: 2px solid #D12026; }
+  .fs-panel .uk-form-danger, .login .uk-form-danger, .arg-create-container .uk-panel .uk-form-danger {
+    background: none !important;
+    color: #D12026 !important; }
+  .fs-panel .uk-form input:not([type]), .login .uk-form input:not([type]), .arg-create-container .uk-panel .uk-form input:not([type]), .fs-panel .uk-form input[type=text], .login .uk-form input[type=text], .arg-create-container .uk-panel .uk-form input[type=text], .fs-panel .uk-form input[type=password], .login .uk-form input[type=password], .arg-create-container .uk-panel .uk-form input[type=password], .fs-panel .uk-form input[type=email], .login .uk-form input[type=email], .arg-create-container .uk-panel .uk-form input[type=email], .fs-panel .uk-form input[type=url], .login .uk-form input[type=url], .arg-create-container .uk-panel .uk-form input[type=url], .fs-panel .uk-form input[type=search], .login .uk-form input[type=search], .arg-create-container .uk-panel .uk-form input[type=search], .fs-panel .uk-form input[type=tel], .login .uk-form input[type=tel], .arg-create-container .uk-panel .uk-form input[type=tel], .fs-panel .uk-form input[type=number], .login .uk-form input[type=number], .arg-create-container .uk-panel .uk-form input[type=number], .fs-panel .uk-form input[type=datetime], .login .uk-form input[type=datetime], .arg-create-container .uk-panel .uk-form input[type=datetime], .fs-panel .uk-form input[type=datetime-local], .login .uk-form input[type=datetime-local], .arg-create-container .uk-panel .uk-form input[type=datetime-local], .fs-panel .uk-form input[type=date], .login .uk-form input[type=date], .arg-create-container .uk-panel .uk-form input[type=date], .fs-panel .uk-form input[type=month], .login .uk-form input[type=month], .arg-create-container .uk-panel .uk-form input[type=month], .fs-panel .uk-form input[type=time], .login .uk-form input[type=time], .arg-create-container .uk-panel .uk-form input[type=time], .fs-panel .uk-form input[type=week], .login .uk-form input[type=week], .arg-create-container .uk-panel .uk-form input[type=week], .fs-panel .uk-form input[type=color], .login .uk-form input[type=color], .arg-create-container .uk-panel .uk-form input[type=color], .fs-panel .uk-form select, .login .uk-form select, .arg-create-container .uk-panel .uk-form select, .fs-panel .uk-form textarea, .login .uk-form textarea, .arg-create-container .uk-panel .uk-form textarea {
+    border-radius: 5px;
+    text-align: center; }
+
 html {
   /* give this to all tags from html to .fullscreen */
   background: url("../images/MrNodeBot.png") no-repeat center center fixed;
@@ -88,11 +103,13 @@ h1, h2, h3, h4, h5, h6 {
   border-bottom: 2px solid #D12026; }
   .main-nav .uk-navbar-nav > li > a {
     font-size: 18px !important; }
+  .main-nav .uk-navbar-nav > li.uk-active > a {
+    background: none;
+    color: #D12026; }
   .main-nav .uk-navbar-brand, .main-nav .uk-link, .main-nav a, .main-nav .uk-navbar-nav > li > a {
     color: white;
     letter-spacing: 1.5px;
-    text-transform: uppercase;
-    -webkit-transition: all 0.2s linear; }
+    text-transform: uppercase; }
     .main-nav .uk-navbar-brand:hover, .main-nav .uk-link:hover, .main-nav a:hover, .main-nav .uk-navbar-nav > li > a:hover {
       color: #D32027; }
   .main-nav .uk-navbar-nav > li.uk-open > a, .main-nav .uk-navbar-nav > li:hover > a, .main-nav .uk-navbar-nav > li > a:focus {
@@ -168,20 +185,10 @@ h1, h2, h3, h4, h5, h6 {
     text-align: center;
     padding: 5px; }
 
-.login {
-  color: white;
-  min-width: 320px;
-  background: rgba(0, 0, 0, 0.5); }
-  .login .uk-panel-header, .login .uk-panel-title {
-    color: white;
-    font-size: 2em;
-    border-bottom: 2px solid #D12026; }
-  .login .uk-form-danger {
-    background: none !important;
-    color: #D12026 !important; }
-  .login .uk-form input:not([type]), .login .uk-form input[type=text], .login .uk-form input[type=password], .login .uk-form input[type=email], .login .uk-form input[type=url], .login .uk-form input[type=search], .login .uk-form input[type=tel], .login .uk-form input[type=number], .login .uk-form input[type=datetime], .login .uk-form input[type=datetime-local], .login .uk-form input[type=date], .login .uk-form input[type=month], .login .uk-form input[type=time], .login .uk-form input[type=week], .login .uk-form input[type=color], .login .uk-form select, .login .uk-form textarea {
-    border-radius: 5px;
-    text-align: center; }
+.uk-alert {
+  background: rgba(209, 32, 38, 0.5);
+  text-align: center;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4); }
 
 .explanation {
   font-size: 2em;
@@ -263,5 +270,8 @@ h1, h2, h3, h4, h5, h6 {
     color: black;
     text-decoration: none;
     outline: 0; }
+
+.arg-create-container textarea {
+  padding: 5px; }
 
 /*# sourceMappingURL=app.css.map */

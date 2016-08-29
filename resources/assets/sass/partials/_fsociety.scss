@@ -1,0 +1,18 @@
+.fs-panel {
+  .uk-panel-header, .uk-panel-title {
+    color:white;
+    font-size: 2em;
+    border-bottom: 2px solid $mrRobotPrimaryColor;
+  }
+  .uk-form-danger {
+    background: none !important;
+    color: $mrRobotPrimaryColor !important;
+  }
+  .uk-form input:not([type]), .uk-form input[type=text], .uk-form input[type=password], .uk-form input[type=email], .uk-form input[type=url], .uk-form input[type=search], .uk-form input[type=tel], .uk-form input[type=number], .uk-form input[type=datetime], .uk-form input[type=datetime-local], .uk-form input[type=date], .uk-form input[type=month], .uk-form input[type=time], .uk-form input[type=week], .uk-form input[type=color], .uk-form select, .uk-form textarea {
+    border-radius:5px;
+    text-align: center;
+  }
+  color:white;
+  min-width:320px;
+  background:rgba(0,0,0,0.5);
+}

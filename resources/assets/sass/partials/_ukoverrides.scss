@@ -74,3 +74,10 @@
     }
   }
 }
+
+// Alert
+.uk-alert {
+  background: transparentize($mrRobotPrimaryColor, 0.5) ;
+  text-align: center;
+  text-shadow: $textShadow;
+}

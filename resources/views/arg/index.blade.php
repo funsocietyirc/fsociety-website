@@ -14,15 +14,17 @@
                             <li class="uk-active">
                                 <a href="{!! route('arg.index') !!}"><i class="uk-icon-book"></i></a>
                             </li>
-                            <li>
-                                <a href="{!! route('arg.create') !!}"><i class="uk-icon-plus"></i></a>
-                            </li>
+                            @if(Auth::check())
+                                <li>
+                                    <a href="{!! route('arg.create') !!}"><i class="uk-icon-plus"></i></a>
+                                </li>
+                            @endif
                         </ul>
                     </div>
                 </div>
                 <div class="uk-grid uk-grid-large" data-uk-grid>
                     @foreach($results as $result)
-                    <article class="arg-item uk-container-center hvr-underline-from-center uk-width-large-1-3 uk-width-medium-1-2">
+                    <article class="arg-item uk-container-center uk-width-large-1-3 uk-width-medium-1-2">
                         <div class="uk-block">
                             <div class="uk-container">
                                 <h3><a href="{!! $result->url !!}" target="_blank">{!! $result->name !!}</a></h3>

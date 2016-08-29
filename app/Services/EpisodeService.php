@@ -1,7 +1,7 @@
 <?php
 namespace Fsociety\Services;
 
-use Fsociety\Episode;
+use Fsociety\Models\Episode;
 
 class EpisodeService
 {

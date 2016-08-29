@@ -25,7 +25,6 @@
                                 <dt>Summary</dt>
                                 <dd>{!! $episode['summary'] !!}</dd>
                             </dl>
-
                         </div>
                     </div>
                 </div>

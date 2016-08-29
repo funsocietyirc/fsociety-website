@@ -16,7 +16,23 @@ Route::group(['prefix' => 'episodes'], function () {
 });
 // Arg Routes
 Route::resource('arg', 'ArgController');
+
 // Authentication Routes
-Auth::routes();
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login');
+Route::post('logout', 'Auth\LoginController@logout');
+
+// Registration Routes...
+Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+Route::post('register', 'Auth\RegisterController@register');
+
+// Password Reset Routes...
+Route::group(['prefix' => 'password'], function () {
+    Route::get('reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('reset');
+    Route::post('email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+    Route::get('reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('form');
+    Route::post('reset', 'Auth\ResetPasswordController@reset');
+});
+
 
 

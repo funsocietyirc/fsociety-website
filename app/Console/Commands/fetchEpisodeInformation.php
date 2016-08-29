@@ -3,7 +3,7 @@
 namespace Fsociety\Console\Commands;
 
 use Illuminate\Console\Command;
-use Fsociety\Episode;
+use Fsociety\Models\Episode;
 use GuzzleHttp;
 use File;
 
@@ -42,7 +42,7 @@ class fetchEpisodeInformation extends Command
         // Episode seeder (to be extracted into service with command and schedule)
         try {
             $client = new GuzzleHttp\Client();
-            $response = $client->get('http://api.tvmaze.com/shows/1871/episodes?specials=1');
+            $response = $client->get("http://api.tvmaze.com/shows/{$this->showId}/episodes?specials=1");
             // Something went wrong with the request
             if ($response->getStatusCode() !== 200) {
                 $this->error('Episode meta-data service not available');

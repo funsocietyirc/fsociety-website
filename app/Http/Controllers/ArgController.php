@@ -2,7 +2,8 @@
 
 namespace Fsociety\Http\Controllers;
 
-use Fsociety\ArgTracking;
+use Auth;
+use Fsociety\Models\ArgTracking;
 use Illuminate\Http\Request;
 
 use Fsociety\Http\Requests;
@@ -12,6 +13,7 @@ class ArgController extends Controller
 
     public function __construct()
     {
+        $this->middleware('auth', ['except' => ['index','show']]);
     }
 
     /**
@@ -43,7 +45,19 @@ class ArgController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name'   => 'required|max:255',
+            'url'    => 'required|url|unique:arg_tracking',
+            'description' => 'max:500'
+        ]);
+        ArgTracking::create([
+            'user_id'   => Auth::user()->id,
+            'url'   => $request->input('url'),
+            'name'  =>  $request->input('name'),
+            'description' => $request->input('description')
+        ]);
+        flash('Thank you for sharing');
+        return redirect()->route('arg.index');
     }
 
     /**

@@ -2,7 +2,7 @@
 
 namespace Fsociety\Policies;
 
-use Fsociety\User;
+use Fsociety\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ArgPolicy

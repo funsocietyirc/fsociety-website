@@ -2,7 +2,7 @@
 
 namespace Fsociety\Providers;
 
-use Fsociety\ArgTracking;
+use Fsociety\Models\ArgTracking;
 use Fsociety\Policies\ArgPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;

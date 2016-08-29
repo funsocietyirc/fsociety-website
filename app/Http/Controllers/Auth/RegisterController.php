@@ -2,7 +2,7 @@
 
 namespace Fsociety\Http\Controllers\Auth;
 
-use Fsociety\User;
+use Fsociety\Models\User;
 use Validator;
 use Fsociety\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;

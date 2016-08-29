@@ -47,3 +47,13 @@
     }
   }
 }
+
+// ARG Create Page
+.arg-create-container {
+  .uk-panel {
+    @extend .fs-panel;
+  }
+  textarea {
+    padding:5px;
+  }
+}
