@@ -15,12 +15,13 @@
                                 <dt>Season</dt>
                                 <dd>
                                     <a href="{{route('season',$episode->seasonId)}}">
-                                        {!! $episode->seasonId !!}
-                                    </a></dd>
+                                        {!! $episode->season_id !!}
+                                    </a>
+                                </dd>
                                 <dt>Episode</dt>
                                 <dd>{!! $episode->number !!}</dd>
                                 <dt>Air Date</dt>
-                                <dd>{!! $episode->airtime !!}</dd>
+                                <dd>{!! $episode->airdate !!}</dd>
                                 <dt>Run Time</dt>
                                 <dd>{!! $episode->runtime !!} minuets</dd>
                                 <dt>Summary</dt>
