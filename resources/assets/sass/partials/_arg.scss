@@ -5,13 +5,16 @@
   hr {
     border-color: $mrRobotPrimaryColor;
   }
-  .uk-description-list-horizontal {
-    padding:4px 10px;
+  .arg-item-content {
     background: rgba(0, 0, 0,0.8);
+    padding:4px 10px;
     box-shadow: $boxShadow;
     border-radius: 4px;
+
+  }
+  .uk-description-list-horizontal {
     dt {
-      color: darken($mrRobotPrimaryColor,10);
+      color: lighten($mrRobotPrimaryColor,10);
     }
   }
   .hvr-underline-from-center:before {
@@ -44,7 +47,6 @@
         text-decoration: none;
         outline: 0;
       }
-
     }
   }
 }

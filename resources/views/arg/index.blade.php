@@ -22,28 +22,29 @@
                         </ul>
                     </div>
                 </div>
-                <div class="arg-items">
-                    <div class="uk-grid uk-grid-large" data-uk-grid-margin>
-                        @foreach($results as $result)
-                            <article class="arg-item uk-width-large-1-3 uk-width-medium-1-2">
-                                <div class="uk-block uk-cover-background" @if(File::exists(public_path('images/arg/tiles/'.$result->id.'.png'))) style="background:url('{!! asset('images/arg/tiles/' . $result->id .'.png') !!}') "@endif>
-                                    <div class="uk-container" style="padding-top:10px">
-                                        <h3><a href="{!! $result->url !!}" target="_blank">{!! title_case($result->name) !!}</a></h3>
+                <div class="uk-grid uk-grid-large" data-uk-grid-margin>
+                    @foreach($results as $result)
+                        <article class="arg-item uk-width-large-1-3 uk-width-medium-1-2">
+                            <div class="uk-block uk-cover-background"
+                                 @if(File::exists(public_path('images/arg/tiles/'.$result->id.'.png'))) style="background:url('{!! asset('images/arg/tiles/' . $result->id .'.png') !!}') "@endif>
+                                <div class="uk-container uk-container-center" style="padding-top:10px">
+                                    <div class="arg-item-content">
+                                        <h3><a href="{!! $result->url !!}"
+                                               target="_blank">{!! title_case($result->name) !!}</a></h3>
                                         <hr>
                                         <dl class="uk-description-list-horizontal">
                                             <dt>Created By</dt>
                                             <dd>{!! $result->creator->name !!}</dd>
                                             <dt>Last Modified</dt>
                                             <dd>{!! $result->updated_at->diffForHumans() !!}</dd>
+                                            <dt>Description</dt>
+                                            <dd> {!! $result->description !!}</dd>
                                         </dl>
-                                        <p>
-                                            {!! $result->description !!}
-                                        </p>
                                     </div>
                                 </div>
-                            </article>
-                        @endforeach
-                    </div>
+                            </div>
+                        </article>
+                    @endforeach
                 </div>
 
             </div>

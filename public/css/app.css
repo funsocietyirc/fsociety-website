@@ -245,13 +245,14 @@ h1, h2, h3, h4, h5, h6 {
 .arg-layout hr {
   border-color: #D12026; }
 
-.arg-layout .uk-description-list-horizontal {
-  padding: 4px 10px;
+.arg-layout .arg-item-content {
   background: rgba(0, 0, 0, 0.8);
+  padding: 4px 10px;
   box-shadow: inset -4px -12px 28px -4px black;
   border-radius: 4px; }
-  .arg-layout .uk-description-list-horizontal dt {
-    color: #a5191e; }
+
+.arg-layout .uk-description-list-horizontal dt {
+  color: #e24247; }
 
 .arg-layout .hvr-underline-from-center:before {
   background: #D12026; }
