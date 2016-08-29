@@ -1,4 +1,5 @@
 @extends('layout/_main', [ 'fullHeight' => true])
+@section('title','Submit Alternate Reality Game Link')
 @section('content')
     <div class="uk-vertical-align uk-text-center full-height">
         <div class="uk-vertical-align-middle">

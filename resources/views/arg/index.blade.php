@@ -1,4 +1,5 @@
 @extends('layout/_main')
+@section('title','Alternate Realty Game Link Tracker')
 @section('content')
     <div class="arg-layout">
         <div class="uk-grid">

@@ -1,3 +1,4 @@
+@section('title','IRC Chat')
 @extends('layout/_main', ['fullHeight' => true])
 @section('content')
     <div class="wrapper full-height">

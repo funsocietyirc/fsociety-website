@@ -1,5 +1,5 @@
 @extends('layout/_main', [ 'fullHeight' => true])
-
+@section('title','Login')
 @section('content')
     <div class="uk-vertical-align uk-text-center full-height">
         <div class="uk-vertical-align-middle">

@@ -1,3 +1,4 @@
+@section('title',$episode->name)
 @extends('layout/_main')
 @section('content')
     <div class="show-episode">

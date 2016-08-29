@@ -1,3 +1,4 @@
+@section('title','Episodes')
 @extends('layout/_main')
 @section('content')
     <div class="episodes uk-text-center">

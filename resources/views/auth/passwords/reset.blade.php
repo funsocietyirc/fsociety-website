@@ -1,4 +1,5 @@
 @extends('layout/_main', [ 'fullHeight' => true])
+@section('title','Password Reset')
 @section('content')
 <div class="container">
     <div class="row">
