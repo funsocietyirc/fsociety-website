@@ -15,7 +15,6 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
-        \JacobBennett\Http2ServerPush\Middleware\AddHttp2ServerPush::class
     ];
 
     /**
@@ -31,6 +30,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \Fsociety\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \JacobBennett\Http2ServerPush\Middleware\AddHttp2ServerPush::class
 
         ],
 
