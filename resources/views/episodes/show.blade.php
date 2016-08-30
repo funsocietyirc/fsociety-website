@@ -15,7 +15,7 @@
                             <dl class="uk-description-list-horizontal">
                                 <dt>Season</dt>
                                 <dd>
-                                    <a href="{{route('season',$episode->seasonId)}}">
+                                    <a href="{{route('season',$episode->season_id)}}">
                                         {!! $episode->season_id !!}
                                     </a>
                                 </dd>
