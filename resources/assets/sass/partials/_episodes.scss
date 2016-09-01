@@ -40,17 +40,16 @@
 
 /// Show episode
 .show-episode {
-  h1 {
-    background-color:rgba(0,0,0,0.5);
-  }
   .episode-info {
-    background-image: url('/images/arg/banner.png');
-    box-shadow: $boxShadow
+    background-color:rgba(0,0,0,0.8);
+    border-radius: 4px;
+    box-shadow: $boxShadow;
+    padding:5px;
   }
   .uk-description-list-horizontal {
     border-top: 1px solid $mrRobotPrimaryColor;
     border-bottom: 1px solid $mrRobotPrimaryColor;
-    padding:5px;
+    padding:10px;
     dt{
       font-weight: bolder;
       color:$mrRobotPrimaryColor;

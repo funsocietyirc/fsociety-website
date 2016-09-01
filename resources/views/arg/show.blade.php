@@ -4,13 +4,10 @@
     <div class="show-episode">
         <div class="uk-grid">
             <div class="uk-width-1-1">
-                <div class="episode-header uk-block uk-block-medium uk-cover-background" style="background:url('/images/arg/banner.png')">
-                    <h1 class="uk-text-truncate uk-text-center">{!! $arg->name !!}</h1>
-                </div>
-                <div class="episode-info uk-cover-background">
+                <div class="episode-info uk-cover-background" style="background: url('/images/arg/banner.png')">
                     <div class="uk-container uk-container-center">
                         <div class="uk-block">
-                            <h3>Episode Info</h3>
+                            <h1 class="uk-text-truncate uk-text-center">{!! $arg->name !!}</h1>
                             <dl class="uk-description-list-horizontal">
                                 <dt>URL</dt>
                                 <dd><a href="{{$arg->url}}" title="{{$arg->name}}">{{$arg->url}}</a></dd>

@@ -45,7 +45,7 @@
                                                 <li><a href="{{ route('arg.destroy', $result) }}" data-method="delete" rel="nofollow" data-confirm="Are you sure you want to delete this?">Delete</a></li>
                                             @endcan
                                         </div>
-                                        <a data-disqus-identifier="{{$result->url}}" href="#" ></a>
+                                        <a class="no-link" data-disqus-identifier="{{$result->url}}" href="#" ></a>
                                     </div>
                                 </div>
                             </div>

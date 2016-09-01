@@ -33,3 +33,13 @@ h1, h2, h3 , h4 , h5 ,h6 {
   50% { opacity:0; }
   100% { opacity:1; }
 }
+
+.no-link {
+  font-style: italic;
+  color:$mrRobotPrimaryColor;
+  &:hover, &:active {
+    text-decoration: none;
+    color: $mrRobotPrimaryColor;
+    cursor: default;
+  }
+}
