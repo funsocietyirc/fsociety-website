@@ -25,11 +25,14 @@
     cursor:pointer;
   }
   .uk-overlay-top{
-    background:rgba(0,0,0,0.5);
+    background:rgba(0,0,0,0.8);
   }
   .uk-overlay-bottom {
     a {
       text-decoration: none;
+      background:rgba(0,0,0,0.8);
+      padding:4px;
+      border-radius:4px;
     }
   }
 }

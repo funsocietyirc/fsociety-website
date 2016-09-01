@@ -65,11 +65,11 @@ class ArgController extends Controller
      * Display the specified resource.
      *
      * @param ArgTracking $arg
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function show(ArgTracking $arg)
     {
-        //
+        return view('arg.show')->with('arg', $arg);
     }
 
     /**

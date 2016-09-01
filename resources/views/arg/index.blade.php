@@ -32,31 +32,20 @@
                                         <h3><a href="{{ $result->url }}"
                                                target="_blank">{{ title_case($result->name) }}</a></h3>
                                         <hr>
-                                        <dl class="uk-description-list-horizontal">
-                                            <dt>Created By</dt>
-                                            <dd>{{ $result->creator->name }}</dd>
-                                            <dt>Last Modified</dt>
-                                            <dd>{{ $result->updated_at->diffForHumans() }}</dd>
-                                            <dt>Description</dt>
-                                            <dd> {{ $result->description }}</dd>
-                                        </dl>
+                                        @include('arg.partials._dlist')
                                         <div class="uk-subnav uk-subnav-line">
+                                            <li><a href="{{route('arg.show',$result)}}">Discuss</a></li>
                                             @can('edit', $result)
-                                                <li>
-                                                    <a href="{{ route('arg.edit', $result) }}" title="Capture URL">Edit</a>
-                                                </li>
+                                                <li><a href="{{ route('arg.edit', $result) }}" title="Capture URL">Edit</a></li>
                                             @endcan
                                             @can('capture',$result)
-                                                <li>
-                                                    <a href="{{ route('arg.capture', $result) }}" title="Capture URL">Capture</a>
-                                                </li>
+                                                <li><a href="{{ route('arg.capture', $result) }}" title="Capture URL">Capture</a></li>
                                             @endcan
                                             @can('delete', $result)
-                                                <li>
-                                                    <a href="{{ route('arg.destroy', $result) }}" data-method="delete" rel="nofollow" data-confirm="Are you sure you want to delete this?">Delete</a>
-                                                </li>
+                                                <li><a href="{{ route('arg.destroy', $result) }}" data-method="delete" rel="nofollow" data-confirm="Are you sure you want to delete this?">Delete</a></li>
                                             @endcan
                                         </div>
+                                        <a data-disqus-identifier="{{$result->url}}" href="#" ></a>
                                     </div>
                                 </div>
                             </div>
@@ -68,4 +57,5 @@
     </div>
 @endsection
 @section('scripts')
+    <script id="dsq-count-scr" src="//fsociety.disqus.com/count.js" async></script>
 @endsection
