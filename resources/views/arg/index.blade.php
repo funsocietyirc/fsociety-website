@@ -26,7 +26,7 @@
                     @foreach($results as $result)
                         <article class="arg-item uk-width-large-1-3 uk-width-medium-1-2">
                             <div class="arg-item-content">
-                                <div class="uk-block" @if(File::exists(public_path('images/arg/tiles/'.$result->id.'.png'))) style="background:url('{!! asset('images/arg/tiles/' . $result->id .'.png') !!}') "@endif>
+                                <div class="uk-block uk-cover-backgrounder" @if(File::exists(public_path('images/arg/tiles/'.$result->id.'.png'))) style="background:url('{!! asset('images/arg/tiles/' . $result->id .'.png') !!}') "@endif>
                                     <div class="height-1-1 inner-block">
                                         <h3><a href="{{ $result->url }}"
                                                target="_blank">{{ title_case($result->name) }}</a></h3>
