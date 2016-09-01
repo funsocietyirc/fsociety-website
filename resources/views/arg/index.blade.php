@@ -40,6 +40,18 @@
                                             <dt>Description</dt>
                                             <dd> {!! $result->description !!}</dd>
                                         </dl>
+                                        <div class="uk-subnav uk-subnav-line">
+                                            @can('capture',$result)
+                                                <li>
+                                                    <a href="{!! route('arg.capture', $result) !!}" title="Capture URL">Capture</a>
+                                                </li>
+                                            @endcan
+                                            @can('delete', $result)
+                                                <li>
+                                                    <a href="#" title="Delete URL">Delete</a>
+                                                </li>
+                                            @endcan
+                                        </div>
                                     </div>
                                 </div>
                             </div>

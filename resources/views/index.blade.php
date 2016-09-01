@@ -1,5 +1,7 @@
 @section('title','Hello Friend')
 @extends('layout/_main', [ 'fullHeight' => true])
+@section('head-style')
+@endsection
 @section('content')
     <div class="uk-vertical-align uk-text-center full-height">
         <div class="uk-vertical-align-middle">

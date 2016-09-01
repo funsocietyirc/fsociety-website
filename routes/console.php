@@ -14,9 +14,6 @@ use Symfony\Component\Finder\Finder;
 |
 */
 
-Artisan::command('inspire', function () {
-    $this->comment(Inspiring::quote());
-});
 
 // Clean dynamic uploads
 Artisan::command('fsociety:clean-episodes', function() {

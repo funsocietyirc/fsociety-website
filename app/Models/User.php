@@ -4,6 +4,7 @@ namespace Fsociety\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Silber\Bouncer\Database\HasRolesAndAbilities;
 
 /**
  * Fsociety\Models\User
@@ -29,6 +30,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class User extends Authenticatable
 {
+    use HasRolesAndAbilities;
     use Notifiable;
 
     /**

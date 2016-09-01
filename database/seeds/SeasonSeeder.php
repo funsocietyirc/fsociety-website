@@ -2,8 +2,7 @@
 use Fsociety\Models\Season;
 use Illuminate\Database\Seeder;
 
-
-class seasonSeeder extends Seeder
+class SeasonSeeder extends Seeder
 {
     /**
      * Run the database seeds.

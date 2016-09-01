@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.26.4/css/uikit.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.0.2/css/hover-min.css">
     <link rel="stylesheet" href={{@asset('css/app.css')}}>
+    @yield('head-style')
     <title>FSociety - @yield('title')</title>
 </head>
 

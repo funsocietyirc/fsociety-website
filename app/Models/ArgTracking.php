@@ -45,4 +45,10 @@ class ArgTracking extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    // Allow the slug to be the route key name
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }

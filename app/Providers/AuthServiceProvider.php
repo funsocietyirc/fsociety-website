@@ -16,7 +16,6 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'Fsociety\Model' => 'Fsociety\Policies\ModelPolicy',
-        ArgTracking::class => ArgPolicy::class
     ];
 
     /**

@@ -2,55 +2,37 @@
 
 namespace Fsociety\Console\Commands;
 
-use File;
-use Fsociety\Models\ArgTracking;
+use Fsociety\Services\ArgService;
 use Illuminate\Console\Command;
-use Illuminate\Pagination\Paginator;
 
 class ArgScreencap extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'fsociety:caparg {url}';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
+    protected $signature = 'fsociety:caparg {url}';
     protected $description = 'Screen capture a ARG';
-    const fetchUrl = 'http://api.screenshotmachine.com/?key=919a63&size=M&format=PNG&cacheLimit=7&timeout=1000&url=';
+    protected $argService;
 
     /**
      * Create a new command instance.
      *
-     * @return void
+     * @param ArgService $argService
      */
-    public function __construct()
+    public function __construct(ArgService $argService)
     {
         parent::__construct();
+        $this->argService = $argService;
     }
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
     public function handle()
     {
-        $record = ArgTracking::where('url',$this->argument('url'))->first();
-        if(!$record) {
-            $this->error('The ARG you are looking for does not exist');
-            return false;
+        $response = $this->argService->fetchArgTileByUrl($this->argument('url'));
+        if($response) {
+            $this->info('Arg Tile download complete');
+            return;
         }
-        File::copy(
-            self::fetchUrl . $record->url,
-            public_path('images/arg/tiles/'.$record->id . '.png')
-        );
-        $this->info('Finished Downloading screen shot');
-        return true;
+        $this->error('Arg Tile download failed');
     }
 }

@@ -4,6 +4,7 @@ namespace Fsociety\Http\Controllers;
 
 use Auth;
 use Fsociety\Models\ArgTracking;
+use Fsociety\Services\ArgService;
 use Illuminate\Http\Request;
 
 use Fsociety\Http\Requests;
@@ -11,8 +12,10 @@ use Fsociety\Http\Requests;
 class ArgController extends Controller
 {
 
-    public function __construct()
+    protected $argService;
+    public function __construct(ArgService $argService)
     {
+        $this->argService = $argService;
         $this->middleware('auth', ['except' => ['index','show']]);
     }
 
@@ -103,5 +106,16 @@ class ArgController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    // Capture Arg Tile
+    public function capture(ArgTracking $model) {
+        dd($model->url);
+        $result = $this->argService->fetchArgTileByUrl($model->url);
+        if($result) {
+            flash()->overlay('Arg Tile generated', 'Bleep Bloop Blip');
+        }
+        flash()->overlay('Error generating ARG tile', 'Bleep Bloop Blip');
+        return redirect()->back();
     }
 }
