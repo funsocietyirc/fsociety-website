@@ -5,9 +5,11 @@ namespace Fsociety\Http\Controllers;
 use Auth;
 use Fsociety\Models\ArgTracking;
 use Fsociety\Services\ArgService;
+use Gate;
 use Illuminate\Http\Request;
 
 use Fsociety\Http\Requests;
+use Illuminate\Pagination\Paginator;
 
 class ArgController extends Controller
 {
@@ -82,7 +84,6 @@ class ArgController extends Controller
      */
     public function edit($id)
     {
-        //
     }
 
     /**
@@ -110,12 +111,12 @@ class ArgController extends Controller
 
     // Capture Arg Tile
     public function capture(ArgTracking $model) {
-        dd($model->url);
         $result = $this->argService->fetchArgTileByUrl($model->url);
         if($result) {
             flash()->overlay('Arg Tile generated', 'Bleep Bloop Blip');
+        } else {
+            flash()->overlay('Error generating ARG tile', 'Bleep Bloop Blip');
         }
-        flash()->overlay('Error generating ARG tile', 'Bleep Bloop Blip');
         return redirect()->back();
     }
 }

@@ -24,6 +24,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\Fsociety\Models\ArgTracking whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Fsociety\Models\ArgTracking whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Fsociety\Models\ArgTracking whereName($value)
+ * @property string $slug
+ * @method static \Illuminate\Database\Query\Builder|\Fsociety\Models\ArgTracking whereSlug($value)
+ * @method static \Illuminate\Database\Query\Builder|\Fsociety\Models\ArgTracking findSimilarSlugs($model, $attribute, $config, $slug)
  */
 class ArgTracking extends Model
 {
@@ -44,6 +47,10 @@ class ArgTracking extends Model
     public function creator()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function owns($related, $fk = 'user_id') {
+        return $this->id === $related->{$fk};
     }
 
     // Allow the slug to be the route key name

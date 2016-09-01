@@ -13,7 +13,7 @@ class CreateInitialUser extends Seeder
     public function run()
     {
         // Create user
-        $user = User::firstOrCreate([
+        User::firstOrCreate([
             'name'  =>  'IronY',
             'email' =>  'dave@ir0ny.com',
             'password'  => Hash::make(env('adminUserInitialPass','p@ssw0rd')),

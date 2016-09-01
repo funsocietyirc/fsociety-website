@@ -4,6 +4,29 @@ namespace Fsociety\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Fsociety\Models\Rating
+ *
+ * @property integer $id
+ * @property integer $rating
+ * @property integer $ratingable_id
+ * @property string $ratingable_type
+ * @property integer $author_id
+ * @property string $author_type
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $ratingable
+ * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $author
+ * @method static \Illuminate\Database\Query\Builder|\Fsociety\Models\Rating whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Fsociety\Models\Rating whereRating($value)
+ * @method static \Illuminate\Database\Query\Builder|\Fsociety\Models\Rating whereRatingableId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Fsociety\Models\Rating whereRatingableType($value)
+ * @method static \Illuminate\Database\Query\Builder|\Fsociety\Models\Rating whereAuthorId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Fsociety\Models\Rating whereAuthorType($value)
+ * @method static \Illuminate\Database\Query\Builder|\Fsociety\Models\Rating whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Fsociety\Models\Rating whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Rating extends Model
 {
     /**

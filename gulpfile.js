@@ -14,6 +14,11 @@ require('laravel-elixir-vue');
  */
 
 elixir(mix => {
-    mix.sass('app.scss')
-       .webpack('app.js');
+    mix.sass('app.scss','public/css/app.css')
+        .copy('node_modules/uikit/dist/fonts','public/fonts')
+        .webpack('app.js')
+        .less('uk.less','public/css/uikit.css')
+        .version([
+            'css/app.css','css/uikit.css','js/app.js'
+        ]);
 });

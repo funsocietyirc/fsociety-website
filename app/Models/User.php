@@ -27,6 +27,12 @@ use Silber\Bouncer\Database\HasRolesAndAbilities;
  * @method static \Illuminate\Database\Query\Builder|\Fsociety\Models\User whereRememberToken($value)
  * @method static \Illuminate\Database\Query\Builder|\Fsociety\Models\User whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Fsociety\Models\User whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Silber\Bouncer\Database\Role[] $roles
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Silber\Bouncer\Database\Ability[] $abilities
+ * @method static \Illuminate\Database\Query\Builder|\Fsociety\Models\User whereIs($role)
+ * @method static \Illuminate\Database\Query\Builder|\Fsociety\Models\User whereIsAll($role)
+ * @method static \Illuminate\Database\Query\Builder|\Fsociety\Models\User whereCan($ability, $model = null)
+ * @method static \Illuminate\Database\Query\Builder|\Fsociety\Models\User whereCannot($ability, $model = null)
  */
 class User extends Authenticatable
 {

@@ -12,7 +12,8 @@
         "laracasts/flash": "^2.0",
         "cviebrock/eloquent-sluggable": "^4.0",
         "jacobbennett/laravel-http2serverpush": "^1.2",
-        "silber/bouncer": "v1.0.0-alpha.2"
+        "silber/bouncer": "v1.0.0-alpha.2",
+        "laravelcollective/html": "5.3.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

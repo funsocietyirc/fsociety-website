@@ -171,6 +171,7 @@ return [
         Laracasts\Flash\FlashServiceProvider::class,
         Cviebrock\EloquentSluggable\ServiceProvider::class,
         Silber\Bouncer\BouncerServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -229,8 +230,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Bouncer' => Silber\Bouncer\BouncerFacade::class,
-
-
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
     ],
 
 ];

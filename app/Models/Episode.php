@@ -36,6 +36,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\Fsociety\Models\Episode whereSummary($value)
  * @method static \Illuminate\Database\Query\Builder|\Fsociety\Models\Episode whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Fsociety\Models\Episode whereUpdatedAt($value)
+ * @property string $slug
+ * @method static \Illuminate\Database\Query\Builder|\Fsociety\Models\Episode whereSlug($value)
+ * @method static \Illuminate\Database\Query\Builder|\Fsociety\Models\Episode findSimilarSlugs($model, $attribute, $config, $slug)
  */
 class Episode extends Model
 {

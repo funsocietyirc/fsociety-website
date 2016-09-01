@@ -35,7 +35,6 @@
     </div>
 @endsection
 @section('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/1.1.4/typed.min.js"></script>
     <script type="text/javascript">
         var lines = [
             'Hello friend.',

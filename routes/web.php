@@ -15,7 +15,8 @@ Route::group(['prefix' => 'episodes'], function () {
     Route::get('show/{slug}','EpisodeController@show')->name('episode');
 });
 // Arg Routes
-Route::get('arg/capture/{url}','ArgController@capture')->name('arg.capture');
+Route::model('argTracking', \Fsociety\Models\ArgTracking::class);
+Route::get('arg/capture/{argTracking}','ArgController@capture')->name('arg.capture');
 Route::resource('arg', 'ArgController');
 
 // Authentication Routes
