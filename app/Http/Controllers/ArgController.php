@@ -3,7 +3,6 @@
 namespace Fsociety\Http\Controllers;
 
 use Auth;
-use File;
 use Fsociety\Models\ArgTracking;
 use Fsociety\Services\ArgService;
 use Illuminate\Http\Request;
@@ -120,13 +119,7 @@ class ArgController extends Controller
     {
         $this->authorize('delete', $arg);
 
-        // Remove the TILE
-        if(File::exists(public_path('images/arg/tiles/' . $arg->id . '.png'))) {
-            File::delete(public_path('images/arg/tiles/' . $arg->id . '.png'));
-        }
-
-        // Delete the record
-        $arg->delete();
+        $this->argService->delete($arg);
 
         flash()->overlay('The ARG Link has been Deleted', 'Arg Link');
         return redirect()->route('arg.index');

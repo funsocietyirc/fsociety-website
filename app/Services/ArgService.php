@@ -28,4 +28,14 @@ class ArgService
         );
         return true;
     }
+
+    public function delete(ArgTracking $arg) {
+        // Remove the TILE
+        if(File::exists(public_path('images/arg/tiles/' . $arg->id . '.png'))) {
+            File::delete(public_path('images/arg/tiles/' . $arg->id . '.png'));
+        }
+
+        // Delete the record
+        $arg->delete();
+    }
 }
