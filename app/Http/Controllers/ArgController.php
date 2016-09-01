@@ -130,6 +130,9 @@ class ArgController extends Controller
     public function capture(ArgTracking $arg) {
         $this->authorize('capture', $arg);
         $result = $this->argService->fetchArgTileByUrl($arg->url);
-        return redirect()->back();
+        if(!$result) {
+            flash()->overlay('Something went wrong capturing the ARG tile', 'ARG Link');
+        }
+        return redirect()->route('arg.index');
     }
 }
