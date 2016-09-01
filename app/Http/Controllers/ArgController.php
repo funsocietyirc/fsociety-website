@@ -121,8 +121,8 @@ class ArgController extends Controller
         $this->authorize('delete', $arg);
 
         // Remove the TILE
-        if(File::exists(public_path('images/arg/tiles' . $arg->id . '.png'))) {
-            File::delete(public_path('images/arg/tiles' . $arg->id . '.png'));
+        if(File::exists(public_path('images/arg/tiles/' . $arg->id . '.png'))) {
+            File::delete(public_path('images/arg/tiles/' . $arg->id . '.png'));
         }
 
         // Delete the record
