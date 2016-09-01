@@ -5,11 +5,7 @@ namespace Fsociety\Http\Controllers;
 use Auth;
 use Fsociety\Models\ArgTracking;
 use Fsociety\Services\ArgService;
-use Gate;
 use Illuminate\Http\Request;
-
-use Fsociety\Http\Requests;
-use Illuminate\Pagination\Paginator;
 
 class ArgController extends Controller
 {
@@ -57,9 +53,9 @@ class ArgController extends Controller
         ]);
         ArgTracking::create([
             'user_id'   => Auth::user()->id,
-            'url'   => $request->input('url'),
-            'name'  =>  $request->input('name'),
-            'description' => $request->input('description')
+            'name' => trim($request->input('name')),
+            'url'  => trim($request->input('url')),
+            'description' => trim($request->input('description'))
         ]);
         flash('Thank you for sharing');
         return redirect()->route('arg.index');
@@ -68,10 +64,10 @@ class ArgController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param ArgTracking $arg
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(ArgTracking $arg)
     {
         //
     }
@@ -79,44 +75,61 @@ class ArgController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param ArgTracking $arg
+     *
+     * @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse
      */
-    public function edit($id)
+    public function edit(ArgTracking $arg)
     {
+        return view('arg.edit')->with('arg', $arg);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param ArgTracking $arg
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, ArgTracking $arg)
     {
-        //
+        $this->authorize('edit', $arg);
+        $this->validate($request, [
+            'name'   => 'required|max:255',
+            'url'    => 'required|url',
+            'description' => 'max:500'
+        ]);
+
+        $arg->update([
+            'name' => trim($request->input('name')),
+            'url'  => trim($request->input('url')),
+            'description' => trim($request->input('description'))
+        ]);
+
+        return redirect()->route('arg.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param ArgTracking $arg
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ArgTracking $arg)
     {
-        //
+        $this->authorize('delete', $arg);
+        $arg->delete();
+        flash()->overlay('The ARG Link has been Deleted', 'Arg Link');
+        return redirect()->route('arg.index');
     }
 
-    // Capture Arg Tile
-    public function capture(ArgTracking $model) {
-        $result = $this->argService->fetchArgTileByUrl($model->url);
-        if($result) {
-            flash()->overlay('Arg Tile generated', 'Bleep Bloop Blip');
-        } else {
-            flash()->overlay('Error generating ARG tile', 'Bleep Bloop Blip');
-        }
+    /**
+     * @param ArgTracking $arg
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function capture(ArgTracking $arg) {
+        $this->authorize('capture', $arg);
+        $result = $this->argService->fetchArgTileByUrl($arg->url);
         return redirect()->back();
     }
 }

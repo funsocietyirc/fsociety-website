@@ -49,10 +49,6 @@ class ArgTracking extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function owns($related, $fk = 'user_id') {
-        return $this->id === $related->{$fk};
-    }
-
     // Allow the slug to be the route key name
     public function getRouteKeyName()
     {

@@ -13,10 +13,10 @@
                     <div class="uk-container ">
                         <ul class="uk-subnav  uk-subnav-pill uk-flex-center">
                             <li class="uk-active">
-                                <a href="{!! route('arg.index') !!}"><i class="uk-icon-book"></i></a>
+                                <a href="{{ route('arg.index') }}"><i class="uk-icon-book"></i></a>
                             </li>
                             <li>
-                                <a href="{!! route('arg.create') !!}"><i class="uk-icon-plus"></i></a>
+                                <a href="{{ route('arg.create') }}"><i class="uk-icon-plus"></i></a>
                             </li>
                         </ul>
                     </div>
@@ -29,26 +29,31 @@
                                 <div class="arg-item-content">
                                     <div class="uk-container uk-container-center" style="padding-top:10px">
 
-                                        <h3><a href="{!! $result->url !!}"
-                                               target="_blank">{!! title_case($result->name) !!}</a></h3>
+                                        <h3><a href="{{ $result->url }}"
+                                               target="_blank">{{ title_case($result->name) }}</a></h3>
                                         <hr>
                                         <dl class="uk-description-list-horizontal">
                                             <dt>Created By</dt>
-                                            <dd>{!! $result->creator->name !!}</dd>
+                                            <dd>{{ $result->creator->name }}</dd>
                                             <dt>Last Modified</dt>
-                                            <dd>{!! $result->updated_at->diffForHumans() !!}</dd>
+                                            <dd>{{ $result->updated_at->diffForHumans() }}</dd>
                                             <dt>Description</dt>
-                                            <dd> {!! $result->description !!}</dd>
+                                            <dd> {{ $result->description }}</dd>
                                         </dl>
                                         <div class="uk-subnav uk-subnav-line">
+                                            @can('edit', $result)
+                                                <li>
+                                                    <a href="{{ route('arg.edit', $result) }}" title="Capture URL">Edit</a>
+                                                </li>
+                                            @endcan
                                             @can('capture',$result)
                                                 <li>
-                                                    <a href="{!! route('arg.capture', $result) !!}" title="Capture URL">Capture</a>
+                                                    <a href="{{ route('arg.capture', $result) }}" title="Capture URL">Capture</a>
                                                 </li>
                                             @endcan
                                             @can('delete', $result)
                                                 <li>
-                                                    <a href="#" title="Delete URL">Delete</a>
+                                                    <a href="{{ route('arg.destroy', $result) }}" data-method="delete" rel="nofollow" data-confirm="Are you sure you want to delete this?">Delete</a>
                                                 </li>
                                             @endcan
                                         </div>
@@ -58,7 +63,6 @@
                         </article>
                     @endforeach
                 </div>
-
             </div>
         </div>
     </div>

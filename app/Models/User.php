@@ -60,4 +60,9 @@ class User extends Authenticatable
     public function argLinks() {
         return $this->hasMany(ArgTracking::class);
     }
+
+    public function owns($related, $fk = 'user_id') {
+        return $this->id === $related->{$fk};
+    }
+
 }

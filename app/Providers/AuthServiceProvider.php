@@ -2,7 +2,8 @@
 
 namespace Fsociety\Providers;
 
-use Gate;
+use Fsociety\Models\ArgTracking;
+use Fsociety\Policies\ArgTrackingPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -13,7 +14,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'Fsociety\Model' => 'Fsociety\Policies\ModelPolicy',
+        ArgTracking::class => ArgTrackingPolicy::class
     ];
 
     /**
@@ -24,6 +25,5 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
     }
 }
