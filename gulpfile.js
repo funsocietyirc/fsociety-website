@@ -16,6 +16,8 @@ require('laravel-elixir-vue');
 elixir(mix => {
     mix.sass('app.scss','public/css/app.css')
         .copy('node_modules/uikit/dist/fonts','public/fonts')
+        .copy('node_modules/slick-carousel/slick/fonts','public/fonts')
+        .copy('node_modules/slick-carousel/slick/*.gif','public/images')
         .webpack('app.js')
         .less('uk.less','public/css/uikit.css')
         .version([

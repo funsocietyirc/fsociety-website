@@ -46,6 +46,13 @@
         background-color: transparentize($mrRobotHoverColor, 0.5);
       }
     }
+    h2 {
+      margin-top:10px;
+      border-bottom:1px solid $mrRobotPrimaryColor;
+    }
+    &:active, &:hover {
+      cursor: pointer;
+    }
   }
   .uk-description-list-horizontal {
     dt {

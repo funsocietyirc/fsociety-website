@@ -88,3 +88,10 @@
   text-shadow: $textShadow;
   background: rgba(255,255,255,0.3);
 }
+
+::selection {
+  background:none;
+}
+:focus {
+  outline: none;
+}

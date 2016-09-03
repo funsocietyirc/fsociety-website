@@ -28,19 +28,18 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-
-
-                <div>
-                    <div class="uk-container uk-container-center">
-                        <div class="uk-block">
-                            <h3>Discussion</h3>
-                            @include('partials/_disqus',['slug' => $episode->slug])
-                        </div>
+                <div class="uk-container uk-container-center">
+                    <div class="uk-block">
+                        <h3>Alternate Reality Links</h3>
                     </div>
                 </div>
-
+                <div class="uk-container uk-container-center">
+                    <div class="uk-block">
+                        <h3>Discussion</h3>
+                        @include('partials/_disqus',['slug' => $episode->slug])
+                    </div>
+                </div>
             </div>
         </div>
     </div>
