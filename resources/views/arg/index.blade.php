@@ -25,10 +25,10 @@
                 <div class="uk-grid uk-grid-large uk-grid-match" data-uk-grid-margin>
                     @foreach($results as $result)
                         <article class="arg-item uk-width-large-1-3 uk-width-medium-1-2">
-                            <div class="arg-item-content" data-url="{{route('arg.show',$result)}}">
+                            <div class="arg-item-content">
                                 <div class="uk-block uk-cover-background uk-grid-match" @if(File::exists(public_path('images/arg/tiles/'.$result->id.'.png'))) style="background:url('{!! asset('images/arg/tiles/' . $result->id .'.png') !!}') "@endif>
                                     <div class="height-1-1 inner-block ">
-                                        <h2><a href="{{ $result->url }}"
+                                        <h2><a href="{{route('arg.show',$result)}}"
                                                target="_blank">{{ title_case($result->name) }}</a></h2>
                                         @include('arg.partials._dlist')
                                         <div class="uk-subnav uk-subnav-line">
@@ -61,14 +61,4 @@
 @endsection
 @section('scripts')
     <script id="dsq-count-scr" src="//fsociety.disqus.com/count.js" async></script>
-    <script>
-        $(function() {
-            $('.arg-item-content').click(function (i) {
-               window.location = $(this).data('url');
-            });
-           $('#mention').change(function() {
-               this.form.submit();
-           })
-        });
-    </script>
 @endsection

@@ -29,11 +29,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="uk-container uk-container-center">
-                    <div class="uk-block">
-                        <h3>Alternate Reality Links</h3>
+                @if($episode->connections()->count())
+                    <div class="uk-container uk-container-center">
+                        <div class="uk-block">
+                            <h3>Alternate Reality Links</h3>
+                            <ul class="uk-subnav uk-subnav-line">
+                                @foreach($episode->connections()->get() as $connection)
+                                    <li><a href="{{route('arg.show',$connection)}}">{{$connection->argLink->name}}</a></li>
+                                @endforeach
+                            </ul>
+                        </div>
                     </div>
-                </div>
+                @endif
                 <div class="uk-container uk-container-center">
                     <div class="uk-block">
                         <h3>Discussion</h3>

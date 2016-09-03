@@ -19,20 +19,22 @@
                         </div>
                     </div>
                 </div>
-                <div class="uk-container uk-container-center">
-                    <div class="multiple-items">
-                    @foreach($arg->connections()->get() as $connection)
-                        <div>
-                            <figure class="uk-overlay" data-link="{{route('episode', $connection->episode->slug)}}">
-                                <img src="{{$connection->episode->imageMedium}}" alt="" class="uk-width-1-1">
-                                <figcaption class="uk-overlay-panel uk-overlay-background uk-overlay-bottom" style="text-align: center;">
-                                    {{$connection->episode->name}}
-                                </figcaption>
-                            </figure>
+                @if($arg->connections()->count())
+                    <div class="uk-container uk-container-center">
+                        <div class="multiple-items">
+                            @foreach($arg->connections()->get() as $connection)
+                                <div>
+                                    <figure class="uk-overlay" data-link="{{route('episode', $connection->episode->slug)}}">
+                                        <img src="{{$connection->episode->imageMedium}}" alt="" class="uk-width-1-1">
+                                        <figcaption class="uk-overlay-panel uk-overlay-background uk-overlay-bottom" style="text-align: center;">
+                                            {{$connection->episode->name}}
+                                        </figcaption>
+                                    </figure>
+                                </div>
+                            @endforeach
                         </div>
-                    @endforeach
                     </div>
-                </div>
+                @endif
                 <div class="uk-container uk-container-center">
                     <div class="uk-block">
                         <h3>Discussion</h3>
@@ -44,8 +46,9 @@
     </div>
 @endsection
 @section('scripts')
+    @if($arg->connections()->count())
     <script type="text/javascript">
-        $(function () {
+                    $(function () {
             $('.uk-overlay').click(function(e) {
                 window.location = $(this).data('link');
             })
@@ -79,12 +82,10 @@
                             slidesToScroll: 1
                         }
                     }
-                    // You can unslick at a given breakpoint now by adding:
-                    // settings: "unslick"
-                    // instead of a settings object
                 ]
             });
 
         });
     </script>
+    @endif
 @endsection
