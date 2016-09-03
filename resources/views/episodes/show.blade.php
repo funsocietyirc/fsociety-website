@@ -35,7 +35,7 @@
                             <h3>Alternate Reality Links</h3>
                             <ul class="uk-subnav uk-subnav-line">
                                 @foreach($episode->connections()->get() as $connection)
-                                    <li><a href="{{route('arg.show',$connection)}}">{{$connection->argLink->name}}</a></li>
+                                    <li><a href="{{route('arg.show',$connection->argLink->slug)}}">{{$connection->argLink->name}}</a></li>
                                 @endforeach
                             </ul>
                         </div>
