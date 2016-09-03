@@ -6,8 +6,10 @@ $result = isset($result) ? $result : $arg;
     <dd>{{ $result->creator->name }}</dd>
     <dt>Last Modified</dt>
     <dd>{{ $result->updated_at->diffForHumans() }}</dd>
-    <dt>Description</dt>
-    <dd> {{ $result->description }}</dd>
+    @if($result->description)
+        <dt>Description</dt>
+        <dd>{{ $result->description }}</dd>
+    @endif
     @if($result->connections()->count())
         <dt>Seasons</dt>
         <dd>
