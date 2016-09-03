@@ -4,7 +4,6 @@ namespace Fsociety\Models;
 
 use Cviebrock\EloquentSluggable\Sluggable;
 use DB;
-use Doctrine\DBAL\Query\QueryBuilder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -68,6 +67,29 @@ class ArgTracking extends Model
                 ->where('arg_id',$this->id)
                 ->pluck('episode_id')
         )->get();
+    }
+
+    public function inSeasons()
+    {
+        return $this->connections()
+            ->get()
+            ->unique(function ($x) {
+                return $x->episode->season_id;
+            })
+            ->sortBy(function ($x) {
+                return $x->episode->season_id;
+            });
+    }
+
+    public function inEpisodes() {
+        return $this->connections()
+            ->get()
+            ->unique(function ($x) {
+                return $x->episode->number;
+            })
+            ->SortBy(function ($x) {
+                return $x->episode->number;
+            });
     }
 
     // Allow the slug to be the route key name

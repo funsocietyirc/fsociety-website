@@ -25,7 +25,7 @@ class ArgController extends Controller
      */
     public function index()
     {
-        $results = ArgTracking::with('creator')->get();
+        $results = ArgTracking::with(['creator'])->get();
         return view('arg.index')
             ->with('results', $results);
     }
@@ -137,6 +137,11 @@ class ArgController extends Controller
         if(!$result) {
             flash()->overlay('Something went wrong capturing the ARG tile', 'ARG Link');
         }
+        return redirect()->route('arg.index');
+    }
+
+    public function connect(ArgTracking $arg, Request $request) {
+        $this->argService->createConnection($arg, $request->input('episode'));
         return redirect()->route('arg.index');
     }
 }

@@ -23,4 +23,5 @@ class ArgSeasonEpisode extends Model
     public function argLink() {
         return $this->belongsTo(ArgTracking::class, 'arg_id');
     }
+
 }

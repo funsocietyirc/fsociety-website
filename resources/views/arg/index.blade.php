@@ -48,19 +48,9 @@
                                                        rel="nofollow" data-confirm="Are you sure you want to delete this?">Delete</a>
                                                 </li>
                                             @endcan
-
                                         </div>
                                         <a class="no-link" data-disqus-identifier="{{$result->url}}" href="#"></a>
-                                        <form class="uk-form"
-                                              data-confirm="Are you sure you want to add this Connection?" data-disable-with="Saving..." action="">
-                                                <select class="uk-form-small">
-                                                    <option disabled selected>Add new Mention</option>
-                                                    @foreach($result->availableConnections() as $connection)
-                                                        <option value="{{$connection->id}}">{{$connection->name}}</option>
-                                                    @endforeach
-                                                </select>
-                                            <button type="submit"><i class="uk-icon-anchor"></i></button>
-                                        </form>
+                                        @include('arg.partials._connectionForm')
                                     </div>
                                 </div>
                             </div>
