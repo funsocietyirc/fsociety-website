@@ -4,6 +4,7 @@ namespace Fsociety\Http\Controllers;
 
 use Auth;
 use Fsociety\Models\ArgTracking;
+use Fsociety\Models\Episode;
 use Fsociety\Services\ArgService;
 use Illuminate\Http\Request;
 
@@ -25,7 +26,8 @@ class ArgController extends Controller
     public function index()
     {
         $results = ArgTracking::with('creator')->get();
-        return view('arg.index')->with('results', $results);
+        return view('arg.index')
+            ->with('results', $results);
     }
 
     /**

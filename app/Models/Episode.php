@@ -3,6 +3,7 @@
 namespace Fsociety\Models;
 
 use Cviebrock\EloquentSluggable\Sluggable;
+use DB;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -54,7 +55,14 @@ class Episode extends Model
       'name','number','season_id'
     ];
 
+    // Season
     public function season() {
         return $this->belongsTo(Season::class);
     }
+
+    // Arg Link connections
+    public function connections() {
+        return $this->hasMany(ArgSeasonEpisode::class);
+    }
+
 }

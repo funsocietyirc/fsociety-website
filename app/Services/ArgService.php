@@ -2,7 +2,10 @@
 namespace Fsociety\Services;
 
 use File;
+use Fsociety\Models\ArgSeasonEpisode;
 use Fsociety\Models\ArgTracking;
+use Fsociety\Models\Episode;
+
 
 class ArgService
 {
@@ -17,7 +20,7 @@ class ArgService
      * @param $url
      * @return bool returns false on error
      */
-    public function fetchArgTileByUrl($url) {
+    public function fetchArgTileByUrl(string $url) {
         $record = ArgTracking::where('url',$url)->first();
         if(!$record) {
             return false;
@@ -29,6 +32,10 @@ class ArgService
         return true;
     }
 
+    /**
+     * Delete a ARG Tracking link
+     * @param ArgTracking $arg
+     */
     public function delete(ArgTracking $arg) {
         // Remove the TILE
         if(File::exists(public_path('images/arg/tiles/' . $arg->id . '.png'))) {
@@ -37,5 +44,11 @@ class ArgService
 
         // Delete the record
         $arg->delete();
+    }
+
+    public function createConnection(ArgTracking $arg, int $episodeId) {
+        $connection = new ArgSeasonEpisode();
+        $connection->episode_id = Episode::findOrFail($episodeId)->id;
+        $arg->connections()->save($connection);
     }
 }

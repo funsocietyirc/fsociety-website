@@ -2,7 +2,6 @@
 .main-nav {
   height: calc(#{$navHeight} - 4px);
   background: rgba(0, 0, 0, 0.4);
-  border-top: 2px solid $mrRobotPrimaryColor;
   border-bottom: 2px solid $mrRobotPrimaryColor;
 
   .uk-navbar-nav {

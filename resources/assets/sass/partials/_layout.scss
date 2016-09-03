@@ -44,3 +44,13 @@ hr {
 .h_iframe        {position:relative; height:100%;}
 .h_iframe .ratio {display:block;width:100%;height: 100%;}
 .h_iframe iframe {position:absolute;top:0;left:0;width:100%; height: 100%}
+
+// Footer
+footer {
+  margin-top:10px;
+  padding-top: 10px;
+  border-top:2px solid $mrRobotPrimaryColor;
+  .uk-icon-heart {
+    color: $mrRobotPrimaryColor;
+  }
+}

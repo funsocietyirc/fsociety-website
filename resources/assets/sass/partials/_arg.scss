@@ -18,6 +18,34 @@
     border:1px solid $mrRobotHoverColor;
     padding:10px;
     border-radius:4px;
+    form{
+      margin-top:10px;
+      margin-bottom:10px;
+    }
+    select, button {
+      background:rgba(255,255,255,0.9);
+      border-radius:4px;
+      color:black;
+      border: 1px solid $mrRobotPrimaryColor;
+      &:focus {
+        background:rgba(255,255,255,0.9);
+        border-radius:4px;
+        color:black;
+      }
+    }
+    button {
+      outline:0;
+      margin-left:5px;
+      border-right: 1px solid $mrRobotHoverColor;
+      border-left: 1px solid $mrRobotHoverColor;
+      &>i {
+        padding:4px;
+      }
+      &:hover, &:active {
+        outline:0;
+        background-color: transparentize($mrRobotHoverColor, 0.5);
+      }
+    }
   }
   .uk-description-list-horizontal {
     dt {

@@ -2,7 +2,7 @@
 @extends('layout/_main')
 @section('content')
     <div class="episodes uk-text-center">
-        <ul class="uk-grid" data-uk-grid-margin>
+        <ul class="uk-grid uk-margin-bottom" data-uk-grid-margin>
             <li class="uk-width-small-1-3 uk-width-medium-1-3 uk-width-large-1-5">
                 <a href="{{ route('episodes') }}"
                    class="uk-button uk-button-danger uk-width-1-1 season-button uk-margin-small-bottom">All Episodes</a>

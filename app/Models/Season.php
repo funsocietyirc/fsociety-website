@@ -28,4 +28,9 @@ class Season extends Model
     public function episodes() {
         return $this->hasMany(Episode::class);
     }
+
+    public function connections() {
+        return $this->hasMany(ArgSeasonEpisode::class);
+    }
+
 }

@@ -53,7 +53,7 @@ class Handler extends ExceptionHandler
             flash()->overlay('It seems you have gotten curious...', 'Access Denied');
             return redirect()->home();
         }
-        if($exception instanceof  ModelNotFoundException) {
+        if($exception instanceof  ModelNotFoundException && !$request->expectsJson()) {
             flash()->overlay('Control is an Illusion', 'Resource Not Found');
             return redirect()->home();
         }

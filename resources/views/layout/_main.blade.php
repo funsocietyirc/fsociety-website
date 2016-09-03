@@ -16,6 +16,21 @@
 @include('layout/_nav')
 @include('flash::message')
 @yield('content')
+<footer>
+    <div class="uk-container uk-container-center">
+        <ul class="uk-subnav uk-flex-center">
+            <li>
+                <i class="uk-icon-button uk-icon-github"></i>
+            </li>
+            <li>
+                <i class="uk-icon-button uk-icon-twitter"></i>
+            </li>
+        </ul>
+        <p class="uk-text-center">
+            Made with <i class="uk-icon-heart"></i> and Laravel By IronY
+        </p>
+    </div>
+</footer>
 @yield('scripts')
 </body>
 </html>

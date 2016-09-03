@@ -81,3 +81,10 @@
   text-align: center;
   text-shadow: $textShadow;
 }
+
+// Icon button
+.uk-icon-button {
+  color: white;
+  text-shadow: $textShadow;
+  background: rgba(255,255,255,0.3);
+}
