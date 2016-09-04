@@ -12,10 +12,14 @@ class ArgLinkUpdatedMail extends Mailable
 {
     use Queueable, SerializesModels;
     public $arg;
+    public $title;
+    public $body;
 
-    public function __construct(ArgTracking $arg)
+    public function __construct(ArgTracking $arg, string $title, string $body)
     {
         $this->arg = $arg;
+        $this->title = $title;
+        $this->body = $body;
     }
 
     /**
@@ -25,6 +29,6 @@ class ArgLinkUpdatedMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('A ARG Link has been updated')->view('mail.argLinkUpdated');
+        return $this->subject($this->title)->view('mail.argLinkUpdated');
     }
 }

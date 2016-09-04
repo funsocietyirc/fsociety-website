@@ -1,10 +1,13 @@
 <?php
 namespace Fsociety\Services;
 
+use Auth;
 use File;
+use Fsociety\Events\ArgLinkHashUpdateEvent;
 use Fsociety\Models\ArgSeasonEpisode;
 use Fsociety\Models\ArgTracking;
 use Fsociety\Models\Episode;
+use Fsociety\Models\User;
 
 
 class ArgService
@@ -75,6 +78,8 @@ class ArgService
         if(!$arg->hash || $arg->hash != $hash) {
             if(!$arg->hash) {
                 $arg->timestamps = false;
+            } else {
+                event(new ArgLinkHashUpdateEvent($arg, Auth::user() ?? User::first() ));
             }
             $arg->update(['hash' => $hash]);
             return true;

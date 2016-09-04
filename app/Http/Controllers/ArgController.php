@@ -62,7 +62,7 @@ class ArgController extends Controller
             'description' => trim($request->input('description'))
         ]);
         // Fire the event
-        event(new ArgLinkCreatedEvent($arg));
+        event(new ArgLinkCreatedEvent($arg, Auth::user()));
 
         flash('Thank you for sharing');
 

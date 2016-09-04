@@ -1,9 +1,12 @@
 @extends('mail.layouts._default')
-@section('title', $arg->name)
+@section('title', $title)
 @section('content')
-<h1>{{config('app.name')}} has had a ARG Link update</h1>
+<h1>{{config('app.name')}} : {{$title}}</h1>
 <p>
-    The {{$arg->name}} link has been updated, this could mean it has been modified or the website itself has changed since it was added.
+    {{$body}}
+</p>
+<p>
+
 </p>
 <ul>
     <li>
