@@ -28,6 +28,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $slug
  * @method static \Illuminate\Database\Query\Builder|\Fsociety\Models\ArgTracking whereSlug($value)
  * @method static \Illuminate\Database\Query\Builder|\Fsociety\Models\ArgTracking findSimilarSlugs($model, $attribute, $config, $slug)
+ * @property string $hash
+ * @property boolean $ignoreHash
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Fsociety\Models\ArgSeasonEpisode[] $connections
+ * @method static \Illuminate\Database\Query\Builder|\Fsociety\Models\ArgTracking whereHash($value)
+ * @method static \Illuminate\Database\Query\Builder|\Fsociety\Models\ArgTracking whereIgnoreHash($value)
  */
 class ArgTracking extends Model
 {
@@ -39,7 +44,8 @@ class ArgTracking extends Model
         'description',
         'user_id',
         'name',
-        'hash'
+        'hash',
+        'ignoreHash'
     ];
 
     public function sluggable()

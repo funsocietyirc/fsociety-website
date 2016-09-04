@@ -39,6 +39,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $slug
  * @method static \Illuminate\Database\Query\Builder|\Fsociety\Models\Episode whereSlug($value)
  * @method static \Illuminate\Database\Query\Builder|\Fsociety\Models\Episode findSimilarSlugs($model, $attribute, $config, $slug)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Fsociety\Models\ArgSeasonEpisode[] $connections
  */
 class Episode extends Model
 {

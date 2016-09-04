@@ -3,6 +3,8 @@
 namespace Fsociety\Http\Controllers;
 
 use Auth;
+use Fsociety\Events\ArgLinkCreatedEvent;
+use Fsociety\Listeners\ArgLinkCreatedListener;
 use Fsociety\Models\ArgTracking;
 use Fsociety\Services\ArgService;
 use Illuminate\Http\Request;
@@ -53,13 +55,17 @@ class ArgController extends Controller
             'url' => 'required|url|unique:arg_tracking',
             'description' => 'max:500'
         ]);
-        ArgTracking::create([
+        $arg = ArgTracking::create([
             'user_id' => Auth::user()->id,
             'name' => trim($request->input('name')),
             'url' => trim($request->input('url')),
             'description' => trim($request->input('description'))
         ]);
+        // Fire the event
+        event(new ArgLinkCreatedEvent($arg));
+
         flash('Thank you for sharing');
+
         return redirect()->route('arg.index');
     }
 
@@ -145,5 +151,12 @@ class ArgController extends Controller
     {
         $this->argService->createConnection($arg, $request->input('episode'));
         return redirect()->route('arg.index');
+    }
+
+    public function watch(ArgTracking $arg) {
+        $this->authorize('modify-watch', $arg);
+        $result = $this->argService->flipWatchStatus($arg);
+        flash("{$arg->name} will " . ($result ? "no longer" : "now") . " be watched");
+        return redirect()->back();
     }
 }

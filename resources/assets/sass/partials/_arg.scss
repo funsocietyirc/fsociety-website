@@ -93,7 +93,6 @@ select{
 button {
   @extend .uk-button-danger;
   outline:0;
-  margin-left:5px;
   border-right: 1px solid $mrRobotHoverColor;
   border-left: 1px solid $mrRobotHoverColor;
   border-radius:4px;
@@ -108,4 +107,7 @@ button {
 .connections-form {
   margin-top:5px;
   margin-bottom:5px;
+}
+.connections-form-row {
+  display:inline-block;
 }

@@ -33,6 +33,7 @@ class AppServiceProvider extends ServiceProvider
                 // Site admin can Approve ArgTracking links
                 Bouncer::allow($siteAdmin)->to('capture', ArgTracking::class);
                 Bouncer::allow($siteAdmin)->to('delete', ArgTracking::class);
+                Bouncer::allow($siteAdmin)->to('modify-watch', ArgTracking::class);
 
                 // If an admin exists, give privileges
                 $admin = User::first();

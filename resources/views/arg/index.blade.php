@@ -48,9 +48,15 @@
                                                        data-confirm="Are you sure you want to delete this?">Delete</a>
                                                 </li>
                                             @endcan
+                                                @can('modify-watch', $result)
+                                                    <li>
+                                                        <a href="{{route('arg.watch',$result)}}">@if(!$result->ignoreHash) Unwatch @else Watch @endif</a>
+                                                    </li>
+                                                @endcan
                                         </div>
-                                        <a class="no-link" data-disqus-identifier="{{$result->url}}" href="#"></a>
                                         @include('arg.partials._connectionForm')
+                                        <a class="no-link" data-disqus-identifier="{{$result->url}}" href="#"></a>
+
                                     </div>
                                 </div>
                             </div>

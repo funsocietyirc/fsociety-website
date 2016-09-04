@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\Fsociety\Models\Season whereTagline($value)
  * @method static \Illuminate\Database\Query\Builder|\Fsociety\Models\Season whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Fsociety\Models\Season whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Fsociety\Models\ArgSeasonEpisode[] $connections
  */
 class Season extends Model
 {

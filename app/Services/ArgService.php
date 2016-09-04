@@ -67,6 +67,10 @@ class ArgService
      * @return bool true if update false if not
      */
     public function updateArgLinkHash(ArgTracking $arg) {
+        // We are ignoring this hash
+        if($arg->ignoreHash) {
+            return false;
+        }
         $hash = md5(file_get_contents($arg->url));
         if(!$arg->hash || $arg->hash != $hash) {
             if(!$arg->hash) {
@@ -76,6 +80,17 @@ class ArgService
             return true;
         }
         return false;
+    }
+
+    // Flip the ignore hash bit
+    public function flipWatchStatus(ArgTracking $arg)
+    {
+        $arg->timestamps = false;
+        $arg->update([
+            'ignoreHash' => !$arg->ignoreHash
+        ]);
+        $arg->timestamps = true;
+        return $arg->ignoreHash;
     }
 
 }
