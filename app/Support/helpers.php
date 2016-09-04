@@ -26,7 +26,9 @@ function isActiveRoute($route, $output = "uk-active")
 function areActiveRoutes(Array $routes, $output = "uk-active")
 {
     foreach ($routes as $route) {
-        if (Route::currentRouteName() == $route) return $output;
+        if (Route::currentRouteName() == $route) {
+            return $output;
+        }
     }
     return '';
 }

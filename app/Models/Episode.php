@@ -45,7 +45,9 @@ class Episode extends Model
     use Sluggable;
 
     protected $fillable = [
-        'name', 'number', 'season_id'
+        'name',
+        'number',
+        'season_id'
     ];
 
     public function sluggable()

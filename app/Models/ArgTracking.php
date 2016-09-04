@@ -35,7 +35,10 @@ class ArgTracking extends Model
 
     use Sluggable;
     protected $fillable = [
-        'url', 'description', 'user_id', 'name'
+        'url',
+        'description',
+        'user_id',
+        'name'
     ];
 
     public function sluggable()
@@ -59,7 +62,8 @@ class ArgTracking extends Model
     {
         return DB::table('episodes')
             ->select([
-                'name', 'id'
+                'name',
+                'id'
             ])->whereNotIn('id',
                 DB::table('arg_season_episode')
                     ->where('arg_id', $this->id)
