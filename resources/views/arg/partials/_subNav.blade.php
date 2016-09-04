@@ -20,7 +20,10 @@ $result = isset($result) ? $result : $arg;
     @endcan
     @can('modify-watch', $result)
         <li>
-            <a href="{{route('arg.watch',$result)}}">@if(!$result->ignoreHash) Unwatch @else Watch @endif</a>
+            <a href="{{ route('arg.watch', $result) }}" data-method="patch"
+               rel="nofollow" data-confirm="Are you sure you want to delete this?">
+                @if(!$result->ignoreHash) Unwatch @else Watch @endif
+            </a>
         </li>
     @endcan
 </div>
