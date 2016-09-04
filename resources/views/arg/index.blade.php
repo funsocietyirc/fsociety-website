@@ -12,7 +12,7 @@
                 <div class="arg-nav">
                     <div class="uk-container ">
                         <ul class="uk-subnav  uk-subnav-pill uk-flex-center">
-                            <li class="uk-active">
+                            <li class="{{isActiveRoute('arg.index')}}">
                                 <a href="{{ route('arg.index') }}"><i class="uk-icon-book"></i></a>
                             </li>
                             <li>
@@ -29,8 +29,7 @@
                                 <div class="uk-block uk-cover-background uk-grid-match"
                                      @if(File::exists(public_path('images/arg/tiles/'.$result->id.'.png'))) style="background:url('{!! asset('images/arg/tiles/' . $result->id .'.png') !!}') "@endif>
                                     <div class="height-1-1 inner-block ">
-                                        <h2><a href="{{route('arg.show',$result)}}"
-                                               target="_blank">{{ title_case($result->name) }}</a></h2>
+                                        <h2><a href="{{route('arg.show',$result)}}">{{ title_case($result->name) }}</a></h2>
                                         @include('arg.partials._dlist')
                                         <div class="uk-subnav uk-subnav-line">
                                             @can('edit', $result)

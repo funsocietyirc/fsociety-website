@@ -5,11 +5,11 @@
         <ul class="uk-grid uk-margin-bottom" data-uk-grid-margin>
             <li class="uk-width-small-1-3 uk-width-medium-1-3 uk-width-large-1-5">
                 <a href="{{ route('episodes') }}"
-                   class="uk-button uk-button-danger uk-width-1-1 season-button uk-margin-small-bottom">All Episodes</a>
+                   class="{{isActiveRoute('episodes')}} uk-button uk-button-danger uk-width-1-1 season-button uk-margin-small-bottom">All Episodes</a>
                 <a href="{{ route('season',1) }}"
-                   class="uk-button uk-button-danger uk-width-1-1 season-button uk-margin-small-bottom">Season 1</a>
+                   class="{{isActiveRoute('season',null,'season',1)}} uk-button uk-button-danger uk-width-1-1 season-button uk-margin-small-bottom">Season 1</a>
                 <a href="{{ route('season',2) }}"
-                   class="uk-button uk-button-danger uk-width-1-1 season-button uk-margin-small-bottom">Season 2</a>
+                   class="{{isActiveRoute('season',null,'season',2)}} uk-button uk-button-danger uk-width-1-1 season-button uk-margin-small-bottom">Season 2</a>
             </li>
             @foreach($episodes as $episode)
                 <li class="uk-animation-fade uk-width-small-1-3 uk-width-medium-1-3 uk-width-large-1-5">

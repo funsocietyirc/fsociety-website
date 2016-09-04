@@ -9,9 +9,14 @@
 | Very useful for navigation, marking if the link is active.
 |
 */
-function isActiveRoute($route, $output = "uk-active")
+function isActiveRoute($route, $output = null, $arg = null, $value = null)
 {
-    return (Route::currentRouteName() == $route) ? $output : '';
+    $output = $output === null ? 'uk-active' : $output;
+    if($arg === null || $value == null) {
+        return (Route::currentRouteName() == $route) ? $output : '';
+    } else {
+        return (Route::getCurrentRoute()->getAction()['as'] === $route && Route::getCurrentRoute()->{$arg} == $value) ? $output : '';
+    }
 }
 
 /*
@@ -26,9 +31,7 @@ function isActiveRoute($route, $output = "uk-active")
 function areActiveRoutes(Array $routes, $output = "uk-active")
 {
     foreach ($routes as $route) {
-        if (Route::currentRouteName() == $route) {
-            return $output;
-        }
+        if (Route::currentRouteName() == $route) return $output;
     }
     return '';
 }

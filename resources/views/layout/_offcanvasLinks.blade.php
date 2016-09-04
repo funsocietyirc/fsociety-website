@@ -1,7 +1,7 @@
-<li class="{{ isActiveRoute('episodes')}}">
+<li class="{{ areActiveRoutes(['episodes','season','episode'])}}">
     <a href="{{route('episodes')}}">Episodes</a>
 </li>
-<li class="{{ isActiveRoute('arg.index')}}">
+<li class="{{ areActiveRoutes(['arg.index','arg.show','arg.create'])}}">
     <a href="{{route('arg.index')}}">ARG</a>
 </li>
 <li class="{{ isActiveRoute('chat')}}">
