@@ -3,6 +3,7 @@
 namespace Fsociety\Providers;
 
 use Fsociety\Events\ArgLinkCreatedEvent;
+use Fsociety\Listeners\ArgEventSubscriber;
 use Fsociety\Listeners\ArgLinkCreatedListener;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -14,9 +15,10 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        ArgLinkCreatedEvent::class => [
-            ArgLinkCreatedListener::class,
-        ],
+    ];
+
+    protected $subscribe = [
+        ArgEventSubscriber::class
     ];
 
     /**

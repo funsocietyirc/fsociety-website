@@ -21,25 +21,26 @@
                         </ul>
                     </div>
                 </div>
+                <div class="uk-flex uk-flex-center" >
+                    <div class="uk-grid uk-grid-match" data-uk-grid-margin>
+                        @foreach($results as $result)
+                            <article class="arg-item uk-width-large-1-3 uk-width-medium-1-2 uk-grid-match">
+                                <div class="arg-item-content uk-grid-match">
+                                    <div class="uk-block uk-cover-background"
+                                         @if(File::exists(public_path('images/arg/tiles/'.$result->id.'.png'))) style="background:url('{!! asset('images/arg/tiles/' . $result->id .'.png') !!}') "@endif>
+                                        <div class="height-1-1 inner-block uk-height-1-1">
+                                            <h2><a href="{{route('arg.show',$result)}}">{{ title_case($result->name) }}</a></h2>
+                                            @include('arg.partials._dlist')
+                                            @include('arg.partials._subNav')
+                                            @include('arg.partials._connectionForm')
+                                            <a class="no-link" data-disqus-identifier="{{$result->url}}" href="#"></a>
 
-                <div class="uk-grid uk-grid-large uk-grid-match" data-uk-grid-margin>
-                    @foreach($results as $result)
-                        <article class="arg-item uk-width-large-1-3 uk-width-medium-1-2">
-                            <div class="arg-item-content">
-                                <div class="uk-block uk-cover-background uk-grid-match"
-                                     @if(File::exists(public_path('images/arg/tiles/'.$result->id.'.png'))) style="background:url('{!! asset('images/arg/tiles/' . $result->id .'.png') !!}') "@endif>
-                                    <div class="height-1-1 inner-block ">
-                                        <h2><a href="{{route('arg.show',$result)}}">{{ title_case($result->name) }}</a></h2>
-                                        @include('arg.partials._dlist')
-                                        @include('arg.partials._subNav')
-                                        @include('arg.partials._connectionForm')
-                                        <a class="no-link" data-disqus-identifier="{{$result->url}}" href="#"></a>
-
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </article>
-                    @endforeach
+                            </article>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
