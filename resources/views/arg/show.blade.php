@@ -8,16 +8,15 @@
                     <div class="uk-container uk-container-center">
                         <div class="uk-block">
                             <h1 class="uk-text-truncate uk-text-center">{!! $arg->name !!}</h1>
-                            <dl class="uk-description-list-horizontal">
-                                <dt>URL</dt>
-                                <dd><a href="{{$arg->url}}" title="{{$arg->name}}">{{$arg->url}}</a></dd>
-                                <dt>Created By</dt>
-                                <dd>{{$arg->creator->name}}</dd>
-                                <dt>Description</dt>
-                                <dd>{{$arg->description}}</dd>
-                                <dt>Connections</dt>
-                                <dd>@include('arg.partials._connectionForm')</dd>
-                            </dl>
+                            @include('arg.partials._dlist')
+                            <div class="uk-grid">
+                                <div class="uk-width-large-1-2 uk-medium-1-2">
+                                    @include('arg.partials._subNav')
+                                </div>
+                                <div class="uk-width-large-1-2 uk-width-medium-1-2">
+                                    @include('arg.partials._connectionForm')
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -4,7 +4,7 @@ namespace Fsociety\Console;
 
 use Fsociety\Console\Commands\ArgScreencap;
 use Fsociety\Console\Commands\FetchEpisodeInformation;
-use Fsociety\Console\Commands\updateArgLinks;
+use Fsociety\Console\Commands\UpdateArgLinks;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -18,7 +18,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         FetchEpisodeInformation::class,
         ArgScreencap::class,
-        updateArgLinks::class
+        UpdateArgLinks::class
     ];
 
     /**

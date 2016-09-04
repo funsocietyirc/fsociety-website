@@ -24,5 +24,6 @@ class ArgLinkCreatedListener implements ShouldQueue
     public function handle(ArgLinkCreatedEvent $event)
     {
         $this->argService->updateArgLinkHash($event->arg);
+
     }
 }

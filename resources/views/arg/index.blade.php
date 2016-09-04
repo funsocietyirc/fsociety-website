@@ -31,29 +31,7 @@
                                     <div class="height-1-1 inner-block ">
                                         <h2><a href="{{route('arg.show',$result)}}">{{ title_case($result->name) }}</a></h2>
                                         @include('arg.partials._dlist')
-                                        <div class="uk-subnav uk-subnav-line">
-                                            @can('edit', $result)
-                                                <li><a href="{{ route('arg.edit', $result) }}"
-                                                       title="Capture URL">Edit</a>
-                                                </li>
-                                            @endcan
-                                            @can('capture',$result)
-                                                <li><a href="{{ route('arg.capture', $result) }}"
-                                                       title="Capture URL">Capture</a>
-                                                </li>
-                                            @endcan
-                                            @can('delete', $result)
-                                                <li><a href="{{ route('arg.destroy', $result) }}" data-method="delete"
-                                                       rel="nofollow"
-                                                       data-confirm="Are you sure you want to delete this?">Delete</a>
-                                                </li>
-                                            @endcan
-                                                @can('modify-watch', $result)
-                                                    <li>
-                                                        <a href="{{route('arg.watch',$result)}}">@if(!$result->ignoreHash) Unwatch @else Watch @endif</a>
-                                                    </li>
-                                                @endcan
-                                        </div>
+                                        @include('arg.partials._subNav')
                                         @include('arg.partials._connectionForm')
                                         <a class="no-link" data-disqus-identifier="{{$result->url}}" href="#"></a>
 
