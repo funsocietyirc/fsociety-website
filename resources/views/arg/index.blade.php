@@ -27,7 +27,7 @@
                             <article class="arg-item uk-width-large-1-3 uk-width-medium-1-2 uk-grid-match">
                                 <div class="arg-item-content uk-grid-match">
                                     <div class="uk-block uk-cover-background"
-                                         @if(File::exists(public_path('images/arg/tiles/'.$result->id.'.png'))) style="background:url('{!! asset('images/arg/tiles/' . $result->id .'.png') !!}') "@endif>
+                                         style="background:url('@if(File::exists(public_path('images/arg/tiles/'.$result->id.'.png'))) {{asset('images/arg/tiles/' . $result->id .'.png')}} @else {{asset('images/arg/defaultTile.png')}} @endif') ">
                                         <div class="height-1-1 inner-block uk-height-1-1">
                                             <h2><a href="{{route('arg.show',$result)}}">{{ title_case($result->name) }}</a></h2>
                                             @include('arg.partials._dlist')

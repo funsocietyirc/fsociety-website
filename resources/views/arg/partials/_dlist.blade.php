@@ -6,6 +6,10 @@ $result = isset($result) ? $result : $arg;
     <dd>{{ $result->creator->name }}</dd>
     <dt>Last Modified</dt>
     <dd>{{ $result->updated_at->diffForHumans() }}</dd>
+    <dt>URL</dt>
+    <dd>
+        <a href="{{$result->url}}" title="{{$result->name}}">{{$result->url}}</a>
+    </dd>
     @if($result->description)
         <dt>Description</dt>
         <dd>{{ $result->description }}</dd>
