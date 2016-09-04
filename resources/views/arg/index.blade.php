@@ -11,17 +11,18 @@
                 </header>
                 <div class="arg-nav">
                     <div class="uk-container ">
-                        <ul class="uk-subnav  uk-subnav-pill uk-flex-center">
-                            <li class="{{isActiveRoute('arg.index')}}">
-                                <a href="{{ route('arg.index') }}"><i class="uk-icon-book"></i></a>
-                            </li>
+                        <ul class="uk-subnav uk-flex-center">
                             <li>
-                                <a href="{{ route('arg.create') }}"><i class="uk-icon-plus"></i></a>
+                                <a title="Create a ARG Link" href="{{ route('arg.create') }}"><i class="uk-icon-plus uk-icon-button"></i></a>
                             </li>
+                            @if($results->count() > 1)
+                                <li>
+                                    {{ $results->links() }}
+                                </li>
+                            @endif()
                         </ul>
                     </div>
                 </div>
-                {{ $results->links() }}
                 <div class="uk-flex uk-flex-center" >
                     <div class="uk-grid uk-grid-match" data-uk-grid-margin>
                         @foreach($results as $result)
