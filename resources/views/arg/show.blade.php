@@ -15,6 +15,8 @@
                                 <dd>{{$arg->creator->name}}</dd>
                                 <dt>Description</dt>
                                 <dd>{{$arg->description}}</dd>
+                                <dt>Connections</dt>
+                                <dd>@include('arg.partials._connectionForm')</dd>
                             </dl>
                         </div>
                     </div>
@@ -24,9 +26,11 @@
                         <div class="multiple-items">
                             @foreach($arg->connections()->get() as $connection)
                                 <div>
-                                    <figure class="uk-overlay" data-link="{{route('episode', $connection->episode->slug)}}">
+                                    <figure class="uk-overlay"
+                                            data-link="{{route('episode', $connection->episode->slug)}}">
                                         <img src="{{$connection->episode->imageMedium}}" alt="" class="uk-width-1-1">
-                                        <figcaption class="uk-overlay-panel uk-overlay-background uk-overlay-bottom" style="text-align: center;">
+                                        <figcaption class="uk-overlay-panel uk-overlay-background uk-overlay-bottom"
+                                                    style="text-align: center;">
                                             {{$connection->episode->name}}
                                         </figcaption>
                                     </figure>
@@ -47,45 +51,45 @@
 @endsection
 @section('scripts')
     @if($arg->connections()->count())
-    <script type="text/javascript">
-                    $(function () {
-            $('.uk-overlay').click(function(e) {
-                window.location = $(this).data('link');
-            })
-            $('.multiple-items').slick({
-                dots: true,
-                infinite: true,
-                speed: 300,
-                slidesToShow: 4,
-                slidesToScroll: 4,
-                responsive: [
-                    {
-                        breakpoint: 1024,
-                        settings: {
-                            slidesToShow: 3,
-                            slidesToScroll: 3,
-                            infinite: true,
-                            dots: true
+        <script type="text/javascript">
+            $(function () {
+                $('.uk-overlay').click(function (e) {
+                    window.location = $(this).data('link');
+                })
+                $('.multiple-items').slick({
+                    dots: true,
+                    infinite: true,
+                    speed: 300,
+                    slidesToShow: 4,
+                    slidesToScroll: 4,
+                    responsive: [
+                        {
+                            breakpoint: 1024,
+                            settings: {
+                                slidesToShow: 3,
+                                slidesToScroll: 3,
+                                infinite: true,
+                                dots: true
+                            }
+                        },
+                        {
+                            breakpoint: 600,
+                            settings: {
+                                slidesToShow: 2,
+                                slidesToScroll: 2
+                            }
+                        },
+                        {
+                            breakpoint: 480,
+                            settings: {
+                                slidesToShow: 1,
+                                slidesToScroll: 1
+                            }
                         }
-                    },
-                    {
-                        breakpoint: 600,
-                        settings: {
-                            slidesToShow: 2,
-                            slidesToScroll: 2
-                        }
-                    },
-                    {
-                        breakpoint: 480,
-                        settings: {
-                            slidesToShow: 1,
-                            slidesToScroll: 1
-                        }
-                    }
-                ]
-            });
+                    ]
+                });
 
-        });
-    </script>
+            });
+        </script>
     @endif
 @endsection
