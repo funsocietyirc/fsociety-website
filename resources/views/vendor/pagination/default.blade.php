@@ -1,4 +1,4 @@
-<ul class="pagination">
+<ul class="uk-pagination">
     <!-- Previous Page Link -->
     @if ($paginator->onFirstPage())
         <li class="disabled"><span>&laquo;</span></li>

@@ -21,6 +21,7 @@
                         </ul>
                     </div>
                 </div>
+                {{ $results->links() }}
                 <div class="uk-flex uk-flex-center" >
                     <div class="uk-grid uk-grid-match" data-uk-grid-margin>
                         @foreach($results as $result)
@@ -34,7 +35,6 @@
                                             @include('arg.partials._subNav')
                                             @include('arg.partials._connectionForm')
                                             <a class="no-link" data-disqus-identifier="{{$result->url}}" href="#"></a>
-
                                         </div>
                                     </div>
                                 </div>
