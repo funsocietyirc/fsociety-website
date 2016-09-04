@@ -17,13 +17,15 @@
                             </div>
 
                         @endif
-                        <form class="uk-form uk-form-stacked" role="form" method="POST" action="{{ url('/password/email') }}">
+                        <form class="uk-form uk-form-stacked" role="form" method="POST"
+                              action="{{ url('/password/email') }}">
                             {{ csrf_field() }}
 
                             <div class="uk-form-row{{ $errors->has('email') ? ' uk-form-danger' : '' }}">
                                 <label for="email" class="uk-form-label">E-Mail Address</label>
 
-                                <input id="email" type="email" class="uk-width-1-1" name="email" value="{{ old('email') }}">
+                                <input id="email" type="email" class="uk-width-1-1" name="email"
+                                       value="{{ old('email') }}">
 
                                 @if ($errors->has('email'))
                                     <div class="uk-form-help-block">

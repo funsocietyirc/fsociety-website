@@ -31,6 +31,13 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ArgTracking extends Model
 {
+    protected $table = 'arg_tracking';
+
+    use Sluggable;
+    protected $fillable = [
+        'url', 'description', 'user_id', 'name'
+    ];
+
     public function sluggable()
     {
         return [
@@ -38,35 +45,26 @@ class ArgTracking extends Model
         ];
     }
 
-    use Sluggable;
-
-    protected $table = 'arg_tracking';
-    protected $fillable = [
-        'url', 'description', 'user_id', 'name'
-    ];
-
     public function creator()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
     // Arg Link tracking connections
-    public function connections() {
-        return $this->hasMany(ArgSeasonEpisode::class, 'arg_id', 'id');
-    }
 
     /**
      * Get the available ARG collections
      */
-    public function availableConnections() {
+    public function availableConnections()
+    {
         return DB::table('episodes')
-        ->select([
-            'name','id'
-        ])->whereNotIn('id',
-            DB::table('arg_season_episode')
-                ->where('arg_id',$this->id)
-                ->pluck('episode_id')
-        )->get();
+            ->select([
+                'name', 'id'
+            ])->whereNotIn('id',
+                DB::table('arg_season_episode')
+                    ->where('arg_id', $this->id)
+                    ->pluck('episode_id')
+            )->get();
     }
 
     public function inSeasons()
@@ -81,7 +79,13 @@ class ArgTracking extends Model
             });
     }
 
-    public function inEpisodes() {
+    public function connections()
+    {
+        return $this->hasMany(ArgSeasonEpisode::class, 'arg_id', 'id');
+    }
+
+    public function inEpisodes()
+    {
         return $this->connections()
             ->get()
             ->unique(function ($x) {

@@ -27,7 +27,7 @@ class FetchEpisodeInformation extends Command
     public function handle()
     {
         $response = $this->episodeService->propagateEpisodes();
-        if($response) {
+        if ($response) {
             $this->info('Successfully propagated Episode information');
             return;
         }

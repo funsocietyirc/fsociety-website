@@ -23,13 +23,16 @@ use Illuminate\Database\Eloquent\Model;
 class Season extends Model
 {
     protected $fillable = [
-        'number','tagline'
+        'number', 'tagline'
     ];
-    public function episodes() {
+
+    public function episodes()
+    {
         return $this->hasMany(Episode::class);
     }
 
-    public function connections() {
+    public function connections()
+    {
         return $this->hasMany(ArgSeasonEpisode::class);
     }
 

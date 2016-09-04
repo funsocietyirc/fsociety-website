@@ -68,7 +68,7 @@ class Rating extends Model
         $rating = static::whereId($this->id)->whereAuthorId($author->id)->first();
 
         // Rating already exists
-        if($rating) {
+        if ($rating) {
             $rating->update($data);
             return $rating;
         }

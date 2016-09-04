@@ -49,9 +49,9 @@
                                 </button>
                             </div>
                             <div class="uk-form-row">
-                                    <a class="uk-button uk-button-primary uk-width-1-1" href="{{ url('/password/reset') }}">
-                                        Forgot Your Password?
-                                    </a>
+                                <a class="uk-button uk-button-primary uk-width-1-1" href="{{ url('/password/reset') }}">
+                                    Forgot Your Password?
+                                </a>
                             </div>
                         </form>
                     </div>

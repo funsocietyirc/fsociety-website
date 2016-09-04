@@ -29,7 +29,7 @@ class ArgScreencap extends Command
     public function handle()
     {
         $response = $this->argService->fetchArgTileByUrl($this->argument('url'));
-        if($response) {
+        if ($response) {
             $this->info('Arg Tile download complete');
             return;
         }

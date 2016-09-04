@@ -4,7 +4,6 @@ namespace Fsociety\Http\Controllers;
 
 use Auth;
 use Fsociety\Models\ArgTracking;
-use Fsociety\Models\Episode;
 use Fsociety\Services\ArgService;
 use Illuminate\Http\Request;
 
@@ -12,10 +11,11 @@ class ArgController extends Controller
 {
 
     protected $argService;
+
     public function __construct(ArgService $argService)
     {
         $this->argService = $argService;
-        $this->middleware('auth', ['except' => ['index','show']]);
+        $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
     /**
@@ -43,20 +43,20 @@ class ArgController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name'   => 'required|max:255',
-            'url'    => 'required|url|unique:arg_tracking',
+            'name' => 'required|max:255',
+            'url' => 'required|url|unique:arg_tracking',
             'description' => 'max:500'
         ]);
         ArgTracking::create([
-            'user_id'   => Auth::user()->id,
+            'user_id' => Auth::user()->id,
             'name' => trim($request->input('name')),
-            'url'  => trim($request->input('url')),
+            'url' => trim($request->input('url')),
             'description' => trim($request->input('description'))
         ]);
         flash('Thank you for sharing');
@@ -97,14 +97,14 @@ class ArgController extends Controller
     {
         $this->authorize('edit', $arg);
         $this->validate($request, [
-            'name'   => 'required|max:255',
-            'url'    => 'required|url',
+            'name' => 'required|max:255',
+            'url' => 'required|url',
             'description' => 'max:500'
         ]);
 
         $arg->update([
             'name' => trim($request->input('name')),
-            'url'  => trim($request->input('url')),
+            'url' => trim($request->input('url')),
             'description' => trim($request->input('description'))
         ]);
 
@@ -131,16 +131,18 @@ class ArgController extends Controller
      * @param ArgTracking $arg
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function capture(ArgTracking $arg) {
+    public function capture(ArgTracking $arg)
+    {
         $this->authorize('capture', $arg);
         $result = $this->argService->fetchArgTileByUrl($arg->url);
-        if(!$result) {
+        if (!$result) {
             flash()->overlay('Something went wrong capturing the ARG tile', 'ARG Link');
         }
         return redirect()->route('arg.index');
     }
 
-    public function connect(ArgTracking $arg, Request $request) {
+    public function connect(ArgTracking $arg, Request $request)
+    {
         $this->argService->createConnection($arg, $request->input('episode'));
         return redirect()->route('arg.index');
     }

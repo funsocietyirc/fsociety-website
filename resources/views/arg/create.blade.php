@@ -10,7 +10,8 @@
                         <p>
                             Have you stumbled on something?
                         </p>
-                        <form class="uk-form uk-form-stacked" role="form" method="POST" action="{{ route('arg.store') }}">
+                        <form class="uk-form uk-form-stacked" role="form" method="POST"
+                              action="{{ route('arg.store') }}">
                             @include('arg.partials._form')
                         </form>
                     </div>

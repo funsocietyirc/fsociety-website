@@ -2,27 +2,28 @@
 
 namespace Fsociety\Http\Controllers;
 
+use Fsociety\Http\Requests;
 use Fsociety\Services\EpisodeNotFoundException;
 use Fsociety\Services\EpisodeService;
-use Illuminate\Http\Request;
-
-use Fsociety\Http\Requests;
 
 class EpisodeController extends Controller
 {
-    protected $episodeService;
     const EpisodeNotFoundMessage = 'Our systems have been compromised, or the Episode you seek does not yet exist.';
     const EpisodeNotFoundTitle = 'I am unable to do that...';
+    protected $episodeService;
+
     public function __construct(EpisodeService $episodeService)
     {
         $this->episodeService = $episodeService;
     }
 
-    public function index() {
+    public function index()
+    {
         return view('episodes.index')->with('episodes', $this->episodeService->getEpisodesIndex());
     }
 
-    public function season($season) {
+    public function season($season)
+    {
         try {
             return view('episodes.index')->with('episodes', $this->episodeService->getEpisodesIndex($season));
         } catch (EpisodeNotFoundException $exception) {
@@ -31,7 +32,8 @@ class EpisodeController extends Controller
         }
     }
 
-    public function show($slug) {
+    public function show($slug)
+    {
         try {
             return view('episodes.show')
                 ->with('episode', $this->episodeService->getEpisodePage($slug));

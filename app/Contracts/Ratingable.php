@@ -38,7 +38,7 @@ interface Ratingable
 
     /**
      * @param $data
-     * @param Model      $author
+     * @param Model $author
      * @param Model|null $parent
      *
      * @return mixed

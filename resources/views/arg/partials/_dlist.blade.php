@@ -14,7 +14,8 @@ $result = isset($result) ? $result : $arg;
         <dt>Seasons</dt>
         <dd>
             @foreach($result->inSeasons() as $connection)
-                <a href="{{route('season', $connection->episode->season_id)}}" title="{{$connection->episode->season->tagline}}">{{$connection->episode->season_id}}</a>
+                <a href="{{route('season', $connection->episode->season_id)}}"
+                   title="{{$connection->episode->season->tagline}}">{{$connection->episode->season_id}}</a>
             @endforeach
         </dd>
         <dt>Episodes</dt>

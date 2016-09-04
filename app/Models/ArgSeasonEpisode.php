@@ -12,15 +12,18 @@ class ArgSeasonEpisode extends Model
         'id'
     ];
 
-    public function episode() {
+    public function episode()
+    {
         return $this->belongsTo(Episode::class, 'episode_id');
     }
 
-    public function season() {
+    public function season()
+    {
         return $this->belongsTo(Season::class, 'season_id');
     }
 
-    public function argLink() {
+    public function argLink()
+    {
         return $this->belongsTo(ArgTracking::class, 'arg_id');
     }
 

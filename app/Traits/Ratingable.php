@@ -1,19 +1,12 @@
 <?php
 
 namespace Fsociety\Traits;
+
 use Fsociety\Models\Rating;
 use Illuminate\Database\Eloquent\Model;
 
 trait Ratingable
 {
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
-     */
-    public function ratings()
-    {
-        return $this->morphMany(Rating::class, 'ratingable');
-    }
-
     /**
      *
      * @return mixed
@@ -23,6 +16,14 @@ trait Ratingable
         return $this->ratings()
             ->selectRaw('AVG(rating) as averageRating')
             ->pluck('averageRating');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function ratings()
+    {
+        return $this->morphMany(Rating::class, 'ratingable');
     }
 
     /**
@@ -62,7 +63,7 @@ trait Ratingable
 
     /**
      * @param $data
-     * @param Model      $author
+     * @param Model $author
      * @param Model|null $parent
      *
      * @return Rating

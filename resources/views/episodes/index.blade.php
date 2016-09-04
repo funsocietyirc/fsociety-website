@@ -25,7 +25,7 @@
                                 <span class="text">{{ $episode['name'] }}</span>
                             </figcaption>
                             <figcaption class="uk-overlay-panel uk-overlay-bottom uk-overlay-right">
-                                <a class="no-link" data-disqus-identifier="{{ $episode->slug }}" href="#" ></a>
+                                <a class="no-link" data-disqus-identifier="{{ $episode->slug }}" href="#"></a>
                             </figcaption>
                         </figure>
                     </div>
@@ -52,5 +52,4 @@
         });
     </script>
     <script id="dsq-count-scr" src="//fsociety.disqus.com/count.js" async></script>
-
 @endsection

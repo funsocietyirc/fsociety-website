@@ -2,8 +2,8 @@
 
 namespace Fsociety\Models;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
 
 /**
@@ -57,11 +57,13 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function argLinks() {
+    public function argLinks()
+    {
         return $this->hasMany(ArgTracking::class);
     }
 
-    public function owns($related, $fk = 'user_id') {
+    public function owns($related, $fk = 'user_id')
+    {
         return $this->id === $related->{$fk};
     }
 

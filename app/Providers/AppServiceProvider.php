@@ -2,11 +2,11 @@
 
 namespace Fsociety\Providers;
 
+use Bouncer;
 use Fsociety\Models\ArgTracking;
 use Fsociety\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
-use Bouncer;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,22 +24,22 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Bouncer::seeder(
-            function ()  {
-            // Roles
-            $siteAdmin = Bouncer::role()->firstOrCreate([
-                'name' =>  'site-admin',
-                'title' =>  'Site Administrator'
-            ]);
-            // Site admin can Approve ArgTracking links
-            Bouncer::allow($siteAdmin)->to('capture',ArgTracking::class);
-            Bouncer::allow($siteAdmin)->to('delete', ArgTracking::class);
+            function () {
+                // Roles
+                $siteAdmin = Bouncer::role()->firstOrCreate([
+                    'name' => 'site-admin',
+                    'title' => 'Site Administrator'
+                ]);
+                // Site admin can Approve ArgTracking links
+                Bouncer::allow($siteAdmin)->to('capture', ArgTracking::class);
+                Bouncer::allow($siteAdmin)->to('delete', ArgTracking::class);
 
-            // If an admin exists, give privileges
-            $admin = User::first();
-            if($admin) {
-                User::first()->assign($siteAdmin);
-            }
-        });
+                // If an admin exists, give privileges
+                $admin = User::first();
+                if ($admin) {
+                    User::first()->assign($siteAdmin);
+                }
+            });
     }
 
     /**
@@ -49,7 +49,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        if($this->app->environment() !== 'production') {
+        if ($this->app->environment() !== 'production') {
             $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
         }
     }

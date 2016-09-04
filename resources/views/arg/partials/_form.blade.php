@@ -1,8 +1,7 @@
 {{ csrf_field() }}
 <div class="uk-form-row{{ $errors->has('url') ? ' uk-form-danger' : '' }}">
     <label for="name" class="uk-form-label">Name</label>
-    <input class="uk-width-1-1" id="name" type="text" name="name" value="{{ $arg->name ?? old('name') }}"
-           autofocus>
+    <input class="uk-width-1-1" id="name" type="text" name="name" value="{{ $arg->name ?? old('name') }}" autofocus>
     @if ($errors->has('name'))
         <div class="uk-form-help-block">
             <strong>{{ $errors->first('name') }}</strong>
@@ -22,7 +21,8 @@
 
 <div class="uk-form-row{{ $errors->has('description') ? ' uk-form-danger' : '' }}">
     <label for="description" class="uk-form-label">Description</label>
-    <textarea rows="5" cols="5" class="uk-width-1-1" id="description" name="description">{{$arg->description ?? old('description')}}</textarea>
+    <textarea rows="5" cols="5" class="uk-width-1-1" id="description"
+              name="description">{{$arg->description ?? old('description')}}</textarea>
     @if ($errors->has('description'))
         <div class="uk-form-help-block">
             <strong>{{ $errors->first('description') }}</strong>
@@ -30,7 +30,5 @@
     @endif
 </div>
 <div class="uk-form-row">
-    <button type="submit" class="uk-button uk-button-success uk-width-1-1">
-        Share
-    </button>
+    <button type="submit" class="uk-button uk-button-success uk-width-1-1">Share</button>
 </div>

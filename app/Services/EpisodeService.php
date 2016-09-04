@@ -1,9 +1,9 @@
 <?php
 namespace Fsociety\Services;
 
+use File;
 use Fsociety\Models\Episode;
 use GuzzleHttp;
-use File;
 
 class EpisodeService
 {
@@ -22,7 +22,8 @@ class EpisodeService
      * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection|static[]
      * @throws EpisodeNotFoundException
      */
-    public function getEpisodesIndex($season = null) {
+    public function getEpisodesIndex($season = null)
+    {
         $result = $season ? Episode::select([
             'name',
             'imageMedium',
@@ -30,7 +31,7 @@ class EpisodeService
             'number',
             'slug'
         ])->whereSeasonId($season)->orderBy('season_id')->orderBy('number')->get() : Episode::orderBy('season_id')->orderBy('number')->get();
-        if(!$result->count()) {
+        if (!$result->count()) {
             throw new EpisodeNotFoundException;
         }
         return $result;
@@ -44,8 +45,8 @@ class EpisodeService
      */
     public function getEpisodePage($slug)
     {
-        $result = Episode::where('slug',$slug)->first();
-        if(!$result) {
+        $result = Episode::where('slug', $slug)->first();
+        if (!$result) {
             throw new EpisodeNotFoundException;
         }
         return $result;
@@ -55,7 +56,8 @@ class EpisodeService
      * (Re)propagate episode information
      * @return bool returns false on error
      */
-    public function propagateEpisodes() {
+    public function propagateEpisodes()
+    {
         // Episode seeder (to be extracted into service with command and schedule)
         try {
             $client = new GuzzleHttp\Client();
@@ -79,12 +81,12 @@ class EpisodeService
                 $model->summary = strip_tags($episode['summary']);
 
                 // Grab the images and save if the model does not already exist
-                if(!$model->imageMedium && $episode['image']['medium']) {
-                    $path = $this->saveImage($episode['image']['medium'],$episode['season'], $episode['number'],'medium');
+                if (!$model->imageMedium && $episode['image']['medium']) {
+                    $path = $this->saveImage($episode['image']['medium'], $episode['season'], $episode['number'], 'medium');
                     $model->imageMedium = asset($path);
                 }
                 if (!$model->imageOriginal && $episode['image']['original']) {
-                    $path = $this->saveImage($episode['image']['original'],$episode['season'], $episode['number'],'original');
+                    $path = $this->saveImage($episode['image']['original'], $episode['season'], $episode['number'], 'original');
                     $model->imageOriginal = asset($path);
                 }
 
@@ -92,7 +94,7 @@ class EpisodeService
             }
             return true;
 
-        } catch(GuzzleHttp\Exception\ConnectException $exception) {
+        } catch (GuzzleHttp\Exception\ConnectException $exception) {
             return false;
         }
     }
@@ -108,13 +110,13 @@ class EpisodeService
     protected function saveImage($url, $season, $episode, $size)
     {
         $screenLocation = 'images/episodes/screens';
-        $relPath =  public_path($screenLocation) . '/';
-        $path = 's' . $season . 'e'. $episode . $size . '.'. pathinfo(parse_url($url)['path'], PATHINFO_EXTENSION);
+        $relPath = public_path($screenLocation) . '/';
+        $path = 's' . $season . 'e' . $episode . $size . '.' . pathinfo(parse_url($url)['path'], PATHINFO_EXTENSION);
         File::copy(
             $url,
             $relPath . $path
         );
-        return $screenLocation . '/'. $path;
+        return $screenLocation . '/' . $path;
     }
 
 }

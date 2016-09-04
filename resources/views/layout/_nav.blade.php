@@ -13,7 +13,8 @@
                 <div class="uk-dropdown uk-dropdown-navbar">
                     <ul class="uk-nav uk-nav-navbar">
                         <li>
-                            <a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <a href="{{ url('/logout') }}"
+                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 Logout
                             </a>
                             <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
