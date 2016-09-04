@@ -30,7 +30,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('fsociety:scrapeEpisodeInfo')->daily();
-        $schedule->command('fsociety:fsociety:updateArgLinks')->hourly();
+        $schedule->command('fsociety:updateArgLinks')->hourly();
     }
 
     /**
