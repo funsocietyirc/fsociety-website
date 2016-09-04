@@ -9,8 +9,8 @@ class FetchEpisodeInformation extends Command
 {
 
 
-    protected $signature = 'fsociety:fetchEpisodes';
-    protected $description = 'Fetch episode metadata';
+    protected $signature = 'fsociety:scrapeEpisodeInfo';
+    protected $description = 'Scrape episode metadata';
     protected $episodeService;
 
     /**

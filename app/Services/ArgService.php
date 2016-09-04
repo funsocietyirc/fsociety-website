@@ -48,10 +48,34 @@ class ArgService
         $arg->delete();
     }
 
+    /**
+     * Create a connection between a ARG Link and an Episode
+     * @param ArgTracking $arg
+     * @param int $episodeId
+     */
     public function createConnection(ArgTracking $arg, int $episodeId)
     {
         $connection = new ArgSeasonEpisode();
         $connection->episode_id = Episode::findOrFail($episodeId)->id;
         $arg->connections()->save($connection);
     }
+
+    /*
+     * Check the hash of the url to see if it has changed
+     * This modified the updated_at field and provides us with a last date modified
+     * @param ArgTracking $arg
+     * @return bool true if update false if not
+     */
+    public function updateArgLinkHash(ArgTracking $arg) {
+        $hash = md5(file_get_contents($arg->url));
+        if(!$arg->hash || $arg->hash != $hash) {
+            if(!$arg->hash) {
+                $arg->timestamps = false;
+            }
+            $arg->update(['hash' => $hash]);
+            return true;
+        }
+        return false;
+    }
+
 }

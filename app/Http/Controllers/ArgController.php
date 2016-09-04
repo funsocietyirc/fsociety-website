@@ -25,7 +25,7 @@ class ArgController extends Controller
      */
     public function index()
     {
-        $results = ArgTracking::with(['creator'])->get();
+        $results = ArgTracking::with(['creator'])->orderBy('updated_at','desc')->get();
         return view('arg.index')
             ->with('results', $results);
     }

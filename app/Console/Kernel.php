@@ -4,6 +4,7 @@ namespace Fsociety\Console;
 
 use Fsociety\Console\Commands\ArgScreencap;
 use Fsociety\Console\Commands\FetchEpisodeInformation;
+use Fsociety\Console\Commands\updateArgLinks;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -16,7 +17,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         FetchEpisodeInformation::class,
-        ArgScreencap::class
+        ArgScreencap::class,
+        updateArgLinks::class
     ];
 
     /**
@@ -27,7 +29,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('fsociety:fetchEpisodes')->daily();
+        $schedule->command('fsociety:scrapeEpisodeInfo')->daily();
+        $schedule->command('fsociety:fsociety:updateArgLinks')->hourly();
     }
 
     /**

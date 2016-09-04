@@ -8,7 +8,7 @@ use Illuminate\Console\Command;
 class ArgScreencap extends Command
 {
 
-    protected $signature = 'fsociety:caparg {url}';
+    protected $signature = 'fsociety:screenCapArg {url}';
     protected $description = 'Screen capture a ARG';
     protected $argService;
 

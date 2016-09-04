@@ -38,7 +38,8 @@ class ArgTracking extends Model
         'url',
         'description',
         'user_id',
-        'name'
+        'name',
+        'hash'
     ];
 
     public function sluggable()

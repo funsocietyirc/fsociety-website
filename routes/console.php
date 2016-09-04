@@ -16,7 +16,7 @@ use Symfony\Component\Finder\Finder;
 
 
 // Clean dynamic uploads
-Artisan::command('fsociety:clean-episodes', function() {
+Artisan::command('fsociety:cleanEpisodes', function() {
     $files = Finder::create()
         ->in(public_path('images/arg/tiles'))
         ->in(public_path('images/episodes/screens'))
