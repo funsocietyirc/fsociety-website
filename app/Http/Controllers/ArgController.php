@@ -4,9 +4,13 @@ namespace Fsociety\Http\Controllers;
 
 use Auth;
 use Fsociety\Events\ArgLinkCreatedEvent;
+use Fsociety\Http\Requests\ArgLinkConnectionRequest;
+use Fsociety\Http\Requests\ArgLinkStoreRequest;
+use Fsociety\Http\Requests\ArgLinkUpdateRequest;
 use Fsociety\Listeners\ArgLinkCreatedListener;
 use Fsociety\Models\ArgTracking;
 use Fsociety\Services\ArgService;
+use Fsociety\Services\SiteNotFoundException;
 use Illuminate\Http\Request;
 
 class ArgController extends Controller
@@ -45,27 +49,22 @@ class ArgController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param ArgLinkStoreRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ArgLinkStoreRequest $request)
     {
-        $this->validate($request, [
-            'name' => 'required|max:255',
-            'url' => 'required|url|unique:arg_tracking',
-            'description' => 'max:500'
-        ]);
-        $arg = ArgTracking::create([
-            'user_id' => Auth::user()->id,
-            'name' => trim($request->input('name')),
-            'url' => trim($request->input('url')),
-            'description' => trim($request->input('description'))
-        ]);
-        // Fire the event
-        event(new ArgLinkCreatedEvent($arg, Auth::user()));
-
-        flash('Thank you for sharing');
-
+        try {
+            $this->argService->create(
+                $request->input('name'),
+                $request->input('url'),
+                $request->input('description'),
+                Auth::user()
+            );
+            flash('Thank you for sharing');
+        } catch (SiteNotFoundException $ex) {
+            flash('Something went wrong creating the ARG Link');
+        }
         return redirect()->route('arg.index');
     }
 
@@ -95,25 +94,18 @@ class ArgController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param ArgLinkUpdateRequest|Request $request
      * @param ArgTracking $arg
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ArgTracking $arg)
+    public function update(ArgLinkUpdateRequest $request, ArgTracking $arg)
     {
-        $this->authorize('edit', $arg);
-        $this->validate($request, [
-            'name' => 'required|max:255',
-            'url' => 'required|url',
-            'description' => 'max:500'
-        ]);
-
         $arg->update([
-            'name' => trim($request->input('name')),
-            'url' => trim($request->input('url')),
-            'description' => trim($request->input('description'))
+            'name' => $request->input('name'),
+            'url' => $request->input('url'),
+            'description' => $request->input('description')
         ]);
-
+        flash("{$arg->name} has been updated",'success');
         return redirect()->route('arg.index');
     }
 
@@ -126,9 +118,7 @@ class ArgController extends Controller
     public function destroy(ArgTracking $arg)
     {
         $this->authorize('delete', $arg);
-
         $this->argService->delete($arg);
-
         flash()->overlay('The ARG Link has been Deleted', 'Arg Link');
         return redirect()->route('arg.index');
     }
@@ -147,9 +137,10 @@ class ArgController extends Controller
         return redirect()->route('arg.index');
     }
 
-    public function connect(ArgTracking $arg, Request $request)
+    public function connect(ArgTracking $arg, ArgLinkConnectionRequest $request)
     {
         $this->argService->createConnection($arg, $request->input('episode'));
+        flash("Your connection has been made");
         return redirect()->route('arg.index');
     }
 

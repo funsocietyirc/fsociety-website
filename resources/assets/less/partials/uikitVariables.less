@@ -19,6 +19,8 @@
                                   not supported by any browser */
 }
 
+// Pagination
+
 .fs-pagination {
   border-radius: 100%;
   &:extend(.noselect);
@@ -33,4 +35,21 @@
 .hook-pagination-disabled() {
   &:extend(.fs-pagination);
   cursor:not-allowed;
+}
+
+// ALERTS
+@alert-margin-vertical:                         0;
+@alert-padding:                                 10px;
+@alert-background:                              fade(#ebf7fd,50%);
+@alert-color:                                   fade(#2d7091,50%);
+@alert-success-background:                      fade(#f2fae3,50%);
+@alert-success-color:                           fade(#659f13,50%);
+@alert-warning-background:                      fade(#fffceb,50%);
+@alert-warning-color:                           fade(#e28327,50%);
+@alert-danger-background:                       fade(#fff1f0,50%);
+@alert-danger-color:                            fade(#d85030,50%);
+@alert-large-padding:                           20px;
+
+.uk-alert-info {
+  &:extend(.uk-alert-warning);
 }

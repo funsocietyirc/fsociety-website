@@ -15,22 +15,22 @@
                             <li>
                                 <a title="Create a ARG Link" href="{{ route('arg.create') }}"><i class="uk-icon-plus uk-icon-button"></i></a>
                             </li>
-                            @if($results->count() > 1)
+                            @if($results->links())
                                 <li>
                                     {{ $results->links() }}
                                 </li>
-                            @endif()
+                            @endif
                         </ul>
                     </div>
                 </div>
-                <div class="uk-flex uk-flex-center" >
+                <div class="@if($results->count() > 1) uk-flex @endif uk-flex-center" >
                     <div class="uk-grid uk-grid-match" data-uk-grid-margin>
                         @foreach($results as $result)
                             <article class="arg-item uk-width-large-1-3 uk-width-medium-1-2 uk-grid-match">
                                 <div class="arg-item-content uk-grid-match">
                                     <div class="uk-block uk-cover-background"
                                          style="background:url('@if(File::exists(public_path('images/arg/tiles/'.$result->id.'.png'))) {{asset('images/arg/tiles/' . $result->id .'.png')}} @else {{asset('images/arg/defaultTile.png')}} @endif') ">
-                                        <div class="height-1-1 inner-block uk-height-1-1">
+                                        <div class="inner-block uk-height-1-1">
                                             <h2><a href="{{route('arg.show',$result)}}">{{ title_case($result->name) }}</a></h2>
                                             @include('arg.partials._dlist')
                                             @include('arg.partials._subNav')

@@ -3,6 +3,7 @@ namespace Fsociety\Services;
 
 use Auth;
 use File;
+use Fsociety\Events\ArgLinkCreatedEvent;
 use Fsociety\Events\ArgLinkHashUpdateEvent;
 use Fsociety\Models\ArgSeasonEpisode;
 use Fsociety\Models\ArgTracking;
@@ -63,6 +64,31 @@ class ArgService
         $arg->connections()->save($connection);
     }
 
+    /**
+     * Create a ARG Link
+     * @param string $name
+     * @param string $url
+     * @param string $description
+     * @param User $creator
+     * @return bool
+     * @throws SiteNotFoundException
+     */
+    public function create(string $name, string $url, string $description, User $creator) {
+        $contents = @file_get_contents($url);
+        if(!$contents) {
+            throw new SiteNotFoundException;
+        }
+        $arg = ArgTracking::create([
+            'user_id' => $creator->id,
+            'name' => $name,
+            'url' => $url,
+            'description' => trim($description)
+        ]);
+        // Fire the event
+        event(new ArgLinkCreatedEvent($arg, $creator));
+        return true;
+    }
+
     /*
      * Check the hash of the url to see if it has changed
      * This modified the updated_at field and provides us with a last date modified
@@ -74,7 +100,11 @@ class ArgService
         if($arg->ignoreHash) {
             return false;
         }
-        $hash = md5(file_get_contents($arg->url));
+        $contents = @file_get_contents($arg->url);
+        if(!$contents) {
+            return false;
+        }
+        $hash = md5($contents);
         if(!$arg->hash || $arg->hash != $hash) {
             if(!$arg->hash) {
                 $arg->timestamps = false;
@@ -87,7 +117,10 @@ class ArgService
         return false;
     }
 
-    // Flip the ignore hash bit
+    /**
+     * @param ArgTracking $arg
+     * @return bool
+     */
     public function flipWatchStatus(ArgTracking $arg)
     {
         $arg->timestamps = false;
