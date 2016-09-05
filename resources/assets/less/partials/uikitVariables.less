@@ -9,21 +9,11 @@
 @pagination-hover-color: white;
 @pagination-disabled-background: rgba(218, 2, 0, 0.25);
 
-.noselect {
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none;   /* Chrome/Safari/Opera */
-  -khtml-user-select: none;    /* Konqueror */
-  -moz-user-select: none;      /* Firefox */
-  -ms-user-select: none;       /* Internet Explorer/Edge */
-  user-select: none;           /* Non-prefixed version, currently
-                                  not supported by any browser */
-}
 
 // Pagination
 
 .fs-pagination {
   border-radius: 100%;
-  &:extend(.noselect);
 }
 .hook-pagination-active() {
   &:extend(.fs-pagination);

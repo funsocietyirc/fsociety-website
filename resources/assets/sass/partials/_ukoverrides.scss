@@ -91,7 +91,8 @@
 
 // Master ovverides
 ::selection {
-  background:none;
+  background:transparentize($mrRobotPrimaryColor, 0.5);
+  color:black;
 }
 :focus {
   outline: none;
