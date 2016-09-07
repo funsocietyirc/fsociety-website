@@ -84,12 +84,12 @@ class EpisodeService
                 if (!$model->imageMedium && $episode['image']['medium']) {
                     $path = $this->saveImage($episode['image']['medium'], $episode['season'], $episode['number'],
                         'medium');
-                    $model->imageMedium = asset($path);
+                    $model->imageMedium = $path;
                 }
                 if (!$model->imageOriginal && $episode['image']['original']) {
                     $path = $this->saveImage($episode['image']['original'], $episode['season'], $episode['number'],
                         'original');
-                    $model->imageOriginal = asset($path);
+                    $model->imageOriginal = $path;
                 }
 
                 $model->save();
@@ -111,7 +111,7 @@ class EpisodeService
      */
     protected function saveImage($url, $season, $episode, $size)
     {
-        $screenLocation = 'images/episodes/screens';
+        $screenLocation = '/images/episodes/screens';
         $relPath = public_path($screenLocation) . '/';
         $path = 's' . $season . 'e' . $episode . $size . '.' . pathinfo(parse_url($url)['path'], PATHINFO_EXTENSION);
         File::copy(
