@@ -23,7 +23,6 @@
                         </ul>
                     </div>
                 </div>
-                <div class="@if($results->count() > 1) uk-flex @endif uk-flex-center" >
                     <div class="uk-grid uk-grid-match" data-uk-grid-margin>
                         @foreach($results as $result)
                             <article class="arg-item uk-width-large-1-3 uk-width-medium-1-2 uk-grid-match">
@@ -37,12 +36,11 @@
                                             @include('arg.partials._connectionForm')
                                             <a class="no-link" data-disqus-identifier="{{$result->url}}" href="#"></a>
                                         </div>
-                                    </div>
-                                </div>
-                            </article>
-                        @endforeach
-                    </div>
-                </div>
+                                	</div>
+                        	</div>
+                	</article>
+                	@endforeach
+            	</div>
             </div>
         </div>
     </div>
