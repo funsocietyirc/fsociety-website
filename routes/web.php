@@ -24,6 +24,8 @@ Route::resource('arg', 'ArgController');
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout');
+Route::get('auth/github', 'Auth\GithubController@redirectToProvider');
+Route::get('auth/github/callback', 'Auth\GithubController@handleProviderCallback');
 
 // Registration Routes...
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
@@ -36,6 +38,5 @@ Route::group(['prefix' => 'password'], function () {
     Route::get('reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('form');
     Route::post('reset', 'Auth\ResetPasswordController@reset');
 });
-
 
 

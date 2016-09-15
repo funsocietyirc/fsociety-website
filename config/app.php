@@ -173,6 +173,7 @@ return [
         Silber\Bouncer\BouncerServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Barryvdh\Cors\ServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -233,6 +234,7 @@ return [
         'Bouncer' => Silber\Bouncer\BouncerFacade::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     ],
 
 ];
