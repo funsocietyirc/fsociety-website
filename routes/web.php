@@ -1,12 +1,10 @@
 <?php
+
 // Base Routes
 Route::group(['prefix' => '/'], function () {
-    Route::get('/', function () {
-        return view('index');
-    })->name('home');
-    Route::get('chat', function() {
-        return view('chat');
-    })->name('chat');
+    Route::get('/', 'HomeController@index')->name('home');
+    Route::get('chat', 'HomeController@chat')->name('chat');
+    Route::get('gallery', 'HomeController@gallery')->name('gallery')->middleware('cors');
 });
 // Episode Routes
 Route::group(['prefix' => 'episodes'], function () {

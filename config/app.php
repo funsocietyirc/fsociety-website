@@ -172,6 +172,7 @@ return [
         Cviebrock\EloquentSluggable\ServiceProvider::class,
         Silber\Bouncer\BouncerServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        Barryvdh\Cors\ServiceProvider::class,
 
         /*
          * Application Service Providers...

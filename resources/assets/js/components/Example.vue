@@ -1,23 +1,32 @@
 <template>
     <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Example Component</div>
-
-                    <div class="panel-body">
-                        I'm an example component!
-                    </div>
-                </div>
-            </div>
-        </div>
+        Hello
+        <div class="imageBlock" v-for="image in images"></div>
     </div>
 </template>
-
 <script>
     export default {
+        data() {
+            return {
+                images: []
+            };
+        },
         ready() {
-            console.log('Component ready.')
+            this.fetchImages();
+
+        },
+        methods: {
+            fetchImages() {
+                let images = [];
+                this.$http.get('http://ra.irony.local:8084/images')
+                        .success(function (images) {
+                            console.log(images);
+                            this.$set('images', images);
+                        })
+                        .error(function (err) {
+                            console.log(err);
+                        })
+            }
         }
     }
 </script>
