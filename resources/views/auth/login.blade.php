@@ -7,6 +7,7 @@
                 <div class="uk-width-medium-1-1">
                     <div class="uk-panel uk-panel-header uk-panel-box login">
                         <h3 class="uk-panel-title">Hello Friend</h3>
+                        <p>Note: If you previously signed up, your login name is what ever was before the @ in the email you provided us.</p>
                         <form class="uk-form uk-form-stacked" role="form" method="POST" action="{{ url('/login') }}">
                             {{ csrf_field() }}
 
