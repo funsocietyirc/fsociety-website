@@ -3,14 +3,12 @@
 namespace Fsociety\Http\Controllers;
 
 use Auth;
-use Fsociety\Events\ArgLinkCreatedEvent;
 use Fsociety\Http\Requests\ArgLinkConnectionRequest;
 use Fsociety\Http\Requests\ArgLinkStoreRequest;
 use Fsociety\Http\Requests\ArgLinkUpdateRequest;
-use Fsociety\Listeners\ArgLinkCreatedListener;
 use Fsociety\Models\ArgTracking;
 use Fsociety\Services\ArgService;
-use Fsociety\Services\SiteNotFoundException;
+use Fsociety\Services\Exceptions\SiteNotFoundException;
 use Illuminate\Http\Request;
 
 class ArgController extends Controller
@@ -56,10 +54,7 @@ class ArgController extends Controller
     {
         try {
             $this->argService->create(
-                $request->input('name'),
-                $request->input('url'),
-                $request->input('description'),
-                Auth::user()
+                Auth::user(), $request->input('name'), $request->input('url'), $request->input('description')
             );
             flash('Thank you for sharing');
         } catch (SiteNotFoundException $ex) {

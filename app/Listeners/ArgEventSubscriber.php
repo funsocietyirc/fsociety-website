@@ -31,12 +31,16 @@ class ArgEventSubscriber
         $this->argService->updateArgLinkHash($event->arg);
         // Send Email
         User::all()->each(function($user) use($event) {
+            // User Does not have email
+            if(!$user->email) {
+                return;
+            }
             try {
                 Mail::to($user->email)->send(
                     new ArgLinkUpdatedMail(
                         $event->arg,
                         "{$event->arg->name} has been created.",
-                        "The Alternate Reality Game link has been created by {$event->user->name}."
+                        "The Alternate Reality Game link has been created by {$event->user->nick}."
                     ));
             } catch(\Swift_TransportException $ex) {
                 return;
@@ -50,6 +54,10 @@ class ArgEventSubscriber
      */
     public function onHashUpdated($event) {
         User::all()->each(function ($user) use ($event) {
+            // User does not have email
+            if(!$user->email) {
+                return;
+            }
             try {
                 Mail::to($user->email)->send(
                     new ArgLinkUpdatedMail(

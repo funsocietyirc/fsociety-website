@@ -1,5 +1,5 @@
 <?php
-namespace Fsociety\Services;
+namespace Fsociety\Services\Exceptions;
 
 
 class EpisodeNotFoundException extends \Exception

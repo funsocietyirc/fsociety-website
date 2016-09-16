@@ -9,6 +9,7 @@ use Fsociety\Models\ArgSeasonEpisode;
 use Fsociety\Models\ArgTracking;
 use Fsociety\Models\Episode;
 use Fsociety\Models\User;
+use Fsociety\Services\Exceptions\SiteNotFoundException;
 
 
 class ArgService
@@ -66,14 +67,14 @@ class ArgService
 
     /**
      * Create a ARG Link
+     * @param User $creator
      * @param string $name
      * @param string $url
      * @param string $description
-     * @param User $creator
      * @return bool
      * @throws SiteNotFoundException
      */
-    public function create(string $name, string $url, string $description, User $creator) {
+    public function create(User $creator, string $name, string $url, string $description) {
         $contents = @file_get_contents($url);
         if(!$contents) {
             throw new SiteNotFoundException;

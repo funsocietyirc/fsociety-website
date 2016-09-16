@@ -3,8 +3,8 @@
 namespace Fsociety\Http\Controllers;
 
 use Fsociety\Http\Requests;
-use Fsociety\Services\EpisodeNotFoundException;
 use Fsociety\Services\EpisodeService;
+use Fsociety\Services\Exceptions\EpisodeNotFoundException;
 
 class EpisodeController extends Controller
 {
@@ -19,7 +19,12 @@ class EpisodeController extends Controller
 
     public function index()
     {
-        return view('episodes.index')->with('episodes', $this->episodeService->getEpisodesIndex());
+        try {
+            return view('episodes.index')->with('episodes', $this->episodeService->getEpisodesIndex());
+        } catch (EpisodeNotFoundException $exception) {
+            flash()->overlay('There does not seem to be any Episodes, weiiird...', self::EpisodeNotFoundTitle);
+            return redirect()->route('home');
+        }
     }
 
     public function season($season)

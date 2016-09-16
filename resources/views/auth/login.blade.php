@@ -10,13 +10,13 @@
                         <form class="uk-form uk-form-stacked" role="form" method="POST" action="{{ url('/login') }}">
                             {{ csrf_field() }}
 
-                            <div class="uk-form-row{{ $errors->has('email') ? ' uk-form-danger' : '' }}">
-                                <label for="email" class="uk-form-label">E-Mail</label>
-                                <input class="uk-width-1-1" id="email" type="email" name="email"
-                                       value="{{ old('email') }}" autofocus>
-                                @if ($errors->has('email'))
+                            <div class="uk-form-row{{ $errors->has('nick') ? ' uk-form-danger' : '' }}">
+                                <label for="nick class="uk-form-label">Nick</label>
+                                <input class="uk-width-1-1" id="nick" type="text" name="nick"
+                                       value="{{ old('nick') }}" autofocus>
+                                @if ($errors->has('nick'))
                                     <div class="uk-form-help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        <strong>{{ $errors->first('nick') }}</strong>
                                     </div>
                                 @endif
                             </div>

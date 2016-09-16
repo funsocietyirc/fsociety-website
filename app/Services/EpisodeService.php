@@ -3,6 +3,7 @@ namespace Fsociety\Services;
 
 use File;
 use Fsociety\Models\Episode;
+use Fsociety\Services\Exceptions\EpisodeNotFoundException;
 use GuzzleHttp;
 
 class EpisodeService

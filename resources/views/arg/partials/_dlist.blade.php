@@ -3,7 +3,7 @@ $result = isset($result) ? $result : $arg;
 ?>
 <dl class="uk-description-list-horizontal">
     <dt>Created By</dt>
-    <dd>{{ $result->creator->name }}</dd>
+    <dd>{{ $result->creator->nick }}</dd>
     <dt>Last Modified</dt>
     <dd>{{ $result->updated_at->diffForHumans() }}</dd>
     <dt>URL</dt>

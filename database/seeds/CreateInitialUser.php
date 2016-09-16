@@ -14,7 +14,7 @@ class CreateInitialUser extends Seeder
     {
         // Create user
         User::firstOrCreate([
-            'name'  =>  'IronY',
+            'nick'  =>  'IronY',
             'email' =>  'dave@ir0ny.com',
             'password'  => Hash::make(env('adminUserInitialPass','p@ssw0rd')),
         ]);

@@ -1,6 +1,6 @@
 <?php
 
-namespace Fsociety\Services;
+namespace Fsociety\Services\Exceptions;
 
 use Exception;
 

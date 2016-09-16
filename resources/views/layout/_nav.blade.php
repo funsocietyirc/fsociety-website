@@ -9,7 +9,7 @@
             <li class="{{ isActiveRoute('register') }}"><a href="{{ url('/register') }}">Register</a></li>
         @else
             <li class="uk-parent right-nav" data-uk-dropdown>
-                <a href="">{{ Auth::user()->name }} <i class="uk-icon-caret-down"></i></a>
+                <a href="">{{ Auth::user()->nick }} <i class="uk-icon-caret-down"></i></a>
                 <div class="uk-dropdown uk-dropdown-navbar">
                     <ul class="uk-nav uk-nav-navbar">
                         <li>

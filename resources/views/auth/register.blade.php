@@ -7,22 +7,21 @@
                 <div class="uk-width-medium-1-1">
                     <div class="uk-panel uk-panel-header uk-panel-box login">
                         <h3 class="uk-panel-title">Lets give you a Name</h3>
+                        <p>You are no one without a handle, chose your Nick carefully</p>
                         <form class="uk-form uk-form-stacked" role="form" method="POST" action="{{ url('/register') }}">
                             {{ csrf_field() }}
-
-                            <div class="uk-form-row{{ $errors->has('name') ? ' uk-form-danger' : '' }}">
-                                <label for="name" class="uk-form-label">Handle</label>
-                                <input class="uk-width-1-1" id="name" type="text" name="name"
-                                       value="{{ old('name') }}" autofocus>
-
-                                @if ($errors->has('name'))
+                            <div class="uk-form-row{{ $errors->has('nick') ? ' uk-form-danger' : '' }}">
+                                <label for="nick" class="uk-form-label">Nick</label>
+                                <input class="uk-width-1-1" id="nick" type="text" name="nick"
+                                       value="{{ old('nick') }}" autofocus>
+                                @if ($errors->has('nick'))
                                     <div class="uk-form-help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
+                                        <strong>{{ $errors->first('nick') }}</strong>
                                     </div>
                                 @endif
                             </div>
                             <div class="uk-form-row{{ $errors->has('email') ? ' uk-form-danger' : '' }}">
-                                <label for="email" class="uk-form-label">E-Mail</label>
+                                <label for="email" class="uk-form-label">E-Mail (Optional)</label>
                                 <input class="uk-width-1-1" id="email" type="email" name="email"
                                        value="{{ old('email') }}">
                                 @if ($errors->has('email'))

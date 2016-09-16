@@ -4,6 +4,7 @@ namespace Fsociety\Http\Controllers\Auth;
 
 use Fsociety\Http\Controllers\Controller;
 use Fsociety\Models\User;
+use Fsociety\Services\UserService;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Validator;
 
@@ -29,14 +30,16 @@ class RegisterController extends Controller
      */
     protected $redirectTo = '/';
 
+    protected $userService;
+
     /**
      * Create a new controller instance.
-     *
-     * @return void
+     * @param UserService $userService
      */
-    public function __construct()
+    public function __construct(UserService $userService)
     {
         $this->middleware('guest');
+        $this->userService = $userService;
     }
 
     /**
@@ -47,18 +50,18 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        $valOptions = config('app.env') === 'local' ? [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
+        $valOptions = [
+            'nick' => 'required|max:255|unique:users',
+            'email' => 'email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
-        ] : [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
-            'g-recaptcha-response' => 'required|captcha'
         ];
 
-        return Validator::make($data, $valOptions);
+        if(config('app.env') != 'local') {
+            dd(config('app.env'));
+            array_merge($valOptions, ['g-recaptcha-response' => 'required|captcha']);
+        }
+        $results = Validator::make($data,$valOptions);
+        return $results;
     }
 
     /**
@@ -69,10 +72,6 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+        return $this->userService->createUser($data);
     }
 }

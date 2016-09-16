@@ -31,7 +31,6 @@ class LoginController extends Controller
     /**
      * Create a new controller instance.
      *
-     * @return void
      */
     public function __construct()
     {
@@ -55,7 +54,16 @@ class LoginController extends Controller
             'g-recaptcha-response' => 'required|captcha'
         ];
         $this->validate($request, $valOptions);
+    }
 
+    /**
+     * Get the login username to be used by the controller.
+     *
+     * @return string
+     */
+    public function username()
+    {
+        return 'nick';
     }
 
 }
