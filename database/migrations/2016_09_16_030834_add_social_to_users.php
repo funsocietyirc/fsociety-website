@@ -13,19 +13,13 @@ class AddSocialToUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->renameColumn('name','nick');
             $table->string('email')->nullable()->change();
-            $table->string('nick')->unique()->default(null);
-        });
-        Fsociety\Models\User::all()->each(function(Fsociety\Models\User $user){
-            if(Schema::hasColumn('users','name')) {
-                $user->update(['nick' => $user->name]);
-            }
         });
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('name');
+            $table->string('nick')->unique()->default(null);
         });
     }
-
     /**
      * Reverse the migrations.
      *
@@ -36,7 +30,7 @@ class AddSocialToUsers extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('email')->change();
             $table->dropUnique('users_nick_unique');
-            $table->dropColumn('nick');
+            $table->renameColumn('nick','name');
             $table->string('name');
         });
     }
