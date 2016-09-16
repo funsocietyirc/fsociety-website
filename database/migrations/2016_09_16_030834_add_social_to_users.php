@@ -13,11 +13,10 @@ class AddSocialToUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->dropUnique('users_name_unique');
             $table->renameColumn('name','nick');
+            $table->unique('nick');
             $table->string('email')->nullable()->change();
-        });
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('nick')->unique()->default(null);
         });
     }
     /**
