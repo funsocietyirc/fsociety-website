@@ -14,7 +14,7 @@ class AddSocialToUsers extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('email')->nullable()->change();
-            $table->string('nick')->unique();
+            $table->string('nick')->unique()->default(null);
         });
         Fsociety\Models\User::all()->each(function(Fsociety\Models\User $user){
             if(Schema::hasColumn('users','name')) {
