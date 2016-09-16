@@ -14,6 +14,7 @@ class AddSocialToUsers extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->renameColumn('name','nick');
+            $table->string('nick',25)->change();
             $table->unique('nick');
             $table->string('email')->nullable()->change();
         });
