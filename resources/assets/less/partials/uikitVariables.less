@@ -43,3 +43,13 @@
 .uk-alert-info {
   &:extend(.uk-alert-warning);
 }
+
+// TODO Move to trigger
+.uk-button:disabled {
+  background-color:rgba(0,0,0,0.8);
+  color:grey;
+  &:hover, &:active {
+    background-color:rgba(0,0,0,0.8);
+    cursor: not-allowed;
+  }
+}

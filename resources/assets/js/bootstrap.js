@@ -16,6 +16,9 @@ require('slick-carousel');
 window.Vue = require('vue');
 require('vue-resource');
 
+Vue.use(require('vue-image-loader'));
+
+
 Vue.http.interceptors.push((request, next) => {
     request.headers['X-CSRF-TOKEN'] = Laravel.csrfToken;
     next();

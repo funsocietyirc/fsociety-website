@@ -8,6 +8,7 @@
 
                     <div class="uk-panel uk-panel-header uk-panel-box login">
                         <h3 class="uk-panel-title">I promise I wont lie</h3>
+                        <p>If you did not provide us with an Email address, there is not much we can do.</p>
                         @if (session('status'))
                             <div class="uk-alert uk-alert-success" data-uk-alert>
                                 <a href="" class="uk-alert-close uk-close"></a>
@@ -33,7 +34,6 @@
                                     </div>
                                 @endif
                             </div>
-
                             <div class="uk-form-row">
                                 <button type="submit" class="uk-button uk-button-success uk-width-1-1">
                                     Send Password Reset Link

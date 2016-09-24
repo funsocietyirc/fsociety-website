@@ -7,3 +7,6 @@
 <li class="{{ isActiveRoute('chat')}}">
     <a href="{{route('chat')}}">Chat</a>
 </li>
+<li class="{{ isActiveRoute('gallery')}}">
+    <a href="{{route('gallery')}}">Gallery</a>
+</li>

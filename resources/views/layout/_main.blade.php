@@ -10,6 +10,7 @@
     <link rel="stylesheet" href={{elixir('css/uikit.css')}}>
     <link rel="stylesheet" href={{elixir('css/app.css')}}>
     @yield('head-style')
+    @yield('head-script')
     <title>FSociety - @yield('title')</title>
 </head>
 <body class="@if(isset($fullHeight))uk-height-1-1 @endif">
