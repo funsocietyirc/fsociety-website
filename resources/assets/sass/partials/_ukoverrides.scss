@@ -110,3 +110,10 @@
 .uk-thumbnail {
   border: 1px solid $mrRobotPrimaryColor;
 }
+
+.uk-navbar-content, .uk-navbar-brand, .uk-navbar-toggle {
+  padding: 0 10px;
+}
+.uk-navbar-nav > li > a {
+  padding: 0 14px;
+}

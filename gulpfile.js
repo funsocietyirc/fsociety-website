@@ -22,6 +22,6 @@ elixir(mix => {
         .webpack('vue.js')
         .less('uk.less','public/css/uikit.css')
         .version([
-            'css/app.css','css/uikit.css','js/app.js','js/vu.js'
+            'css/app.css','css/uikit.css','js/app.js','js/vue.js'
         ]);
 });

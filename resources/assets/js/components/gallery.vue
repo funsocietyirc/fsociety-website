@@ -1,19 +1,25 @@
-<template>
+<template xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
     <div class="gallery-container">
         <div id="image-modal" class="uk-modal" data-uk-modal="{center:true}" style="position:fixed" >
             <div class="uk-modal-dialog uk-modal-dialog-lightbox  uk-modal-dialog-large uk-text-center">
                 <a href="" class="uk-modal-close uk-close uk-close-alt gallery-close-alt"></a>
-                <img v-bind:src="activeImage" alt="">
+                <img v-bind:src="activeImage" v-bind:alt="activeImage">
             </div>
         </div>
         <div class="uk-grid">
             <div class="uk-width-large-1-6">
                 <div id="options-panel" class="uk-panel uk-panel-header">
                     <h3 class="uk-panel-title">0ptions</h3>
-                    <i v-on:click="refresh()" class="uk-button uk-button-success uk-width-1-1">Refresh</i>
+                    <i v-on:click="refresh()" class="uk-button uk-button-success uk-width-1-1 uk-margin-small-bottom">Refresh</i>
+                    <i v-on:click="toggleFullMode()" class="uk-button uk-button-success uk-width-1-1 uk-margin-small-bottom">Full Mode</i>
                 </div>
             </div>
-            <div class="uk-width-large-5-6" data-uk-observe>
+
+            <div v-show="fullMode" class="uk-width-large-5-6" transition="fade">
+                Hello Moto
+            </div>
+
+            <div v-show="!fullMode" class="uk-width-large-5-6" data-uk-observe transition="fade">
                     <ul id="gallery" class="uk-grid uk-grid-match" data-uk-grid data-uk-grid-margin>
                         <li class="uk-width-large-6-6">
                             <i class="uk-icon-arrow-left uk-icon-large uk-icon-hover uk-width-2-6 uk-margin-small-bottom" style="text-align:right;" v-on:click="prevPage()" :disabled="page == 1"></i>
@@ -32,6 +38,7 @@
                         </li>
                     </ul>
             </div>
+
         </div>
 
     </div>
@@ -73,7 +80,7 @@
                 channels: [],
                 activeImage: '',
                 scrollToTop:0,
-
+                fullMode: false
             };
         },
         components: {
@@ -112,6 +119,7 @@
                     this.$set('page', result.page);
                     this.$set('pageSize', result.pageSize);
                     this.$set('images', result.results);
+                    this.$set('activeImage', result.results[0].url);
                     this.$nextTick(function () {
                         $('#gallery').trigger('display.uk.check');
                     });
@@ -140,6 +148,9 @@
                     modal.show();
                 }
             },
+            toggleFullMode: function () {
+                this.$set('fullMode', !this.fullMode);
+            }
         }
     }
 </script>
