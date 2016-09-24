@@ -102,7 +102,7 @@
                 });
             },
             nextPage: function() {
-                if(this.page <= this.pageCount) {
+                if(this.page != this.pageCount) {
                     this.fetchImages(this.page + 1);
                 }
             },
