@@ -97,3 +97,16 @@
 :focus {
   outline: none;
 }
+
+
+// Panel
+.uk-panel-header .uk-panel-title {
+  color: white;
+  border-bottom: 1px solid $mrRobotPrimaryColor;
+}
+
+
+// Thumbnail
+.uk-thumbnail {
+  border: 1px solid $mrRobotPrimaryColor;
+}
