@@ -57,9 +57,9 @@ class RegisterController extends Controller
         ];
 
         if(config('app.env') != 'local') {
-            dd(config('app.env'));
             array_merge($valOptions, ['g-recaptcha-response' => 'required|captcha']);
         }
+
         $results = Validator::make($data,$valOptions);
         return $results;
     }
