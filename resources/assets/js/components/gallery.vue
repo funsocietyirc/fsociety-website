@@ -96,8 +96,7 @@
     }
 </style>
 <script>
-    // const apiRoute = 'https://bot.fsociety.guru/api/';
-    const apiRoute = 'http://bot/api/';
+    const apiRoute = 'https://bot.fsociety.guru/api/';
     const initialPageSize = 12;
 
     const imageTemplate = {
