@@ -96,7 +96,7 @@
     }
 </style>
 <script>
-    const apiRoute = 'https://bot.fsociety.guru/api/';
+    const apiRoute = 'http://bot.irony.local/api/';
     const initialPageSize = 12;
 
     const imageTemplate = {
@@ -167,10 +167,24 @@
         },
         components: {},
         created(){
+            let self = this;
             $('footer').detach(); // Remove the footer
             this.fetchImages(); // Fetch the images
             this.fetchData();
             this.initModal(); // Init the modal
+            let channel = socket.subscribe('public');
+            channel.bind('image', (data) => {
+                if(self.activeDisplay.nick && self.activeDisplay.nick != data.from) {
+                    return;
+                }
+                if(self.activeDisplay.channel && self.activeDisplay.channel != data.to) {
+                    return;
+                }
+                self.images.unshift(data);
+                self.$nextTick(function () {
+                    $('#gallery').trigger('display.uk.check');
+                });
+            });
         },
         methods: {
             initModal: function () {

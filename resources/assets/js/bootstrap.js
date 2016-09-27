@@ -6,7 +6,7 @@ window._ = require('lodash');
  * code may be modified to fit the specific needs of your application.
  */
 
-const $ = jQuery = global.$ = global.jQuery = window.$ = window.jQuery = require('jquery');
+const $ = jQuery = window.$ = window.jQuery = require('jquery');
 
 require('jquery-ujs');
 require('uikit');
@@ -17,9 +17,10 @@ window.Vue = require('vue');
 require('vue-resource');
 Vue.use(require('vue-image-loader'));
 
+const token = document.querySelector("meta[name='csrf-token']").getAttribute('content');
 
 Vue.http.interceptors.push((request, next) => {
-    request.headers['X-CSRF-TOKEN'] = Laravel.csrfToken;
+    request.headers['X-CSRF-TOKEN'] = token;
     next();
 });
 
@@ -30,8 +31,16 @@ Vue.http.interceptors.push((request, next) => {
  */
 
 // import Echo from "laravel-echo"
-
+//
 // window.Echo = new Echo({
 //     broadcaster: 'pusher',
-//     key: 'your-pusher-key'
+//     key: '9d0bcd17badf5ab7cc79'
 // });
+const Pusher = require('pusher-js');
+window.socket = new Pusher('9d0bcd17badf5ab7cc79', {
+    encrypted: true,
+    auth: {
+        headers: { "X-CSRF-Token": token }
+    }
+});
+window.socket.logToConsole = true;

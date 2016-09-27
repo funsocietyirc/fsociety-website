@@ -12,7 +12,6 @@ require('laravel-elixir-vue');
  | file for our application, as well as publishing vendor resources.
  |
  */
-
 elixir(mix => {
     mix.sass('app.scss','public/css/app.css')
         .copy('node_modules/uikit/dist/fonts','public/fonts')
