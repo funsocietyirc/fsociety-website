@@ -25,6 +25,7 @@
     "typed.js": "^1.1.1",
     "uikit": "^2.27.1",
     "vue-animate": "0.0.4",
-    "vue-image-loader": "^1.0.4"
+    "vue-image-loader": "^1.0.4",
+    "vue-router": "^0.7.13"
   }
 }

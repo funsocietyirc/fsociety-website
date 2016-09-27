@@ -14,6 +14,10 @@ class HomeController extends Controller
         return view('gallery');
     }
 
+    public function links() {
+        return view('links');
+    }
+
     public function chat()
     {
         return view('chat');

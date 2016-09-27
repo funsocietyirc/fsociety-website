@@ -14,6 +14,7 @@ require('typed.js');
 require('slick-carousel');
 
 window.Vue = require('vue');
+
 require('vue-resource');
 Vue.use(require('vue-image-loader'));
 

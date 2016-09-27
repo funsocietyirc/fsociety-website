@@ -8,5 +8,8 @@
     <a href="{{route('chat')}}">Chat</a>
 </li>
 <li class="{{ isActiveRoute('gallery')}}">
-    <a href="{{route('gallery')}}">Gallery</a>
+    <a href="{{route('gallery')}}">IRC Gallery</a>
+</li>
+<li class="{{ isActiveRoute('links')}}">
+    <a href="{{route('links')}}">IRC Links</a>
 </li>

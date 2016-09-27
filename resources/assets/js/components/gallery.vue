@@ -1,12 +1,15 @@
 <template xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
     <div class="gallery-container">
+
         <div id="image-modal" class="uk-modal" data-uk-modal="{center:true}" style="position:fixed">
             <div class="uk-modal-dialog uk-modal-dialog-lightbox  uk-modal-dialog-large uk-text-center">
                 <a href="" class="uk-modal-close uk-close uk-close-alt gallery-close-alt"></a>
-                <img v-bind:src="activeImage.url || ''" v-bind:alt="activeImage.url">
+                <img src="#" v-bind:src="activeImage.url || ''" v-bind:alt="activeImage.url">
             </div>
         </div>
+
         <div class="uk-grid">
+
             <div class="uk-width-large-1-6">
                 <div id="options-panel" class="uk-panel uk-panel-header">
                     <h3 class="uk-panel-title">0ptions</h3>
@@ -21,7 +24,7 @@
                         <div class="uk-form-row">
                             <label class="uk-form-label" for="selectedNick">Nick</label>
                             <select class="uk-form-controls uk-width-1-1" id="selectedNick" v-model="selectedNick">
-                                <option vallue="$all" selected>All Nicks</option>
+                                <option value="$all" selected>All Nicks</option>
                                 <option v-for="nick in availableNicks" v-bind:value="nick">{{nick | capitalize}}
                                 </option>
                             </select>
@@ -167,26 +170,29 @@
         },
         components: {},
         created(){
-            let self = this;
-            $('footer').detach(); // Remove the footer
-            this.fetchImages(); // Fetch the images
+            $('footer').detach();
+            this.fetchImages();
             this.fetchData();
-            this.initModal(); // Init the modal
-            let channel = socket.subscribe('public');
-            channel.bind('image', (data) => {
-                if(self.activeDisplay.nick && self.activeDisplay.nick != data.from) {
-                    return;
-                }
-                if(self.activeDisplay.channel && self.activeDisplay.channel != data.to) {
-                    return;
-                }
-                self.images.unshift(data);
-                self.$nextTick(function () {
-                    $('#gallery').trigger('display.uk.check');
-                });
-            });
+            this.initModal();
+            this.initPusher();
         },
         methods: {
+            initPusher: function () {
+                let self = this;
+                let channel = socket.subscribe('public');
+                channel.bind('image', (data) => {
+                    if(self.activeDisplay.nick && self.activeDisplay.nick != data.from) {
+                        return;
+                    }
+                    if(self.activeDisplay.channel && self.activeDisplay.channel != data.to) {
+                        return;
+                    }
+                    self.images.unshift(data);
+                    self.$nextTick(function () {
+                        $('#gallery').trigger('display.uk.check');
+                    });
+                });
+            },
             initModal: function () {
                 let modal = $('#image-modal');
                 window.UIkit.modal(modal).on({

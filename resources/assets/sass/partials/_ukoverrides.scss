@@ -111,9 +111,15 @@
   border: 1px solid $mrRobotPrimaryColor;
 }
 
+// Navbar
 .uk-navbar-content, .uk-navbar-brand, .uk-navbar-toggle {
   padding: 0 10px;
 }
 .uk-navbar-nav > li > a {
   padding: 0 14px;
+}
+
+// Table
+.uk-table-striped tbody tr:nth-of-type(odd) {
+  background: rgba(245, 245, 245,0.1);
 }
