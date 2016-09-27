@@ -96,7 +96,7 @@
     }
 </style>
 <script>
-    const apiRoute = 'http://bot.irony.local/api/';
+    const apiRoute = 'https://bot.fsociety.guru/api/';
     const initialPageSize = 12;
 
     const imageTemplate = {
