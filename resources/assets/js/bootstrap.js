@@ -44,4 +44,3 @@ window.socket = new Pusher('9d0bcd17badf5ab7cc79', {
         headers: { "X-CSRF-Token": token }
     }
 });
-window.socket.logToConsole = true;

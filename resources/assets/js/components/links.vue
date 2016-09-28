@@ -47,7 +47,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr transition="fade" :data="data" v-for="result in data | filterBy searchText in 'from' 'to'">
+                            <tr transition="fade" :data="data" v-for="result in data | exactFilterBy searchText in 'from' 'to'">
                                 <td class="to uk-width-1-6">{{result.to}}</td>
                                 <td class="from uk-width-1-6">{{result.from}}</td>
                                 <td class="url uk-width-4-6"><a target="_blank" v-bind:href="result.url">{{result.url}}</a></td>
@@ -78,7 +78,12 @@
     }
 </style>
 <script>
+    // API route
     const apiRoute = 'https://bot.fsociety.guru/api/urls?pageSize=100';
+
+    // Custom Filter
+    Vue.filter('exactFilterBy', (array, needle, inKeyword, key, key2)  => array.filter( item => item[key].toLowerCase() == needle.toLowerCase() | item[key2].toLowerCase() == needle.toLowerCase()));
+
     export default{
         data(){
             return{
