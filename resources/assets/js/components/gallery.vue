@@ -55,7 +55,7 @@
                         <i class="uk-icon-arrow-right uk-icon-large uk-icon-hover uk-width-2-6 uk-margin-small-bottom"
                            v-on:click="nextPage()" :disabled="page == pageCount"></i>
                     </li>
-                    <li v-for="image in images" class="uk-width-large-1-6">
+                    <li v-for="image in images" class="uk-width-large-1-6 uk-width-medium-1-4 uk-width-small-1-3">
                         <div class="image-border-overlay">
                             <div class="uk-thumbnail gallery-image">
                                 <a href="#" v-on:click="displayImage(image)"
@@ -101,6 +101,10 @@
     }
     .image-overlay {
         padding: 2px 5px;
+    }
+    .image {
+        height: 150px;
+        object-fit: cover;
     }
     .uk-thumbnail {
         border:none;
