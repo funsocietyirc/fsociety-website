@@ -10,7 +10,7 @@
                     <table class="uk-table">
                         <thead>
                         <tr>
-                            <th>Channels</th>
+                            <th>Last 25 channels</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -24,7 +24,7 @@
                     <table class="uk-table">
                         <thead>
                         <tr>
-                            <th>Nicks</th>
+                            <th>Last 10 Nicks</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -47,7 +47,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr transition="fade" :data="data" v-for="result in data | exactFilterBy searchText in 'from' 'to'">
+                            <tr transition="fade" :data="data" v-for="result in resultSet | exactFilterBy searchText in 'from' 'to'">
                                 <td class="to uk-width-1-6">{{result.to}}</td>
                                 <td class="from uk-width-1-6">{{result.from}}</td>
                                 <td class="url uk-width-4-6"><a target="_blank" v-bind:href="result.url">{{result.url}}</a></td>
@@ -94,19 +94,24 @@
             }
         },
         created(){
+            $('footer').detach();
             this.searchText = window.activeSearch;
-
             this.fetchData();
             this.initPusher();
         },
+        computed: {
+          resultSet: function() {
+              return this.data;
+              //return _.take(this.data,25);
+          }
+        },
         watch: {
           data: function (val, oldVal) {
+              let to = _(val).map('to').uniq().take(25).value();
+              let from = _(val).map('from').uniq().take(10).value();
 
-              let to = _.map(val, 'to');
-              let from = _.map(val, 'from');
-
-              this.$set('to', _.uniq(to));
-              this.$set('from', _.uniq(from));
+              this.$set('to', to);
+              this.$set('from', from);
           }
         },
         methods: {
