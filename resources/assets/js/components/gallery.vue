@@ -67,7 +67,7 @@
                                 <div class="uk-grid">
                                     <div class="uk-width-1-2">From</div>
                                     <div class="uk-width-1-2">To</div>
-                                    <div class="uk-width-1-2 from uk-text-truncate">{{image.from}}</div>
+                                    <div class="uk-width-1-2 from">{{image.from}}</div>
                                     <div class="uk-width-1-2 to uk-text-truncate">{{image.to}}</div>
                                 </div>
                             </div>

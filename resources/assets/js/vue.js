@@ -1,5 +1,6 @@
 const vue = require('vue');
 const vueLazyLoad = require('vue-lazyload');
+const vueFilter = require('vue-filter');
 
 window.onload = () => {
     // Vue
@@ -12,6 +13,9 @@ window.onload = () => {
         loading: '/images/gallery-loader.gif',
         attempt: 1
     });
+
+    // Vue Filters
+    Vue.use(vueFilter);
 
     // Vue resource
     require('vue-resource');

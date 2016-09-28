@@ -48,13 +48,19 @@
                         <th>To</th>
                         <th>From</th>
                         <th>URL</th>
+                        <th>Timestamp</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-bind:data-url="result.url" v-for="result in resultSet | exactFilterBy searchText in 'from' 'to'">
+                    <tr v-bind:data-timestamp="result.timestamp" v-for="result in resultSet | exactFilterBy searchText in 'from' 'to'">
                         <td class="to uk-width-1-6 clickable" @click="updateFilter(result.to)">{{result.to}}</td>
                         <td class="from uk-width-1-6 clickable" @click="updateFilter(result.from)">{{result.from}}</td>
-                        <td class="url uk-width-4-6 uk-text-truncate"><a target="_blank" v-bind:href="result.url">{{result.url}}</a></td>
+                        <td class="url uk-width-3-6">
+                            <a target="_blank" v-bind:href="result.url">
+                                {{result.url}}
+                            </a>
+                        </td>
+                        <td class="uk-width-1-6">{{result.timestamp | date "%D %r"}}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -142,9 +148,10 @@
                 let self = this;
                 let channel = socket.subscribe('public');
                 channel.bind('url', (data) => {
+                    data.timestamp = Date.now();
                     self.data.unshift(data);
                     self.$nextTick(function () {
-                        let element = $('#linkTable').find("[data-url='" + data.url + "']");
+                        let element = $('#linkTable').find("[data-timestamp='" + data.timestamp + "']");
                         let navBar = $('#navBar');
                         let to = navBar.find("[data-to='" + data.to + "']");
                         let from = navBar.find("[data-from='" + data.from + "']");
