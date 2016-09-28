@@ -82,7 +82,7 @@
     const apiRoute = 'https://bot.fsociety.guru/api/urls?pageSize=100';
 
     // Custom Filter
-    Vue.filter('exactFilterBy', (array, needle, inKeyword, key, key2)  => array.filter( item => item[key].toLowerCase() == needle.toLowerCase() | item[key2].toLowerCase() == needle.toLowerCase()));
+    Vue.filter('exactFilterBy', (array, needle, inKeyword, key, key2)  => array.filter( item => needle === '' || item[key].toLowerCase() == needle.toLowerCase() || item[key2].toLowerCase() == needle.toLowerCase()));
 
     export default{
         data(){
