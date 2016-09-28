@@ -1,9 +1,11 @@
+const vue = require('vue');
+const vueLazyLoad = require('vue-lazyload');
+
 window.onload = () => {
     // Vue
-    window.Vue = require('vue');
+    window.Vue = vue;
 
     // Vue  image loader
-    const vueLazyLoad = require('vue-lazyload');
     Vue.use(vueLazyLoad, {
         preLoad: 1.3,
         error: '/images/gallery-error.jpg',

@@ -159,7 +159,7 @@
             return dataTemplate;
         },
         computed: {
-            totalPages: function () { return (Math.round(this.rowCount / initialPageSize) || 1) }
+            totalPages: function () { return (Math.round(this.rowCount / this.pageSize) || 1) }
         },
         watch: {
             'selectedNick': function (val, oldVal) {
