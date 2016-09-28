@@ -43,7 +43,7 @@
             </div>
 
             <div v-show="!fullMode" class="uk-width-large-5-6" data-uk-observe>
-                <ul id="gallery" class="uk-grid uk-grid-match" data-uk-grid data-uk-grid-margin>
+                <ul id="gallery" class="uk-grid uk-margin-bottom uk-grid-match" data-uk-grid data-uk-grid-margin>
                     <li class="uk-width-large-6-6 ">
                         <hr class="uk-visible-small">
                         <i class="uk-icon-arrow-left uk-icon-large uk-icon-hover uk-width-2-6 uk-margin-small-bottom"

@@ -40,23 +40,25 @@
                 </button>
             </div>
         </div>
-        <div class="uk-width-large-8-10 clear-div">
-            <table id="linkTable" class="uk-table uk-table-striped uk-table-condensed uk-margin-top uk-margin-bottom">
-                <thead>
-                <tr>
-                    <th>To</th>
-                    <th>From</th>
-                    <th>URL</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-bind:data-url="result.url" v-for="result in resultSet | exactFilterBy searchText in 'from' 'to'">
-                    <td class="to uk-width-1-6 clickable" @click="updateFilter(result.to)">{{result.to}}</td>
-                    <td class="from uk-width-1-6 clickable" @click="updateFilter(result.from)">{{result.from}}</td>
-                    <td class="url uk-width-4-6"><a target="_blank" v-bind:href="result.url">{{result.url}}</a></td>
-                </tr>
-                </tbody>
-            </table>
+        <div class="uk-width-large-8-10">
+            <div class="uk-overflow-container">
+                <table id="linkTable" class="uk-table uk-table-striped uk-table-condensed uk-margin-top uk-margin-bottom">
+                    <thead>
+                    <tr>
+                        <th>To</th>
+                        <th>From</th>
+                        <th>URL</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-bind:data-url="result.url" v-for="result in resultSet | exactFilterBy searchText in 'from' 'to'">
+                        <td class="to uk-width-1-6 clickable" @click="updateFilter(result.to)">{{result.to}}</td>
+                        <td class="from uk-width-1-6 clickable" @click="updateFilter(result.from)">{{result.from}}</td>
+                        <td class="url uk-width-4-6 uk-text-truncate"><a target="_blank" v-bind:href="result.url">{{result.url}}</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </template>
