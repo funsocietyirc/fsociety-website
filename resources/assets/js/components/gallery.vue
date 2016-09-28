@@ -56,18 +56,20 @@
                            v-on:click="nextPage()" :disabled="page == pageCount"></i>
                     </li>
                     <li v-for="image in images" class="uk-width-large-1-6">
-                        <div class="uk-thumbnail gallery-image">
-                            <a href="#" v-on:click="displayImage(image)"
-                               style="display:block !important;margin:auto !important;">
-                                <image-loader v-bind:src="image.url" class="image"></image-loader>
-                            </a>
-                        </div>
-                        <div class="image-overlay">
-                            <div class="uk-grid">
-                                <div class="uk-width-1-2">From</div>
-                                <div class="uk-width-1-2">To</div>
-                                <div class="uk-width-1-2 from uk-text-truncate">{{image.from}}</div>
-                                <div class="uk-width-1-2 to uk-text-truncate">{{image.to}}</div>
+                        <div class="image-border-overlay">
+                            <div class="uk-thumbnail gallery-image">
+                                <a href="#" v-on:click="displayImage(image)"
+                                   style="display:block !important;margin:auto !important;">
+                                    <img v-lazy="image.url" class="image">
+                                </a>
+                            </div>
+                            <div class="image-overlay">
+                                <div class="uk-grid">
+                                    <div class="uk-width-1-2">From</div>
+                                    <div class="uk-width-1-2">To</div>
+                                    <div class="uk-width-1-2 from uk-text-truncate">{{image.from}}</div>
+                                    <div class="uk-width-1-2 to uk-text-truncate">{{image.to}}</div>
+                                </div>
                             </div>
                         </div>
                     </li>
@@ -85,9 +87,6 @@
     .gallery-container {
         margin: 20px 10px;
     }
-    .uk-thumbnail {
-        background: rgba(0, 0, 0, 0.8);
-    }
     .gallery-image {
         display: -ms-flexbox;
         display: -webkit-flex;
@@ -101,14 +100,27 @@
         padding: 10px;
     }
     .image-overlay {
-        padding: 4px;
-        position: relative;
-        bottom:0;
-        width:100%;
-        background: rgba(0,0,0,0.8);
+        padding: 2px 5px;
+    }
+    .uk-thumbnail {
+        border:none;
+        background: rgba(244,244,244,0.1);
+    }
+    .image-border-overlay {
+        border: 1px solid #D12026;
+        background: rgba(0, 0, 0, 0.8);
     }
 </style>
 <script>
+    // Vue  image loader
+    const vueLazyLoad = require('vue-lazyload');
+    Vue.use(vueLazyLoad, {
+        preLoad: 1.3,
+        error: '/images/gallery-error.jpg',
+        loading: '/images/gallery-loader.gif',
+        attempt: 1
+    });
+
     const apiRoute = 'https://bot.fsociety.guru/api/';
     const initialPageSize = 12;
 

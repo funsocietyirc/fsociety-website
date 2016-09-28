@@ -22,9 +22,6 @@ window.Vue = require('vue');
 // Vue resource
 require('vue-resource');
 
-// Vue  image loader
-Vue.use(require('vue-image-loader'));
-
 // Vue X-CSRF-TOKEN
 Vue.http.interceptors.push((request, next) => {
     request.headers['X-CSRF-TOKEN'] = token;
