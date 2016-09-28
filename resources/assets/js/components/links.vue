@@ -49,7 +49,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr transition="fadeDown" :data="data" v-for="result in resultSet | exactFilterBy searchText in 'from' 'to'">
+                            <tr v-bind:data-url="result.url" v-for="result in resultSet | exactFilterBy searchText in 'from' 'to'">
                                 <td class="to uk-width-1-6 clickable" @click="updateFilter(result.to)">{{result.to}}</td>
                                 <td class="from uk-width-1-6 clickable" @click="updateFilter(result.from)">{{result.from}}</td>
                                 <td class="url uk-width-4-6"><a target="_blank" v-bind:href="result.url">{{result.url}}</a></td>
@@ -78,6 +78,10 @@
     .currentSearch {
         background:rgba(245,245,245,0.1);
     }
+    .new {
+        background-color: rgba(54, 168, 21, 0.3) !important;
+        transition: all 1s linear;
+    }
 </style>
 <script>
     // API route
@@ -104,7 +108,6 @@
         computed: {
           resultSet: function() {
               return this.data;
-              //return _.take(this.data,25);
           }
         },
         watch: {
@@ -140,6 +143,13 @@
                 let channel = socket.subscribe('public');
                 channel.bind('url', (data) => {
                     self.data.unshift(data);
+                    self.$nextTick(function () {
+                       let element = $('#linkTable').find("[data-url='"+ data.url +"']");
+                       element.addClass('new');
+                        setTimeout(function () {
+                            element.removeClass('new');
+                        },5000);
+                    });
                 });
             }
         },
