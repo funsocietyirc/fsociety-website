@@ -116,15 +116,6 @@
     }
 </style>
 <script>
-    // Vue  image loader
-    const vueLazyLoad = require('vue-lazyload');
-    Vue.use(vueLazyLoad, {
-        preLoad: 1.3,
-        error: '/images/gallery-error.jpg',
-        loading: '/images/gallery-loader.gif',
-        attempt: 1
-    });
-
     const apiRoute = 'https://bot.fsociety.guru/api/';
     const initialPageSize = 18;
 
