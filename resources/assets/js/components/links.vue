@@ -5,9 +5,8 @@
                 <h1>{{searchText || 'All Links'}}</h1>
             </div>
         </div>
-        <div class="uk-width-2-10">
-            <div class="uk-container uk-margin-top">
-                <table class="uk-table">
+        <div id="navBar" class="uk-width-large-2-10">
+                <table class="uk-table uk-table-condensed uk-margin-top">
                     <thead>
                     <tr>
                         <th>Last 25 channels</th>
@@ -16,22 +15,22 @@
                     <tbody>
                     <tr transition="fade" v-bind:class="{ 'currentSearch': isActiveSearch(result) }"
                         v-for="result in to">
-                        <td class="to clickable" @click="updateFilter(result)">
+                        <td v-bind:data-to="result" class="to clickable" @click="updateFilter(result)">
                             {{result}}
                         </td>
                     </tr>
                     </tbody>
                 </table>
-                <table class="uk-table">
+                <table class="uk-table uk-table-condensed">
                     <thead>
                     <tr>
-                        <th>Last 10 Nicks</th>
+                        <th>Last 20 Nicks</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr transition="fade" v-bind:class="{ 'currentSearch': isActiveSearch(result) }"
                         v-for="result in from">
-                        <td class="from clickable" @click="updateFilter(result)">
+                        <td v-bind:data-from="result" class="from clickable" @click="updateFilter(result)">
                             {{result}}
                         </td>
                     </tr>
@@ -41,9 +40,8 @@
                 <button transition="fadeDown" v-show="searchText" class="uk-btn uk-width-1-1" @click="updateFilter('')">
                     Clear
                 </button>
-            </div>
         </div>
-        <div class="uk-width-8-10">
+        <div class="uk-width-large-8-10">
             <table id="linkTable" class="uk-table uk-table-striped uk-table-condensed uk-margin-top uk-margin-bottom">
                 <thead>
                 <tr>
@@ -123,7 +121,7 @@
         watch: {
             data: function (val, oldVal) {
                 let to = _(val).map('to').uniq().take(25).value();
-                let from = _(val).map('from').uniq().take(10).value();
+                let from = _(val).map('from').uniq().take(20).value();
 
                 this.$set('to', to);
                 this.$set('from', from);
@@ -155,9 +153,16 @@
                     self.data.unshift(data);
                     self.$nextTick(function () {
                         let element = $('#linkTable').find("[data-url='" + data.url + "']");
+                        let navBar = $('#navBar');
+                        let to = navBar.find("[data-to='" + data.to + "']");
+                        let from = navBar.find("[data-from='" + data.from + "']");
                         element.addClass('new');
+                        to.addClass('new');
+                        from.addClass('new');
                         setTimeout(function () {
                             element.removeClass('new');
+                            to.removeClass('new');
+                            from.removeClass('new');
                         }, 5000);
                     });
                 });
