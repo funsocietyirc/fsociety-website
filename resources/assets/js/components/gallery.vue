@@ -50,7 +50,7 @@
                            style="text-align:right;" v-on:click="prevPage()" :disabled="page == 1"></i>
                         <div class="uk-width-2-6 uk-text-center">
                             <h1 class="uk-text-center ">{{activeDisplay.nick || activeDisplay.channel || 'All Images'}}</h1>
-                            <p>Page {{page}} out of {{pageCount}}</p>
+                            <p>Page {{page}} out of {{totalPages}}</p>
                         </div>
                         <i class="uk-icon-arrow-right uk-icon-large uk-icon-hover uk-width-2-6 uk-margin-small-bottom"
                            v-on:click="nextPage()" :disabled="page == pageCount"></i>
@@ -126,7 +126,7 @@
     });
 
     const apiRoute = 'https://bot.fsociety.guru/api/';
-    const initialPageSize = 12;
+    const initialPageSize = 18;
 
     const imageTemplate = {
         url: '',
@@ -167,11 +167,16 @@
         data(){
             return dataTemplate;
         },
+        computed: {
+            totalPages: function () { return (Math.round(this.rowCount / initialPageSize) || 1) }
+        },
         watch: {
             'selectedNick': function (val, oldVal) {
                 if(!oldVal) {
                     return;
                 }
+                val = val === '$all' ? null : val;
+
 
                 this.$set('activeDisplay', {
                     nick: val,
@@ -282,7 +287,7 @@
                 this.fetchImages(1);
             },
             nextPage: function () {
-                if (this.page != this.pageCount) {
+                if (this.page != this.totalPages) {
                     this.fetchImages(this.page + 1);
                 }
             },
