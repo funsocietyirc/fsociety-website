@@ -2,14 +2,14 @@
     <a href="{{route('episodes')}}">Episodes</a>
 </li>
 <li class="{{ areActiveRoutes(['arg.index','arg.show','arg.create'])}}">
-    <a href="{{route('arg.index')}}">ARG</a>
+    <a class="uk-navbar-nav-subtitle" href="{{route('arg.index')}}">ARG<div>Links</div></a>
 </li>
 <li class="{{ isActiveRoute('chat')}}">
-    <a href="{{route('chat')}}">Chat</a>
+    <a class="uk-navbar-nav-subtitle" href="{{route('chat')}}">IRC<div>Chat</div></a>
 </li>
 <li class="{{ isActiveRoute('gallery')}}">
-    <a href="{{route('gallery')}}">IRC Gallery</a>
+    <a class="uk-navbar-nav-subtitle" href="{{route('gallery')}}">IRC<div>Gallery</div></a>
 </li>
 <li class="{{ isActiveRoute('links')}}">
-    <a href="{{route('links')}}">IRC Links</a>
+    <a class="uk-navbar-nav-subtitle" href="{{route('links')}}">IRC<div>Links</div></a>
 </li>

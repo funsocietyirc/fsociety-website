@@ -2,46 +2,45 @@
     <div class="uk-grid uk-margin-top">
         <div class="uk-width-10-10 red-bottom">
             <div class="uk-container uk-container-center uk-text-center">
-                <h1>{{searchText || 'All Links'}}</h1>
+                <h1>{{searchText || 'All Links' | capitalize}}</h1>
             </div>
         </div>
         <div id="navBar" class="uk-width-large-2-10">
-                <table class="uk-table uk-table-condensed uk-margin-top">
-                    <thead>
-                    <tr>
-                        <th>Last 25 channels</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr transition="fade" v-bind:class="{ 'currentSearch': isActiveSearch(result) }"
-                        v-for="result in to">
-                        <td v-bind:data-to="result" class="to clickable" @click="updateFilter(result)">
-                            {{result}}
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <table class="uk-table uk-table-condensed">
-                    <thead>
-                    <tr>
-                        <th>Last 20 Nicks</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr transition="fade" v-bind:class="{ 'currentSearch': isActiveSearch(result) }"
-                        v-for="result in from">
-                        <td v-bind:data-from="result" class="from clickable" @click="updateFilter(result)">
-                            {{result}}
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <hr>
+            <table class="uk-table uk-table-condensed uk-margin-top">
+                <thead>
+                <tr>
+                    <th>Last 25 Channels</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr transition="fade" v-bind:class="{ 'currentSearch': isActiveSearch(result) }"
+                    v-for="result in to">
+                    <td v-bind:data-to="result" class="to clickable" @click="updateFilter(result)">{{result}}</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <table class="uk-table uk-table-condensed">
+                <thead>
+                <tr>
+                    <th>Last 20 Nicks</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr transition="fade" v-bind:class="{ 'currentSearch': isActiveSearch(result) }"
+                    v-for="result in from">
+                    <td v-bind:data-from="result" class="from clickable" @click="updateFilter(result)">{{result}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <hr>
+            <div class="uk-width-1-1 clear-div">
                 <button transition="fadeDown" v-show="searchText" class="uk-btn uk-width-1-1" @click="updateFilter('')">
                     Clear
                 </button>
+            </div>
         </div>
-        <div class="uk-width-large-8-10">
+        <div class="uk-width-large-8-10 clear-div">
             <table id="linkTable" class="uk-table uk-table-striped uk-table-condensed uk-margin-top uk-margin-bottom">
                 <thead>
                 <tr>
@@ -65,29 +64,20 @@
     .red-bottom {
         border-bottom: 1px solid #D12026;
     }
-
-    .to {
-        color: #D12026;
+    .clear-div {
+        padding: 0 5px;
     }
-
-    .from {
-        color: #f9ff95;
-    }
-
     .clickable {
         cursor: pointer;
     }
-
     .clickable:hover, .clickable:active {
         color: white;
     }
-
     .currentSearch {
         background: rgba(245, 245, 245, 0.1);
     }
-
     .new {
-        background-color: rgba(54, 168, 21, 0.3) !important;
+        background-color: rgba(60, 210, 24, 0.2) !important;
         transition: all 1s linear;
     }
 </style>
@@ -167,7 +157,6 @@
                     });
                 });
             }
-        },
-        components: {}
+        }
     }
 </script>

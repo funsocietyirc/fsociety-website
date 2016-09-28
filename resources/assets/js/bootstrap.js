@@ -6,23 +6,38 @@ window._ = require('lodash');
  * code may be modified to fit the specific needs of your application.
  */
 
+// Globals
 const $ = jQuery = window.$ = window.jQuery = require('jquery');
+const token = document.querySelector("meta[name='csrf-token']").getAttribute('content');
 
+// Front End Deps
 require('jquery-ujs');
 require('uikit');
 require('typed.js');
 require('slick-carousel');
 
+// Vue
 window.Vue = require('vue');
 
+// Vue resource
 require('vue-resource');
+
+// Vue  image loader
 Vue.use(require('vue-image-loader'));
 
-const token = document.querySelector("meta[name='csrf-token']").getAttribute('content');
-
+// Vue X-CSRF-TOKEN
 Vue.http.interceptors.push((request, next) => {
     request.headers['X-CSRF-TOKEN'] = token;
     next();
+});
+
+// Pusher
+const Pusher = require('pusher-js');
+window.socket = new Pusher('9d0bcd17badf5ab7cc79', {
+    encrypted: true,
+    auth: {
+        headers: { "X-CSRF-Token": token }
+    }
 });
 
 /**
@@ -37,10 +52,3 @@ Vue.http.interceptors.push((request, next) => {
 //     broadcaster: 'pusher',
 //     key: '9d0bcd17badf5ab7cc79'
 // });
-const Pusher = require('pusher-js');
-window.socket = new Pusher('9d0bcd17badf5ab7cc79', {
-    encrypted: true,
-    auth: {
-        headers: { "X-CSRF-Token": token }
-    }
-});

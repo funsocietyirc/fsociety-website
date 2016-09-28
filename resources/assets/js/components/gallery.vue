@@ -40,7 +40,6 @@
             </div>
 
             <div v-show="fullMode" class="uk-width-large-5-6">
-                Hello Moto
             </div>
 
             <div v-show="!fullMode" class="uk-width-large-5-6" data-uk-observe>
@@ -60,8 +59,16 @@
                         <div class="uk-thumbnail gallery-image">
                             <a href="#" v-on:click="displayImage(image)"
                                style="display:block !important;margin:auto !important;">
-                                <image-loader v-bind:src="image.url"></image-loader>
+                                <image-loader v-bind:src="image.url" class="image"></image-loader>
                             </a>
+                        </div>
+                        <div class="image-overlay">
+                            <div class="uk-grid">
+                                <div class="uk-width-1-2">From</div>
+                                <div class="uk-width-1-2">To</div>
+                                <div class="uk-width-1-2 from uk-text-truncate">{{image.from}}</div>
+                                <div class="uk-width-1-2 to uk-text-truncate">{{image.to}}</div>
+                            </div>
                         </div>
                     </li>
                 </ul>
@@ -75,15 +82,12 @@
     .gallery-close-alt {
         background: black;
     }
-
     .gallery-container {
         margin: 20px 10px;
     }
-
     .uk-thumbnail {
         background: rgba(0, 0, 0, 0.8);
     }
-
     .gallery-image {
         display: -ms-flexbox;
         display: -webkit-flex;
@@ -95,7 +99,13 @@
 
         align-items: center;
         padding: 10px;
-
+    }
+    .image-overlay {
+        padding: 4px;
+        position: relative;
+        bottom:0;
+        width:100%;
+        background: rgba(0,0,0,0.8);
     }
 </style>
 <script>
