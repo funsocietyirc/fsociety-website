@@ -35,6 +35,8 @@
                         </tr>
                         </tbody>
                     </table>
+                    <hr>
+                    <button transition="fadeDown" v-show="searchText" class="uk-btn uk-width-1-1" @click="updateFilter('')">Clear</button>
                 </div>
             </div>
             <div class="uk-width-8-10">
@@ -47,9 +49,9 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr transition="fade" :data="data" v-for="result in resultSet | exactFilterBy searchText in 'from' 'to'">
-                                <td class="to uk-width-1-6">{{result.to}}</td>
-                                <td class="from uk-width-1-6">{{result.from}}</td>
+                            <tr transition="fadeDown" :data="data" v-for="result in resultSet | exactFilterBy searchText in 'from' 'to'">
+                                <td class="to uk-width-1-6 clickable" @click="updateFilter(result.to)">{{result.to}}</td>
+                                <td class="from uk-width-1-6 clickable" @click="updateFilter(result.from)">{{result.from}}</td>
                                 <td class="url uk-width-4-6"><a target="_blank" v-bind:href="result.url">{{result.url}}</a></td>
                             </tr>
                             </tbody>
