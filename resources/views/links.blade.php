@@ -1,5 +1,5 @@
 @extends('layout._main')
-@section('title','IRC Image Gallery')
+@section('title','IRC Link')
 @section('content')
     <div id="vue">
         <links></links>
