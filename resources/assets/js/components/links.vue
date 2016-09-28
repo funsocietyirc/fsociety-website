@@ -89,6 +89,8 @@
             }
         },
         created(){
+            this.searchText = window.activeSearch;
+
             this.fetchData();
             this.initPusher();
         },
