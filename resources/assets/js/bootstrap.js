@@ -8,11 +8,11 @@ window._ = require('lodash');
 
 // Globals
 const $ = jQuery = window.$ = window.jQuery = require('jquery');
+const Pusher = require('pusher-js');
 
 const UIKit = require('uikit');
 require('../../../node_modules/uikit/dist/js/components/lightbox');
 require('../../../node_modules/uikit/dist/js/components/notify');
-
 
 
 // Front End Deps
@@ -20,14 +20,34 @@ require('jquery-ujs');
 require('typed.js');
 require('slick-carousel');
 
-// Pusher
-const Pusher = require('pusher-js');
-window.socket = new Pusher('9d0bcd17badf5ab7cc79', {
-    encrypted: true,
-    auth: {
-        headers: { "X-CSRF-Token": document.querySelector("meta[name='csrf-token']").getAttribute('content') }
-    }
-});
+
+window.Fsociety = (() => {
+    // Pusher
+    const pusher = new Pusher('9d0bcd17badf5ab7cc79', {
+        encrypted: true,
+        auth: {
+            headers: { "X-CSRF-Token": document.querySelector("meta[name='csrf-token']").getAttribute('content') }
+        }
+    });
+    const publicChannel = pusher.subscribe('public');
+
+    // Announcements
+    publicChannel.bind('announce', (data)  => {
+        if(!data) {
+            return;
+        }
+        UIkit.notify({
+            message : `<div class="uk-text-center"><h4>Announcement From ${data.from}</h4><p>${data.text}</p></div>`,
+            status  : 'info',
+            timeout : 10000,
+            pos     : 'bottom-right'
+        });
+    });
+    return {
+        pusher,
+        publicChannel
+    };
+})();
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

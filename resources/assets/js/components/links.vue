@@ -169,19 +169,7 @@
             },
             initPusher: function () {
                 let self = this;
-                let channel = socket.subscribe('public');
-                channel.bind('announce', (data)  => {
-                    if(!data) {
-                        return;
-                    }
-                    UIkit.notify({
-                        message : `<div class="uk-text-center"><h4>Announcement From ${data.from}:</h4><p>${data.text}</p></div>`,
-                        status  : 'info',
-                        timeout : 5000,
-                        pos     : 'top-center'
-                    });
-                });
-                channel.bind('url', (data) => {
+                window.Fsociety.publicChannel.bind('url', (data) => {
                     self.data.unshift(data);
                     self.$nextTick(function () {
                         let element = $('#linkTable').find("[data-timestamp='" + data.timestamp + "']");

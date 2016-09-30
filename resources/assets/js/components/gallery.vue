@@ -191,8 +191,7 @@
         methods: {
             initPusher: function () {
                 let self = this;
-                let channel = socket.subscribe('public');
-                channel.bind('image', (data) => {
+                window.Fsociety.publicChannel.bind('image', data => {
                     if(self.activeDisplay.nick && self.activeDisplay.nick != data.from) {
                         return;
                     }
