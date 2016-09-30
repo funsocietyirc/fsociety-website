@@ -53,7 +53,7 @@ window.Fsociety = (() => {
             return;
         }
         UIkit.notify({
-            message : data.tweet,
+            message : `[Twitter] @${tweet.user.screen_name}: ${tweet.text}` ,
             status  : 'success',
             timeout : 7500,
             pos     : 'bottom-left'
