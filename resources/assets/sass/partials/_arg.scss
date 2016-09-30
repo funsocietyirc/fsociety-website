@@ -92,10 +92,13 @@ select{
   }
 }
 button {
-  @extend .uk-button-danger;
+  background: none;
+  color: #fff;
+  border:1px solid $mrRobotPrimaryColor !important;
+  &:hover, &:focus {
+    background: rgba(211, 32, 39, 0.5);
+  }
   outline:0;
-  border-right: 1px solid $mrRobotHoverColor;
-  border-left: 1px solid $mrRobotHoverColor;
   border-radius:4px;
   &>i {
     padding:4px;

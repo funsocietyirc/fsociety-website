@@ -60,7 +60,7 @@
                                 {{result.url}}
                             </a>
                         </td>
-                        <td class="uk-width-1-6">{{result.timestamp | date "%D %r"}}</td>
+                        <td class="uk-width-1-6">{{result.timestamp | date "%D %R"}}</td>
                     </tr>
                     </tbody>
                 </table>
