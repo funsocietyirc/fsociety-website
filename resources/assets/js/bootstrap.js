@@ -32,6 +32,7 @@ window.Fsociety = (() => {
             headers: { "X-CSRF-Token": document.querySelector("meta[name='csrf-token']").getAttribute('content') }
         }
     });
+
     const publicChannel = pusher.subscribe('public');
 
     // Announcements
@@ -42,8 +43,20 @@ window.Fsociety = (() => {
         UIkit.notify({
             message : `<div class="uk-text-center"><h4>Announcement From ${data.from}</h4><p>${data.text}</p></div>`,
             status  : 'info',
-            timeout : 10000,
+            timeout : 7500,
             pos     : 'bottom-right'
+        });
+    });
+    // Tweets
+    publicChannel.bind('tweets', (data)  => {
+        if(!data) {
+            return;
+        }
+        UIkit.notify({
+            message : data.tweet,
+            status  : 'success',
+            timeout : 7500,
+            pos     : 'bottom-left'
         });
     });
     return {
