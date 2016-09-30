@@ -171,12 +171,11 @@
                 let self = this;
                 let channel = socket.subscribe('public');
                 channel.bind('announce', (data)  => {
-                    if(!data.message) {
+                    if(!data) {
                         return;
                     }
-
                     UIkit.notify({
-                        message : `Announcement From ${data.from}: ${data.text}`,
+                        message : `<div class="uk-text-center"><h4>Announcement From ${data.from}:</h4><p>${data.text}</p></div>`,
                         status  : 'info',
                         timeout : 5000,
                         pos     : 'top-center'
