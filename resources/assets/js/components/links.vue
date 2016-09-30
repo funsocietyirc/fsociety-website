@@ -56,7 +56,8 @@
                         <td class="to uk-width-1-6 clickable" @click="updateFilter(result.to)">{{result.to}}</td>
                         <td class="from uk-width-1-6 clickable" @click="updateFilter(result.from)">{{result.from}}</td>
                         <td class="url uk-width-3-6">
-                            <a target="_blank" v-bind:href="result.url" :title="result.title">
+
+                            <a @click="linkClicked(result, $event)">
                                 {{result.url}}
                             </a>
                         </td>
@@ -126,6 +127,25 @@
             }
         },
         methods: {
+            linkClicked: function(link, event) {
+                if(
+                        link.url.startsWith('https://youtu.be') ||
+                        link.url.startsWith('https://www.youtube.com/watch?') ||
+                        link.url.endsWith('.jpg') ||
+                        link.url.endsWith('.png') ||
+                        link.url.endsWith('.gif') ||
+                        link.url.endsWith('.jpeg') ||
+                        link.url.endsWith('.webm') ||
+                        link.url.endsWith('.mp4')
+                ) {
+                    let lb = window.UIkit.lightbox;
+                    lb.create([{
+                        source: link.url
+                    }]).show();
+                } else {
+                    window.open(link.url, '_blank');
+                }
+            },
             isActiveSearch: function (val) {
                 return val === this.searchText;
             },

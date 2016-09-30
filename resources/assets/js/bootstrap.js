@@ -9,9 +9,13 @@ window._ = require('lodash');
 // Globals
 const $ = jQuery = window.$ = window.jQuery = require('jquery');
 
+const UIKit = require('uikit');
+require('../../../node_modules/uikit/dist/js/components/lightbox');
+
+
+
 // Front End Deps
 require('jquery-ujs');
-require('uikit');
 require('typed.js');
 require('slick-carousel');
 

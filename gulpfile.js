@@ -1,4 +1,7 @@
 const elixir = require('laravel-elixir');
+const path = require('path');
+const projectRoot = path.resolve(__dirname, '../');
+
 
 require('laravel-elixir-vue');
 
@@ -12,6 +15,7 @@ require('laravel-elixir-vue');
  | file for our application, as well as publishing vendor resources.
  |
  */
+
 elixir(mix => {
     mix.sass('app.scss','public/css/app.css')
         .copy('node_modules/uikit/dist/fonts','public/fonts')

@@ -1,13 +1,6 @@
 <template xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
     <div class="gallery-container">
 
-        <div id="image-modal" class="uk-modal" data-uk-modal="{center:true}" style="position:fixed">
-            <div class="uk-modal-dialog uk-modal-dialog-lightbox  uk-modal-dialog-large uk-text-center">
-                <a href="" class="uk-modal-close uk-close uk-close-alt gallery-close-alt"></a>
-                <img src="#" v-bind:src="activeImage.url || ''" v-bind:alt="activeImage.url">
-            </div>
-        </div>
-
         <div class="uk-grid">
 
             <div class="uk-width-large-1-6">
@@ -58,8 +51,7 @@
                     <li v-for="image in images" class="uk-width-large-1-6 uk-width-medium-1-4 uk-width-small-1-2">
                         <div class="image-border-overlay">
                             <div class="uk-thumbnail gallery-image">
-                                <a href="#" v-on:click="displayImage(image)"
-                                   style="display:block !important;margin:auto !important;">
+                                <a data-uk-lightbox="{group:'images'}" class="image-link" :href="image.url"  title="" style="display:block !important;margin:auto !important;">
                                     <img v-lazy="image.url" class="image">
                                 </a>
                             </div>
@@ -154,6 +146,7 @@
         fullMode: false
     };
 
+
     export default{
         data(){
             return dataTemplate;
@@ -195,7 +188,6 @@
             $('footer').detach();
             this.fetchImages();
             this.fetchData();
-            this.initModal();
             this.initPusher();
         },
         methods: {
@@ -213,17 +205,6 @@
                     self.$nextTick(function () {
                         $('#gallery').trigger('display.uk.check');
                     });
-                });
-            },
-            initModal: function () {
-                let modal = $('#image-modal');
-                window.UIkit.modal(modal).on({
-                    'show.uk.modal': function () {
-                        this.scrollToTop = document.documentElement.scrollTop || document.body.scrollTop;
-                    },
-                    'hide.uk.modal': function () {
-                        document.documentElement.scrollTop = document.body.scrollTop = this.scrollToTop;
-                    }
                 });
             },
             fetchData: function () {
