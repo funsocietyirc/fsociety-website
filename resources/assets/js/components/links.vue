@@ -170,12 +170,13 @@
             initPusher: function () {
                 let self = this;
                 let channel = socket.subscribe('public');
-                channel.bind('wallops', (data)  => {
+                channel.bind('announce', (data)  => {
                     if(!data.message) {
                         return;
                     }
+
                     UIkit.notify({
-                        message : data.message,
+                        message : `Announcement From ${data.from}: ${data.text}`,
                         status  : 'info',
                         timeout : 5000,
                         pos     : 'top-center'
