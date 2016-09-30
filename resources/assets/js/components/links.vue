@@ -56,7 +56,7 @@
                         <td class="to uk-width-1-6 clickable" @click="updateFilter(result.to)">{{result.to}}</td>
                         <td class="from uk-width-1-6 clickable" @click="updateFilter(result.from)">{{result.from}}</td>
                         <td class="url uk-width-3-6">
-                            <a target="_blank" v-bind:href="result.url">
+                            <a target="_blank" v-bind:href="result.url" :title="result.title">
                                 {{result.url}}
                             </a>
                         </td>
@@ -148,7 +148,6 @@
                 let self = this;
                 let channel = socket.subscribe('public');
                 channel.bind('url', (data) => {
-                    data.timestamp = Date.now();
                     self.data.unshift(data);
                     self.$nextTick(function () {
                         let element = $('#linkTable').find("[data-timestamp='" + data.timestamp + "']");
