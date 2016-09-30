@@ -2,10 +2,11 @@
     <div class="uk-grid uk-margin-top">
         <div class="uk-width-10-10 red-bottom">
             <div class="uk-container uk-container-center uk-text-center">
-                <h1>{{searchText || 'All Links' | capitalize}}</h1>
+                <h2>{{searchText || 'All Links' | capitalize}}</h2>
             </div>
         </div>
         <div id="navBar" class="uk-width-large-2-10">
+            <h1 class="uk-text-medium uk-margin-top">IRC Gallery</h1>
             <table class="uk-table uk-table-condensed uk-margin-top">
                 <thead>
                 <tr>
@@ -57,7 +58,7 @@
                         <td class="from uk-width-1-6 clickable" @click="updateFilter(result.from)">{{result.from}}</td>
                         <td class="url uk-width-3-6">
 
-                            <a @click="linkClicked(result, $event)">
+                            <a data-uk-tooltip @click="linkClicked(result, $event)" :title="result.title">
                                 {{result.url}}
                             </a>
                         </td>
@@ -140,7 +141,9 @@
                 ) {
                     let lb = window.UIkit.lightbox;
                     lb.create([{
-                        source: link.url
+                        source: link.url,
+                        title: link.title,
+                        keyboard: false,
                     }]).show();
                 } else {
                     window.open(link.url, '_blank');
@@ -167,6 +170,17 @@
             initPusher: function () {
                 let self = this;
                 let channel = socket.subscribe('public');
+                channel.bind('wallops', (data)  => {
+                    if(!data.message) {
+                        return;
+                    }
+                    UIkit.notify({
+                        message : data.message,
+                        status  : 'info',
+                        timeout : 5000,
+                        pos     : 'top-center'
+                    });
+                });
                 channel.bind('url', (data) => {
                     self.data.unshift(data);
                     self.$nextTick(function () {

@@ -11,6 +11,7 @@ const $ = jQuery = window.$ = window.jQuery = require('jquery');
 
 const UIKit = require('uikit');
 require('../../../node_modules/uikit/dist/js/components/lightbox');
+require('../../../node_modules/uikit/dist/js/components/notify');
 
 
 

@@ -5,7 +5,7 @@
 
             <div class="uk-width-large-1-6">
                 <div id="options-panel" class="uk-panel uk-panel-header">
-                    <h3 class="uk-panel-title">0ptions</h3>
+                    <h1 class="uk-panel-title">IRC Gallery</h1>
                     <form class="uk-form uk-form-stacked">
                         <div class="uk-form-row">
                             <label class="uk-form-label" for="selectedChannel">Channel</label>
@@ -27,23 +27,22 @@
                         <hr>
                         <i v-on:click="refresh()"
                            class="uk-button uk-button-success uk-width-1-1 uk-margin-small-bottom">Refresh</i>
-                        <!--<i v-on:click="toggleFullMode()" class="uk-button uk-button-success uk-width-1-1 uk-margin-small-bottom">Full Mode</i>-->
+                    </div>
+                    <hr>
+                    <div class="uk-text-small">
+                        Click a Thumbnail to active the Lightbox, use the arrow keys to navigate.
                     </div>
                 </div>
             </div>
-
-            <div v-show="fullMode" class="uk-width-large-5-6">
-            </div>
-
-            <div v-show="!fullMode" class="uk-width-large-5-6" data-uk-observe>
+            <div class="uk-width-large-5-6" data-uk-observe>
                 <ul id="gallery" class="uk-grid uk-margin-bottom uk-grid-match" data-uk-grid data-uk-grid-margin>
                     <li class="uk-width-large-6-6 ">
                         <hr class="uk-visible-small">
                         <i class="uk-icon-arrow-left uk-icon-large uk-icon-hover uk-width-2-6 uk-margin-small-bottom"
                            style="text-align:right;" v-on:click="prevPage()" :disabled="page == 1"></i>
                         <div class="uk-width-2-6 uk-text-center">
-                            <h1 class="uk-text-center ">{{activeDisplay.nick || activeDisplay.channel || 'All Images'}}</h1>
-                            <p>Page {{page}} out of {{totalPages}}</p>
+                            <h2 class="uk-text-center ">{{activeDisplay.nick || activeDisplay.channel || 'All Images'}}</h2>
+                            <p class="uk-text-small">Page {{page}} out of {{totalPages}}</p>
                         </div>
                         <i class="uk-icon-arrow-right uk-icon-large uk-icon-hover uk-width-2-6 uk-margin-small-bottom"
                            v-on:click="nextPage()" :disabled="page == pageCount"></i>
@@ -143,7 +142,6 @@
         selectedNick: null,
 
         scrollToTop: 0,
-        fullMode: false
     };
 
 
