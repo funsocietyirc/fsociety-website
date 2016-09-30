@@ -12,10 +12,15 @@
 @import 'partials/episodes';
 @import 'partials/arg';
 @import 'partials/slickTheme';
-
+.url {
+  color: #62bd18;
+}
 .to {
-  color: #D12026;
+  color: #ffbb00;
 }
 .from {
-  color: #f9ff95;
+  color: #fc3d31;
+}
+.timeStamp {
+  color :#8042B5;
 }

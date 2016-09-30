@@ -95,6 +95,7 @@ button {
   background: none;
   color: #fff;
   border:1px solid $mrRobotPrimaryColor !important;
+  margin-bottom:10px;
   &:hover, &:focus {
     background: rgba(211, 32, 39, 0.5);
   }

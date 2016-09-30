@@ -1,49 +1,44 @@
 <template xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
-    <div class="uk-grid uk-margin-top">
-        <div class="uk-width-10-10 red-bottom">
-            <div class="uk-container uk-container-center uk-text-center">
-                <h2>{{searchText || 'All Links' | capitalize}}</h2>
-            </div>
-        </div>
+    <div class="uk-grid">
         <div id="navBar" class="uk-width-large-2-10">
-            <h1 class="uk-text-medium uk-margin-top">IRC Gallery</h1>
-            <table class="uk-table uk-table-condensed uk-margin-top">
-                <thead>
-                <tr>
-                    <th>Last 25 Channels</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr transition="fade" v-bind:class="{ 'currentSearch': isActiveSearch(result) }"
-                    v-for="result in to">
-                    <td v-bind:data-to="result" class="to clickable" @click="updateFilter(result)">{{result}}</td>
-                </tr>
-                </tbody>
-            </table>
-
-            <table class="uk-table uk-table-condensed">
-                <thead>
-                <tr>
-                    <th>Last 20 Nicks</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr transition="fade" v-bind:class="{ 'currentSearch': isActiveSearch(result) }"
-                    v-for="result in from">
-                    <td v-bind:data-from="result" class="from clickable" @click="updateFilter(result)">{{result}}</td>
-                </tr>
-                </tbody>
-            </table>
-            <hr>
+            <h1 class="uk-text-medium uk-text-center uk-margin-top uk-text-truncate">{{searchText || 'Links' | uppercase}}</h1>
+            <div class="innerNavBar">
+                <table class="uk-table uk-table-condensed">
+                    <thead>
+                    <tr>
+                        <th>Last 25 Channels</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr transition="fadeDown" v-bind:class="{ 'currentSearch': isActiveSearch(result) }"
+                        v-for="result in to">
+                        <td v-bind:data-to="result" class="to clickable" @click="updateFilter(result)">{{result}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table class="uk-table uk-table-condensed uk-margin-bottom">
+                    <thead>
+                    <tr>
+                        <th>Last 20 Nicks</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr transition="fadeUp" v-bind:class="{ 'currentSearch': isActiveSearch(result) }"
+                        v-for="result in from">
+                        <td v-bind:data-from="result" class="from clickable" @click="updateFilter(result)">{{result}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
             <div class="uk-width-1-1 clear-div">
-                <button transition="fadeDown" v-show="searchText" class="uk-btn uk-width-1-1" @click="updateFilter('')">
+                <button transition="fadeDown" v-show="searchText" class="uk-btn clearFilterButton uk-width-1-1" @click="updateFilter('')">
                     Clear
                 </button>
             </div>
         </div>
         <div class="uk-width-large-8-10">
             <div class="uk-overflow-container">
-                <table id="linkTable" class="uk-table uk-table-striped uk-table-condensed uk-margin-top uk-margin-bottom">
+                <table id="linkTable" class="uk-table uk-table-striped uk-table-condensed uk-margin-top">
                     <thead>
                     <tr>
                         <th>To</th>
@@ -62,7 +57,7 @@
                                 {{result.url}}
                             </a>
                         </td>
-                        <td class="uk-width-1-6">{{result.timestamp | date "%D %R"}}</td>
+                        <td class="timeStamp uk-width-1-6">{{result.timestamp | date "%D %R"}}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -77,6 +72,9 @@
     .clear-div {
         padding: 0 5px;
     }
+    .clearFilterButton {
+        background:black;
+    }
     .clickable {
         cursor: pointer;
     }
@@ -90,6 +88,15 @@
         background-color: rgba(60, 210, 24, 0.2) !important;
         transition: all 1s linear;
     }
+    .innerNavBar {
+        padding-top:15px;
+        padding-bottom:5px;
+    }
+    #linkTable>tbody>tr:first-child, #linkTable>tbody>tr:last-child{
+        border-top-left-radius:8px;
+        border-bottom-left-radius:8px;
+    }
+
 </style>
 <script>
     // API route
@@ -111,6 +118,8 @@
             $('footer').detach();
             this.searchText = window.activeSearch;
             this.fetchData();
+        },
+        ready() {
             this.initPusher();
         },
         computed: {
