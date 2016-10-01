@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr" class="uk-height-1-1">
 <head>
+    <title>FSociety - @yield('title')</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,7 +25,6 @@
     <link rel="stylesheet" href={{elixir('css/app.css')}}>
     @yield('head-style')
     @yield('head-script')
-    <title>FSociety - @yield('title')</title>
 </head>
 <body class="@if(isset($fullHeight))uk-height-1-1 @endif">
 @include('layout/_nav')
