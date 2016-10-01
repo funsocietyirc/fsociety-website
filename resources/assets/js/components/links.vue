@@ -1,7 +1,8 @@
 <template xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
     <div class="uk-grid">
         <div id="navBar" class="uk-width-large-2-10">
-            <h1 class="uk-text-medium uk-text-center uk-margin-top uk-text-truncate">{{searchText || 'Links' | uppercase}}</h1>
+            <h1 class="uk-text-medium uk-text-center uk-margin-top uk-text-truncate">{{searchText || 'Links' |
+                uppercase}}</h1>
             <div class="innerNavBar">
                 <table class="uk-table uk-table-condensed">
                     <thead>
@@ -25,13 +26,15 @@
                     <tbody>
                     <tr transition="fadeUp" v-bind:class="{ 'currentSearch': isActiveSearch(result) }"
                         v-for="result in from">
-                        <td v-bind:data-from="result" class="from clickable" @click="updateFilter(result)">{{result}}</td>
+                        <td v-bind:data-from="result" class="from clickable" @click="updateFilter(result)">{{result}}
+                        </td>
                     </tr>
                     </tbody>
                 </table>
             </div>
             <div class="uk-width-1-1 clear-div">
-                <button transition="fadeDown" v-show="searchText" class="uk-btn clearFilterButton uk-width-1-1" @click="updateFilter('')">
+                <button transition="fadeDown" v-show="searchText" class="uk-btn clearFilterButton uk-width-1-1"
+                        @click="updateFilter('')">
                     Clear
                 </button>
             </div>
@@ -48,7 +51,8 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-bind:data-timestamp="result.timestamp" v-for="result in resultSet | exactFilterBy searchText in 'from' 'to'">
+                    <tr v-bind:data-timestamp="result.timestamp"
+                        v-for="result in resultSet | exactFilterBy searchText in 'from' 'to'">
                         <td class="to uk-width-1-6 clickable" @click="updateFilter(result.to)">{{result.to}}</td>
                         <td class="from uk-width-1-6 clickable" @click="updateFilter(result.from)">{{result.from}}</td>
                         <td class="url uk-width-3-6">
@@ -69,32 +73,40 @@
     .red-bottom {
         border-bottom: 1px solid #D12026;
     }
+
     .clear-div {
         padding: 0 5px;
     }
+
     .clearFilterButton {
-        background:black;
+        background: black;
     }
+
     .clickable {
         cursor: pointer;
     }
+
     .clickable:hover, .clickable:active {
         color: white;
     }
+
     .currentSearch {
         background: rgba(245, 245, 245, 0.1);
     }
+
     .new {
         background-color: rgba(60, 210, 24, 0.2) !important;
         transition: all 1s linear;
     }
+
     .innerNavBar {
-        padding-top:15px;
-        padding-bottom:5px;
+        padding-top: 15px;
+        padding-bottom: 5px;
     }
-    #linkTable>tbody>tr:first-child, #linkTable>tbody>tr:last-child{
-        border-top-left-radius:8px;
-        border-bottom-left-radius:8px;
+
+    #linkTable > tbody > tr:first-child, #linkTable > tbody > tr:last-child {
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
     }
 
 </style>
@@ -137,8 +149,8 @@
             }
         },
         methods: {
-            linkClicked: function(link, event) {
-                if(
+            linkClicked: function (link, event) {
+                if (
                         link.url.startsWith('https://youtu.be') ||
                         link.url.startsWith('https://www.youtube.com/watch?') ||
                         link.url.endsWith('.jpg') ||
@@ -176,25 +188,28 @@
                     console.log(e);
                 });
             },
+            pusherHandler: function (data) {
+                let self = this;
+                self.data.unshift(data);
+                self.$nextTick(function () {
+                    let element = $('#linkTable').find("[data-timestamp='" + data.timestamp + "']");
+                    let navBar = $('#navBar');
+                    let to = navBar.find("[data-to='" + data.to + "']");
+                    let from = navBar.find("[data-from='" + data.from + "']");
+                    element.addClass('new');
+                    to.addClass('new');
+                    from.addClass('new');
+                    setTimeout(function () {
+                        element.removeClass('new');
+                        to.removeClass('new');
+                        from.removeClass('new');
+                    }, 5000);
+                });
+            },
             initPusher: function () {
                 let self = this;
-                window.Fsociety.publicChannel.bind('url', (data) => {
-                    self.data.unshift(data);
-                    self.$nextTick(function () {
-                        let element = $('#linkTable').find("[data-timestamp='" + data.timestamp + "']");
-                        let navBar = $('#navBar');
-                        let to = navBar.find("[data-to='" + data.to + "']");
-                        let from = navBar.find("[data-from='" + data.from + "']");
-                        element.addClass('new');
-                        to.addClass('new');
-                        from.addClass('new');
-                        setTimeout(function () {
-                            element.removeClass('new');
-                            to.removeClass('new');
-                            from.removeClass('new');
-                        }, 5000);
-                    });
-                });
+                window.Fsociety.publicChannel.bind('url', self.pusherHandler);
+                window.Fsociety.publicChannel.bind('image', self.pusherHandler);
             }
         }
     }
