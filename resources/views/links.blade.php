@@ -1,5 +1,5 @@
 @extends('layout._main')
-@section('title','IRC Link')
+@section('title','IRC Link Watcher')
 @section('content')
     <div id="vue">
         <links></links>

@@ -1,3 +1,11 @@
+const WebFont = require('webfontloader');
+WebFont.load({
+    google: {
+        families: ['Fira Sans:300,400,700']
+    }
+});
+
+// Require Lodash
 window._ = require('lodash');
 
 /**

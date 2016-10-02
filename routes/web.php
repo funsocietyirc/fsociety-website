@@ -5,7 +5,7 @@ Route::group(['prefix' => '/'], function () {
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('chat', 'HomeController@chat')->name('chat');
     Route::get('gallery', 'HomeController@gallery')->name('gallery')->middleware('cors');
-    Route::get('links', 'HomeController@links')->name('links')->middleware('cors');
+    Route::get('links/{search?}', 'HomeController@links')->name('links')->middleware('cors');
 });
 // Episode Routes
 Route::group(['prefix' => 'episodes'], function () {
