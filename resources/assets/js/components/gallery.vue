@@ -10,15 +10,15 @@
                         <div class="uk-form-row">
                             <label class="uk-form-label" for="selectedChannel">Channel</label>
                             <select class="uk-form-controls uk-width-1-1" id="selectedChannel" v-model="selectedChannel">
-                                <option value="$all" selected>All Channels</option>
+                                <option value="$all">All Channels</option>
                                 <option v-for="channel in availableChannels" v-bind:value="channel">{{channel}}</option>
                             </select>
                         </div>
                         <div class="uk-form-row">
                             <label class="uk-form-label" for="selectedNick">Nick</label>
                             <select class="uk-form-controls uk-width-1-1" id="selectedNick" v-model="selectedNick">
-                                <option value="$all" selected>All Nicks</option>
-                                <option v-for="nick in availableNicks" v-bind:value="nick">{{nick | capitalize}}
+                                <option value="$all">All Nicks</option>
+                                <option v-for="nick in availableNicks" v-bind:value="nick">{{nick | Capitalize}}
                                 </option>
                             </select>
                         </div>
@@ -138,8 +138,8 @@
 
         activeImage: imageTemplate,
 
-        selectedChannel: null,
-        selectedNick: null,
+        selectedChannel: '$all',
+        selectedNick: '$all',
 
         scrollToTop: 0,
     };
@@ -159,11 +159,10 @@
                 }
                 val = val === '$all' ? null : val;
 
-
-                this.$set('activeDisplay', {
+                this.activeDisplay = {
                     nick: val,
                     channel: null
-                });
+                };
 
                 this.fetchImages(1);
 
@@ -174,10 +173,10 @@
                 }
                 val = val === '$all' ? null : val;
 
-                this.$set('activeDisplay', {
+                this.activeDisplay = {
                     nick: null,
                     channel: val
-                });
+                };
                 this.fetchImages(1);
             }
         },
@@ -210,8 +209,8 @@
                 }).then(function (response) {
                     return response.json();
                 }).then(function (data) {
-                    this.$set('availableNicks', data.results.nicks);
-                    this.$set('availableChannels', data.results.channels);
+                    this.availableNicks = data.results.nicks;
+                    this.availableChannels = data.results.channels;
                 }).catch(e => {
                     console.log(e);
                 });
@@ -238,12 +237,12 @@
                 }).then(function (response) {
                     return response.json();
                 }).then(function (result) {
-                    this.$set('rowCount', result.rowCount);
-                    this.$set('pageCount', result.pageCount);
-                    this.$set('page', result.page);
-                    this.$set('pageSize', result.pageSize);
-                    this.$set('images', result.results);
-                    this.$set('activeImage', result.results[0]);
+                    this.rowCount = result.rowCount;
+                    this.pageCount = result.pageCount;
+                    this.page = result.page;
+                    this.pageSize = result.pageSize;
+                    this.images = result.results;
+                    this.activeImage = result.results[0];
                     this.$nextTick(function () {
                         $('#gallery').trigger('display.uk.check');
                     });
@@ -276,7 +275,7 @@
                 }
             },
             toggleFullMode: function () {
-                this.$set('fullMode', !this.fullMode);
+                this.fullMode = !this.fullMode;
             }
         }
     }

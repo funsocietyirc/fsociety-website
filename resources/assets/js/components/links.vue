@@ -4,6 +4,7 @@
             <h1 class="uk-text-medium uk-text-center uk-margin-top uk-text-truncate">{{searchText || 'Links' |
                 uppercase}}</h1>
             <div class="innerNavBar">
+                <transition name="fade" appear>
                 <table class="uk-table uk-table-condensed">
                     <thead>
                     <tr>
@@ -11,32 +12,37 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr transition="fadeDown" v-bind:class="{ 'currentSearch': isActiveSearch(result) }"
-                        v-for="result in to">
-                        <td v-bind:data-to="result" class="to clickable" @click="updateFilter(result)">{{result}}</td>
-                    </tr>
+                        <tr v-bind:class="{ 'currentSearch': isActiveSearch(result) }"
+                            v-for="result in to">
+                            <td v-bind:data-to="result" class="to clickable" @click="updateFilter(result)">{{result}}</td>
+                        </tr>
                     </tbody>
                 </table>
-                <table class="uk-table uk-table-condensed uk-margin-bottom">
-                    <thead>
-                    <tr>
-                        <th>Last 20 Nicks</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr transition="fadeUp" v-bind:class="{ 'currentSearch': isActiveSearch(result) }"
-                        v-for="result in from">
-                        <td v-bind:data-from="result" class="from clickable" @click="updateFilter(result)">{{result}}
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                </transition>
+                <transition  name="fade" appear>
+                    <table class="uk-table uk-table-condensed uk-margin-bottom">
+                        <thead>
+                        <tr>
+                            <th>Last 20 Nicks</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-bind:class="{ 'currentSearch': isActiveSearch(result) }"
+                            v-for="result in from">
+                            <td v-bind:data-from="result" class="from clickable" @click="updateFilter(result)">{{result}}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </transition>
             </div>
             <div class="uk-width-1-1 clear-div">
-                <button transition="fadeDown" v-show="searchText" class="uk-btn clearFilterButton uk-width-1-1"
-                        @click="updateFilter('')">
-                    Clear
-                </button>
+                <transition name="slide-fade">
+                    <button v-show="searchText" class="uk-btn clearFilterButton uk-width-1-1"
+                            @click="updateFilter('')">
+                        Clear
+                    </button>
+                </transition>
             </div>
         </div>
         <div class="uk-width-large-8-10">
@@ -52,7 +58,7 @@
                     </thead>
                     <tbody>
                     <tr v-bind:data-timestamp="result.timestamp"
-                        v-for="result in resultSet | exactFilterBy searchText in 'from' 'to'">
+                        v-for="result in resultSet">
                         <td class="to uk-width-1-6 clickable" @click="updateFilter(result.to)">{{result.to}}</td>
                         <td class="from uk-width-1-6 clickable" @click="updateFilter(result.from)">{{result.from}}</td>
                         <td class="url uk-width-3-6">
@@ -61,7 +67,7 @@
                                 {{result.url}}
                             </a>
                         </td>
-                        <td class="timeStamp uk-width-1-6">{{result.timestamp | date "%D %R"}}</td>
+                        <td class="timeStamp uk-width-1-6">{{result.timestamp | date("%D %R")}}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -108,47 +114,45 @@
         border-top-left-radius: 8px;
         border-bottom-left-radius: 8px;
     }
-
 </style>
 <script>
     // API route
     const apiRoute = 'https://bot.fsociety.guru/api/urls?pageSize=100';
-
-    // Custom Filter
-    Vue.filter('exactFilterBy', (array, needle, inKeyword, key, key2) => array.filter(item => needle === '' || item[key].toLowerCase() == needle.toLowerCase() || item[key2].toLowerCase() == needle.toLowerCase()));
+    const _ = require('lodash');
 
     export default{
-        data(){
+        data: function () {
             return {
-                data: [],
+                results: [],
                 to: [],
                 from: [],
                 searchText: '',
             }
         },
-        created(){
+        mounted(){
             $('footer').detach();
             this.searchText = window.activeSearch;
             this.fetchData();
-        },
-        ready() {
             this.initPusher();
+
         },
         computed: {
             resultSet: function () {
-                return this.data;
-            }
+                return this.customFilter(this.results,this.searchText, 'in', 'from', 'to');
+            },
         },
         watch: {
-            data: function (val, oldVal) {
+            results: function (val, oldVal) {
                 let to = _(val).map('to').uniq().take(25).value();
                 let from = _(val).map('from').uniq().take(20).value();
-
-                this.$set('to', to);
-                this.$set('from', from);
+                this.to = to;
+                this.from = from;
             }
         },
         methods: {
+            customFilter: function (array, needle, inKeyword, key, key2) {
+                return array.filter(item => needle === '' || item[key].toLowerCase() == needle.toLowerCase() || item[key2].toLowerCase() == needle.toLowerCase());
+            },
             linkClicked: function (link, event) {
                 if (
                         link.url.startsWith('https://youtu.be') ||
@@ -180,17 +184,18 @@
                 });
             },
             fetchData: function () {
+                let vm = this;
                 this.$http.get(apiRoute).then(function (response) {
                     return response.json();
                 }).then(function (data) {
-                    this.$set('data', data.results);
+                    vm.results = data.results;
                 }).catch(e => {
                     console.log(e);
                 });
             },
             pusherHandler: function (data) {
                 let self = this;
-                self.data.unshift(data);
+                self.results.unshift(data);
                 self.$nextTick(function () {
                     let element = $('#linkTable').find("[data-timestamp='" + data.timestamp + "']");
                     let navBar = $('#navBar');
