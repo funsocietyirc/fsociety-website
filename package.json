@@ -17,7 +17,6 @@
   },
   "dependencies": {
     "hover.css": "^2.0.2",
-    "jquery": "^3.1.0",
     "jquery-ujs": "^1.2.2",
     "json-loader": "^0.5.4",
     "pusher-js": "^3.2.1",
@@ -27,6 +26,7 @@
     "vue-animate": "0.0.4",
     "vue-filter": "^0.1.8",
     "vue-lazyload": "^0.8.2",
-    "vue-router": "^0.7.13"
+    "vue-router": "^0.7.13",
+    "webfontloader": "^1.6.26"
   }
 }

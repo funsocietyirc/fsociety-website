@@ -5,17 +5,10 @@ html {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  font-family: $fontFamily;
-
 }
 
 body {
   scrollbar-face-color: $mrRobotPrimaryColor;
-}
-
-body,h1,h2,h3,h4,h5,h6,p,span,div,a, .uk-navbar-nav > li > a {
-  font-family: $fontFamily;
-  color:white;
 }
 
 a, .uk-link {

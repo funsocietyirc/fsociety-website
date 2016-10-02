@@ -28,10 +28,6 @@ require('jquery-ujs');
 require('typed.js');
 require('slick-carousel');
 
-$(() => {
-
-});
-
 window.Fsociety = (() => {
     // Pusher
     const pusher = new Pusher('9d0bcd17badf5ab7cc79', {
