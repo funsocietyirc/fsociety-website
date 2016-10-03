@@ -244,7 +244,6 @@
                     this.pageSize = result.pageSize;
                     this.images = result.results;
                     this.activeImage = result.results[0];
-
                     this.$nextTick(function () {
                         $('#gallery').trigger('display.uk.check');
                     });

@@ -13,7 +13,7 @@
     "laravel-elixir-vue-2": "^0.2.0",
     "laravel-elixir-webpack-official": "^1.0.2",
     "lodash": "^4.14.0",
-    "vue": "^2.0.0",
+    "vue": "^2.0.1",
     "vue-resource": "^1.0.3"
   },
   "dependencies": {
@@ -21,11 +21,13 @@
     "jquery-ujs": "^1.2.2",
     "json-loader": "^0.5.4",
     "laravel-elixir-vue-2": "^0.2.0",
+    "mint-ui": "^2.0.0-rc.2",
     "pusher-js": "^3.2.1",
     "slick-carousel": "^1.6.0",
     "typed.js": "^1.1.1",
     "uikit": "^2.27.1",
     "vue-filter": "^0.1.8",
+    "vue-infinite-loading": "^2.0.0-rc.1",
     "vue-lazyload": "git+https://github.com/hilongjw/vue-lazyload.git#dev",
     "vue-router": "^2.0.0",
     "webfontloader": "^1.6.26"

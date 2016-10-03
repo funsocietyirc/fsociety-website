@@ -1,8 +1,7 @@
 const vue = require('vue');
 const vueLazyLoad = require('vue-lazyload');
 const vueFilter = require('vue-filter');
-
-
+const mintUI = require('mint-ui');
 // Vue
 const Vue = window.Vue = vue;
 
