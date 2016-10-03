@@ -1,6 +1,6 @@
 <template xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
     <div class="uk-grid">
-        <div id="navBar" class="uk-width-large-2-10">
+        <div id="navBar" class="uk-width-large-1-10 uk-width-medium-2-10">
             <h1 class="uk-text-medium uk-text-center uk-margin-top uk-text-truncate">{{searchText || 'Links' |
                 uppercase}}</h1>
             <div class="innerNavBar">
@@ -45,8 +45,8 @@
                 </transition>
             </div>
         </div>
-        <div class="uk-width-large-8-10">
-            <div class="uk-overflow-container">
+        <div class="uk-width-large-9-10 uk-width-small-8-10">
+            <div id="linkTableOverflow" class="uk-overflow-container">
                 <table id="linkTable" class="uk-table uk-table-striped uk-table-condensed uk-margin-top">
                     <thead>
                     <tr>
@@ -109,7 +109,9 @@
         padding-top: 15px;
         padding-bottom: 5px;
     }
+    #linkTableOverflow {
 
+    }
     #linkTable > tbody > tr:first-child, #linkTable > tbody > tr:last-child {
         border-top-left-radius: 8px;
         border-bottom-left-radius: 8px;
@@ -134,7 +136,6 @@
             this.searchText = window.activeSearch;
             this.fetchData();
             this.initPusher();
-
         },
         computed: {
             resultSet: function () {

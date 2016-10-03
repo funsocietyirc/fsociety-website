@@ -47,11 +47,12 @@
                         <i class="uk-icon-arrow-right uk-icon-large uk-icon-hover uk-width-2-6 uk-margin-small-bottom"
                            v-on:click="nextPage()" :disabled="page == pageCount"></i>
                     </li>
+
                     <li v-for="image in images" class="uk-width-large-1-6 uk-width-medium-1-4 uk-width-small-1-2">
                         <div class="image-border-overlay">
                             <div class="uk-thumbnail gallery-image">
-                                <a data-uk-lightbox="{group:'images'}" class="image-link" :href="image.url"  title="" style="display:block !important;margin:auto !important;">
-                                    <img v-lazy="image.url" class="image">
+                                <a data-uk-lightbox="{group:'images'}" class="image-link" :href="image.url"  title="" style="display:block !important;margin:auto !important;" >
+                                    <img v-lazy.container="image.url" class="image">
                                 </a>
                             </div>
                             <div class="image-overlay">
@@ -243,6 +244,7 @@
                     this.pageSize = result.pageSize;
                     this.images = result.results;
                     this.activeImage = result.results[0];
+
                     this.$nextTick(function () {
                         $('#gallery').trigger('display.uk.check');
                     });

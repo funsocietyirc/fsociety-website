@@ -51,10 +51,13 @@ footer {
 // Scrolling - Webkit only ATM
 ::-webkit-scrollbar {
   width: 10px;
-} /* this targets the default scrollbar (compulsory) */
+  height:10px;
+  background-color: black;
 
+} /* this targets the default scrollbar (compulsory) */
 ::-webkit-scrollbar-track {
   background-color: black;
+  margin-top:40px;
 } /* the new scrollbar will have a flat appearance with the set background color */
 
 ::-webkit-scrollbar-thumb {
