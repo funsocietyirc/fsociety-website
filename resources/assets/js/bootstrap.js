@@ -26,7 +26,6 @@ require('../../../node_modules/uikit/dist/js/components/notify');
 // Front End Deps
 require('jquery-ujs');
 require('typed.js');
-require('slick-carousel');
 window.Fsociety = (() => {
     // Pusher
     const pusher = new Pusher('9d0bcd17badf5ab7cc79', {

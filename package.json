@@ -5,7 +5,6 @@
     "dev": "gulp watch"
   },
   "devDependencies": {
-    "bootstrap-sass": "^3.3.7",
     "gulp": "^3.9.1",
     "jquery": "^3.1.0",
     "laravel-elixir": "^6.0.0-9",
@@ -19,9 +18,7 @@
   "dependencies": {
     "hover.css": "^2.0.2",
     "jquery-ujs": "^1.2.2",
-    "json-loader": "^0.5.4",
     "laravel-elixir-vue-2": "^0.2.0",
-    "mint-ui": "^2.0.0-rc.2",
     "pusher-js": "^3.2.1",
     "slick-carousel": "^1.6.0",
     "typed.js": "^1.1.1",
@@ -29,7 +26,6 @@
     "vue-filter": "^0.1.8",
     "vue-infinite-loading": "^2.0.0-rc.1",
     "vue-lazyload": "git+https://github.com/hilongjw/vue-lazyload.git#dev",
-    "vue-router": "^2.0.0",
     "webfontloader": "^1.6.26"
   }
 }

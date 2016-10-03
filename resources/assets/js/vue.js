@@ -1,9 +1,17 @@
 const vue = require('vue');
 const vueLazyLoad = require('vue-lazyload');
 const vueFilter = require('vue-filter');
-const mintUI = require('mint-ui');
+
 // Vue
 const Vue = window.Vue = vue;
+
+// Vue resource
+require('vue-resource');
+// Vue X-CSRF-TOKEN
+Vue.http.interceptors.push((request, next) => {
+    request.headers['X-CSRF-TOKEN'] = document.querySelector("meta[name='csrf-token']").getAttribute('content');
+    next();
+});
 
 // Vue  image loader
 Vue.use(vueLazyLoad, {
@@ -16,18 +24,10 @@ Vue.use(vueLazyLoad, {
 // Vue Filters
 Vue.use(vueFilter);
 
-// Vue resource
-require('vue-resource');
-
-// Vue X-CSRF-TOKEN
-Vue.http.interceptors.push((request, next) => {
-    request.headers['X-CSRF-TOKEN'] = document.querySelector("meta[name='csrf-token']").getAttribute('content');
-    next();
-});
-
 Vue.component('gallery', require('./components/gallery.vue'));
 Vue.component('links', require('./components/links.vue'));
 Vue.component('alert', require('./components/alert.vue'));
+// Vue.component('InfiniteLoading', require('vue-infinite-loading'));
 
 Vue.filter('Capitalize', function(value) {
     if(!value) return;

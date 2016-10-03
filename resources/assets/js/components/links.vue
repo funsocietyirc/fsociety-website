@@ -186,7 +186,8 @@
             },
             fetchData: function () {
                 let vm = this;
-                this.$http.get(apiRoute).then(function (response) {
+                this.$http
+                .get(apiRoute).then(function (response) {
                     return response.json();
                 }).then(function (data) {
                     vm.results = data.results;

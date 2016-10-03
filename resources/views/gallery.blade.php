@@ -7,4 +7,5 @@
 @endsection
 @section('head-script')
     <script src="{{elixir('js/vue.js')}}"></script>
+    <script src="/js/infinite.js"></script>
 @endsection

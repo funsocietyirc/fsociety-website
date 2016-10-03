@@ -1,57 +1,41 @@
 <template xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
     <div class="gallery-container">
-
         <div class="uk-grid">
-
-            <div class="uk-width-large-1-6">
-                <div id="options-panel" class="uk-panel uk-panel-header">
-                    <h1 class="uk-panel-title">IRC Gallery</h1>
-                    <form class="uk-form uk-form-stacked">
-                        <div class="uk-form-row">
-                            <label class="uk-form-label" for="selectedChannel">Channel</label>
-                            <select class="uk-form-controls uk-width-1-1" id="selectedChannel" v-model="selectedChannel">
-                                <option value="$all">All Channels</option>
-                                <option v-for="channel in availableChannels" v-bind:value="channel">{{channel}}</option>
-                            </select>
+                <div class="uk-container uk-width-large-1-6">
+                    <div id="options-panel" class="uk-panel uk-panel-header">
+                        <h1 class="uk-panel-title">Images</h1>
+                        <div class="container container-center uk-text-justify">
+                            <h4>Channels</h4>
+                            <ul class="sort-subnav">
+                                <li v-for="channel in channels">
+                                    <a v-bind:class="{ 'active': searchTo == channel }" class="to" @click="updateFilter(null,channel)">{{channel}}</a>
+                                </li>
+                            </ul>
+                            <h4>Nicks</h4>
+                            <ul class="sort-subnav">
+                                <li v-for="nick in nicks">
+                                    <a v-bind:class="{ 'active': searchFrom == nick }" class="from" @click="updateFilter(nick,null)">{{nick}}</a>
+                                </li>
+                            </ul>
                         </div>
-                        <div class="uk-form-row">
-                            <label class="uk-form-label" for="selectedNick">Nick</label>
-                            <select class="uk-form-controls uk-width-1-1" id="selectedNick" v-model="selectedNick">
-                                <option value="$all">All Nicks</option>
-                                <option v-for="nick in availableNicks" v-bind:value="nick">{{nick | Capitalize}}
-                                </option>
-                            </select>
-                        </div>
-                    </form>
-                    <div class="uk-margin-top">
                         <hr>
-                        <i v-on:click="refresh()"
-                           class="uk-button uk-button-success uk-width-1-1 uk-margin-small-bottom">Refresh</i>
+                        <ul class="uk-list uk-text-small uk-margin-bottom">
+                            <li>Click a Thumbnail to active the Lightbox, use the arrow keys to navigate.</li>
+                            <li>Scroll Down for more results.</li>
+                            <li>Use the Arrow keys to navigate inside the Lightbox.</li>
+                        </ul>
                     </div>
-                    <hr>
-                    <div class="uk-text-small">
-                        Click a Thumbnail to active the Lightbox, use the arrow keys to navigate.
-                    </div>
-                </div>
-            </div>
-            <div class="uk-width-large-5-6" data-uk-observe>
-                <ul id="gallery" class="uk-grid uk-margin-bottom uk-grid-match" data-uk-grid data-uk-grid-margin>
-                    <li class="uk-width-large-6-6 ">
-                        <hr class="uk-visible-small">
-                        <i class="uk-icon-arrow-left uk-icon-large uk-icon-hover uk-width-2-6 uk-margin-small-bottom"
-                           style="text-align:right;" v-on:click="prevPage()" :disabled="page == 1"></i>
-                        <div class="uk-width-2-6 uk-text-center">
-                            <h2 class="uk-text-center ">{{activeDisplay.nick || activeDisplay.channel || 'All Images'}}</h2>
-                            <p class="uk-text-small">Page {{page}} out of {{totalPages}}</p>
-                        </div>
-                        <i class="uk-icon-arrow-right uk-icon-large uk-icon-hover uk-width-2-6 uk-margin-small-bottom"
-                           v-on:click="nextPage()" :disabled="page == pageCount"></i>
-                    </li>
 
-                    <li v-for="image in images" class="uk-width-large-1-6 uk-width-medium-1-4 uk-width-small-1-2">
+                </div>
+
+            <div class="uk-width-large-5-6" data-uk-observe>
+                <ul id="gallery" class="uk-grid uk-margin-bottom uk-grid-small uk-grid-match" data-uk-grid
+                    data-uk-grid-margin="10">
+                    <li v-for="image in resultSet" class="uk-width-large-1-6 uk-width-medium-1-4 uk-width-small-1-2">
                         <div class="image-border-overlay">
                             <div class="uk-thumbnail gallery-image">
-                                <a data-uk-lightbox="{group:'images'}" class="image-link" :href="image.url"  title="" style="display:block !important;margin:auto !important;" >
+                                <a data-uk-lightbox="{group:'images'}" class="image-link" :href="image.url" title=""
+                                   style="display:block !important;margin:auto !important;">
                                     <img v-lazy.container="image.url" class="image">
                                 </a>
                             </div>
@@ -65,20 +49,21 @@
                             </div>
                         </div>
                     </li>
+                    <infinite-loading :on-infinite="onInfinite" ref="infiniteLoading"></infinite-loading>
                 </ul>
             </div>
-
         </div>
-
     </div>
 </template>
-<style>
+<style scoped>
     .gallery-close-alt {
         background: black;
     }
+
     .gallery-container {
         margin: 20px 10px;
     }
+
     .gallery-image {
         display: -ms-flexbox;
         display: -webkit-flex;
@@ -91,193 +76,156 @@
         align-items: center;
         padding: 10px;
     }
+
     .image-overlay {
         padding: 2px 5px;
     }
+
     .image {
         height: 150px;
         object-fit: cover;
     }
+
     .uk-thumbnail {
-        border:none;
-        background: rgba(244,244,244,0.1);
+        border: none;
+        background: rgba(244, 244, 244, 0.1);
     }
+
     .image-border-overlay {
         border: 1px solid #D12026;
         background: rgba(0, 0, 0, 0.8);
     }
 </style>
 <script>
+    const _ = require('lodash');
     const apiRoute = 'https://bot.fsociety.guru/api/';
-    const initialPageSize = 18;
-
-    const imageTemplate = {
-        url: '',
-        to: '',
-        from: '',
-        timeStamp: ''
-    };
-
-    const activeDisplayTemplate = {
-        nick: null,
-        channel: null
-    };
-
     const dataTemplate = {
         // Image data
         images: [],
-
-        // Pagination
-        rowCount: 0,
-        pageCount: 0,
-        page: 1,
-        pageSize: initialPageSize,
-        activeDisplay: activeDisplayTemplate,
-
-        availableChannels: [],
-        availableNicks: [],
-
-        activeImage: imageTemplate,
-
-        selectedChannel: '$all',
-        selectedNick: '$all',
-
-        scrollToTop: 0,
+        nicks: [],
+        channels: [],
+        pageSize: 24,
+        searchFrom: '',
+        searchTo: ''
     };
-
 
     export default{
         data(){
             return dataTemplate;
         },
-        computed: {
-            totalPages: function () { return (Math.round(this.rowCount / this.pageSize) || 1) }
-        },
-        watch: {
-            'selectedNick': function (val, oldVal) {
-                if(!oldVal) {
-                    return;
-                }
-                val = val === '$all' ? null : val;
-
-                this.activeDisplay = {
-                    nick: val,
-                    channel: null
-                };
-
-                this.fetchImages(1);
-
-            },
-            'selectedChannel': function (val, oldVal) {
-                if(!oldVal) {
-                    return;
-                }
-                val = val === '$all' ? null : val;
-
-                this.activeDisplay = {
-                    nick: null,
-                    channel: val
-                };
-                this.fetchImages(1);
-            }
-        },
-        components: {},
         created(){
-            $('footer').detach();
-            this.fetchImages();
             this.fetchData();
             this.initPusher();
         },
+        mounted(){
+            $('footer').detach();
+        },
+        computed: {
+            resultSet: function () {
+                let vm = this;
+                return _.filter(vm.images, (image) => {
+                    if (!vm.searchText && !vm.searchFrom) {
+                        return true;
+                    }
+                   return image.from == vm.searchFrom || image.to == vm.searchTo;
+                });
+            },
+        },
         methods: {
+            // Potential Mixins
+            updateFilter: function (searchFrom, searchTo) {
+                if(searchFrom !== null) {
+                    this.searchFrom = this.searchFrom === searchFrom ? '' : searchFrom;
+                }
+                if(searchTo !== null) {
+                    this.searchTo = this.searchTo === searchTo ? '' : searchTo;
+                }
+                this.images = [];
+                this.$nextTick(function () {
+                    this.$refs.infiniteLoading.$emit('$InfiniteLoading:reset');
+                    $('#gallery').trigger('display.uk.check');
+                });
+            },
+            fetchData: function () {
+                this.$http
+                        .get(apiRoute + 'sources', {
+                            type: 'images',
+                        })
+                        .then(function (response) {
+                            return response.json();
+                        })
+                        .then(function (data) {
+                            this.nicks = this.nicks.concat(data.results.nicks);
+                            this.channels = this.channels.concat(data.results.channels);
+                        }).catch(e => {
+                    console.log(e);
+                });
+            },
+            // END
+            onInfinite() {
+                let params = {
+                    'type': 'images',
+                    page: Math.ceil(this.images.length / this.pageSize) + 1,
+                    pageSize: this.pageSize
+                };
+                if(this.searchFrom)  {
+                    params.user = this.searchFrom;
+                }
+                if(this.searchTo)  {
+                    params.channel = this.searchTo;
+                }
+                this.$http
+                        .get(apiRoute + 'urls', {
+                            params
+                        })
+                        .then( function (res) {
+                            return res.json();
+                        })
+                        .then( function (data)  {
+                            if (data.results.length) {
+                                this.images = this.images.concat(data.results);
+                                _.forEach(data.results, item => {
+                                    if (!_.includes(this.channels, item.to)) {
+                                        this.channels.push(item.to);
+                                    }
+                                    if (!_.includes(this.nicks, item.from)) {
+                                        this.nicks.push(item.from);
+                                    }
+                                });
+                                this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded');
+                                if (data.page >= data.pageCount) {
+                                    this.$refs.infiniteLoading.$emit('$InfiniteLoading:complete');
+                                }
+                                this.$nextTick(function () {
+                                    $('#gallery').trigger('display.uk.check');
+                                });
+                            } else {
+                                this.$refs.infiniteLoading.$emit('$InfiniteLoading:complete');
+                            }
+                        });
+            },
             initPusher: function () {
                 let self = this;
                 window.Fsociety.publicChannel.bind('image', data => {
-                    if(self.activeDisplay.nick && self.activeDisplay.nick != data.from) {
-                        return;
-                    }
-                    if(self.activeDisplay.channel && self.activeDisplay.channel != data.to) {
-                        return;
-                    }
+                    // TODO Splice in new users / channels
                     self.images.unshift(data);
+                    if (!_.includes(this.channels, data.to)) {
+                        this.channels.unshift(data.to);
+                    } else {
+                        this.channels = _.filter(this.channels, channel => channel != data.to);
+                        this.channels.unshift(data.to)
+                    }
+                    if (!_.includes(this.nicks, data.from)) {
+                        this.nicks.unshift(data.from);
+                    } else {
+                        this.nicks = _.filter(this.nicks, nick => nick != data.from);
+                        this.nicks.unshift(data.from);
+                    }
                     self.$nextTick(function () {
                         $('#gallery').trigger('display.uk.check');
                     });
                 });
             },
-            fetchData: function () {
-                this.$http.get(apiRoute + 'sources', {
-                    type: 'images',
-                }).then(function (response) {
-                    return response.json();
-                }).then(function (data) {
-                    this.availableNicks = data.results.nicks;
-                    this.availableChannels = data.results.channels;
-                }).catch(e => {
-                    console.log(e);
-                });
-            },
-            fetchImages: function (page) {
-                page = page || this.page;
-                let params = {
-                    type: 'images',
-                    page: page,
-                    pageSize: this.pageSize
-                };
-
-                // Filter by active Display
-                if (this.activeDisplay.channel) {
-                    params.channel = this.activeDisplay.channel.replace('#','%23');
-                }
-
-                if (this.activeDisplay.nick) {
-                    params.user = this.activeDisplay.nick;
-                }
-
-                this.$http.get(apiRoute + 'urls', {
-                    params: params
-                }).then(function (response) {
-                    return response.json();
-                }).then(function (result) {
-                    this.rowCount = result.rowCount;
-                    this.pageCount = result.pageCount;
-                    this.page = result.page;
-                    this.pageSize = result.pageSize;
-                    this.images = result.results;
-                    this.activeImage = result.results[0];
-                    this.$nextTick(function () {
-                        $('#gallery').trigger('display.uk.check');
-                    });
-                }).catch(e => {
-                    console.log(e);
-                });
-            },
-            refresh: function () {
-                this.fetchData();
-                this.fetchImages(1);
-            },
-            nextPage: function () {
-                if (this.page != this.totalPages) {
-                    this.fetchImages(this.page + 1);
-                }
-            },
-            prevPage: function () {
-                if (this.page > 1) {
-                    this.fetchImages(this.page - 1);
-                }
-            },
-            displayImage: function (image) {
-                let uikit = window.UIkit;
-                let modal = uikit.modal('#image-modal');
-                this.activeImage = image;
-                if (modal.isActive()) {
-                    modal.hide();
-                } else {
-                    modal.show();
-                }
-            },
-            toggleFullMode: function () {
-                this.fullMode = !this.fullMode;
-            }
         }
     }
 </script>
