@@ -104,7 +104,7 @@
         images: [],
         nicks: [],
         channels: [],
-        pageSize: 24,
+        pageSize: 30,
         searchFrom: '',
         searchTo: ''
     };
