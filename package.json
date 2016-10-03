@@ -25,7 +25,7 @@
     "uikit": "^2.27.1",
     "vue-filter": "^0.1.8",
     "vue-infinite-loading": "^2.0.0-rc.1",
-    "vue-lazyload": "git+https://github.com/hilongjw/vue-lazyload.git#dev",
+    "vue-lazyload": "^0.8.0",
     "webfontloader": "^1.6.26"
   }
 }
