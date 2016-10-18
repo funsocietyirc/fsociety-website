@@ -222,6 +222,7 @@
                         this.nicks.unshift(data.from);
                     }
                     self.$nextTick(function () {
+                        this.$refs.infiniteLoading.$emit('$InfiniteLoading:reset');
                         $('#gallery').trigger('display.uk.check');
                     });
                 });
