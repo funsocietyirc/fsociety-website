@@ -97,6 +97,7 @@
     }
 </style>
 <script>
+    // Fix pusher image not propigating
     const _ = require('lodash');
     const apiRoute = 'https://bot.fsociety.guru/api/';
     const dataTemplate = {
@@ -221,10 +222,7 @@
                         this.nicks = _.filter(this.nicks, nick => nick != data.from);
                         this.nicks.unshift(data.from);
                     }
-                    self.$nextTick(function () {
-                        this.$refs.infiniteLoading.$emit('$InfiniteLoading:reset');
-                        $('#gallery').trigger('display.uk.check');
-                    });
+                    $('#gallery').trigger('display.uk.check');
                 });
             },
         }
