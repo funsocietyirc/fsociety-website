@@ -10,8 +10,8 @@
     "laravel-elixir": "^6.0.0-9",
     "laravel-elixir-vue": "^0.1.4",
     "laravel-elixir-vue-2": "^0.2.0",
-    "laravel-elixir-webpack-official": "^1.0.8",
-    "lodash": "^4.16.4",
+    "laravel-elixir-webpack-official": "^1.0.9",
+    "lodash": "^4.16.6",
     "vue": "^2.0.3",
     "vue-resource": "^1.0.3"
   },
@@ -19,13 +19,13 @@
     "hover.css": "^2.0.2",
     "jquery-ujs": "^1.2.2",
     "laravel-elixir-vue-2": "^0.2.0",
-    "pusher-js": "^3.2.1",
+    "pusher-js": "^3.2.2",
     "slick-carousel": "^1.6.0",
     "typed.js": "^1.1.1",
-    "uikit": "^2.27.1",
+    "uikit": "^2.27.2",
     "vue-filter": "^0.1.8",
     "vue-infinite-loading": "^2.0.0-rc.1",
-    "vue-lazyload": "^0.8.0",
+    "vue-lazyload": "^0.8.3",
     "webfontloader": "^1.6.26"
   }
 }
