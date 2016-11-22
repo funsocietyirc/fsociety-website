@@ -99,9 +99,9 @@
                 return final;
             },
             apiRoute: function () {
-                return 'https://bot.fsociety.guru/api/usage/overtime/' + this.channelName.replace('#', '%23');
+                return 'https://bot.fsociety.guru/api/usage/overtime/' + this.channelName.replace('#', '%23') + (nickName ? `/${nickName}` : '');
             }
         },
-        props: ['channelName']
+        props: ['channelName','nickName']
     }
 </script>

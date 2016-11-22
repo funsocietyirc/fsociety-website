@@ -23,7 +23,7 @@ class HomeController extends Controller
         return view('chat');
     }
 
-    public function channel($channel) {
-        return view('channel')->with('channel',$channel);
+    public function channel($channel, $nick) {
+        return view('channel')->with('channel',$channel)->with('nick',$nick);
     }
 }
