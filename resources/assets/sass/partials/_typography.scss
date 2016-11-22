@@ -10,6 +10,10 @@ h1, h2, h3, h4, h5, h6 {
   display: inline-block;
 }
 
+.primaryColorText {
+  color: $mrRobotPrimaryColor;
+}
+
 .message-container {
   min-width: calc(100% - 20%);
   display: inline-block;

@@ -2,10 +2,10 @@
     <div>
         <div class="uk-width-2-3">
             <dl>
-                <dt>Total Messages:</dt>
+                <dt class="primaryColorText">Total Messages:</dt>
                 <dd>{{totalResults}}</dd>
-                <dt>Most Active:</dt>
-                <dd>{{this.mostActive.timestamp}} | {{mostActiveDay}} | {{this.mostActive.messages}} messages</dd>
+                <dt class="primaryColorText">Most Active:</dt>
+                <dd><span class="timeStamp">{{this.mostActive.timestamp}}</span> <span class="primaryColorText">|</span> <span class="timeStamp">{{mostActiveDay}}</span> <span class="primaryColorText">|</span> {{this.mostActive.messages}} messages</dd>
             </dl>
             <vue-chart
                     chart-type="Calendar"

@@ -3,7 +3,7 @@
 @section('content')
     <div class="uk-grid uk-container-center">
         <div class="uk-width-1-1 uk-text-center uk-margin-bottom uk-margin-top">
-            <h1>{{strtoupper($channel)}} Usage Statistics {!! isset($nick) && $nick != '' ? 'For ' . strtoupper($nick) : '' !!}</h1>
+            <h1><span class="to">{{strtoupper($channel)}}</span> Usage Statistics <span class="from">{!! isset($nick) && $nick != '' ? 'For ' . strtoupper($nick) : '' !!}</span></h1>
         </div>
 
         <div class="uk-width-1-1">
