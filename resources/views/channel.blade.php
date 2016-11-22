@@ -1,5 +1,5 @@
 @extends('layout._main')
-@section('title', $channel . ' Usage Statistics' . (isset($nick) ? 'For ' . strtoupper($nick) : '') )
+@section('title', $channel . ' Usage Statistics ' . (isset($nick) ? 'For ' . strtoupper($nick) : '') )
 @section('content')
     <div class="uk-grid uk-container-center">
         <div class="uk-width-1-1 uk-text-center uk-margin-bottom uk-margin-top">
