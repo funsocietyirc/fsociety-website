@@ -13,8 +13,6 @@ require('laravel-elixir-vue-2');
  |
  */
 elixir(mix => {
-
-
     mix.sass('app.scss','public/css/app.css')
         .copy('node_modules/uikit/dist/fonts','public/fonts')
         .webpack('app.js')

@@ -27,7 +27,7 @@ Vue.use(vueFilter);
 Vue.component('gallery', require('./components/gallery.vue'));
 Vue.component('links', require('./components/links.vue'));
 Vue.component('alert', require('./components/alert.vue'));
-// Vue.component('InfiniteLoading', require('vue-infinite-loading'));
+Vue.component('channel-usage',require('./components/channelUsage.vue'));
 
 Vue.filter('Capitalize', function(value) {
     if(!value) return;
