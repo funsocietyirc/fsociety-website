@@ -1,19 +1,12 @@
 <template>
-    <div class="uk-grid uk-margin-top">
-            <div class="uk-width-1-1">
-                <h1 class="uk-text-center">{{formattedChannel}}</h1>
-                <hr>
-            </div>
-            <div class="uk-width-1-1">
-                <vue-chart
-                        chart-type="Calendar"
-                        :packages="chartPackages"
-                        :columns="columns"
-                        :rows="rows"
-                        :options="options"
-                        class="test"
-                ></vue-chart>
-            </div>
+    <div>
+        <vue-chart
+                chart-type="Calendar"
+                :packages="chartPackages"
+                :columns="calCols"
+                :rows="calRows"
+                :options="calOptions"
+        ></vue-chart>
     </div>
 </template>
 <style>
@@ -26,9 +19,8 @@
     export default{
         mounted(){
             this.fetchData();
-            this.options.title = `Usage Stats for ${this.formattedChannel}`;
         },
-        methods:{
+        methods: {
             fetchData: function () {
                 let vm = this;
                 this.$http
@@ -43,44 +35,71 @@
         },
         data(){
             return {
-                chartPackages: ['corechart','calendar'],
+                chartPackages: ['corechart', 'calendar'],
                 usageResults: [],
-                columns: [{
+                calCols: [{
                     'type': 'date',
                     'label': 'Date'
                 }, {
                     'type': 'number',
                     'label': 'Messages'
                 }],
-                options: {
-                    title: ``,
-                    height: 480,
+                calOptions: {
+                    title:'Calender',
+                    height: 360,
+                    colorAxis: {minValue: 0,  colors: ['#FFFFFF','#D12026']},
+                    noDataPattern: {
+                        backgroundColor: '#000000',
+                        color: '#000000'
+                    },
+                    dayOfWeekLabel: {
+                        fontName: 'Helvetica Neue',
+                        fontSize: 12,
+                        color: '#666666',
+                        bold: false,
+                        italic: false
+                    },
                     calendar: {
                         underYearSpace: 10, // Bottom padding for the year labels.
+
                         yearLabel: {
-                            fontName: 'Times-Roman',
+                            fontName: 'Helvetica Neue',
                             fontSize: 32,
                             color: '#D12026',
                             bold: true,
-                        }
+                        },
+                        monthLabel: {
+                            fontName: 'Helvetica Neue',
+                            fontSize: 12,
+                            color: '#FFFFFF',
+                            bold: true,
+                            italic: true
+                        },
+                        monthOutlineColor: {
+                            stroke: '#981b48',
+                            strokeOpacity: 0.8,
+                            strokeWidth: 2
+                        },
+                        unusedMonthOutlineColor: {
+                            stroke: '#bc5679',
+                            strokeOpacity: 0.0,
+                            strokeWidth: 0
+                        },
                     }
                 },
 
             }
         },
         computed: {
-            rows: function() {
+            calRows: function () {
                 let final = [];
-               _.forEach(this.usageResults, result => {
-                  final.push([moment(result.raw).toDate(), result.messages])
-              });
+                _.forEach(this.usageResults, result => {
+                    final.push([moment(result.raw).toDate(), result.messages])
+                });
                 return final;
             },
-            formattedChannel: function () {
-                return this.channelName.toUpperCase();
-            },
-            apiRoute: function() {
-                return 'https://bot.fsociety.guru/api/usage/overtime/' + this.channelName.replace('#','%23');
+            apiRoute: function () {
+                return 'https://bot.fsociety.guru/api/usage/overtime/' + this.channelName.replace('#', '%23');
             }
         },
         props: ['channelName']
