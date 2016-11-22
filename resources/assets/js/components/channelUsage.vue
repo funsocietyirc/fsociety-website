@@ -5,19 +5,22 @@
                 <hr>
             </div>
             <div class="uk-width-1-1">
-                <div class="uk-width-1-1" style="margin:0 auto;">
-                    <vue-chart
-                            :columns="columns"
-                            :rows="rows"
-                            :options="options"
-                    ></vue-chart>
-                </div>
+                <vue-chart
+                        chart-type="Calendar"
+                        :packages="chartPackages"
+                        :columns="columns"
+                        :rows="rows"
+                        :options="options"
+                        class="test"
+                ></vue-chart>
             </div>
     </div>
 </template>
 <style>
 </style>
 <script>
+    const _ = require('lodash');
+    const moment = require('moment');
     Vue.use(require('vue-charts'));
 
     export default{
@@ -40,30 +43,27 @@
         },
         data(){
             return {
+                chartPackages: ['corechart','calendar'],
                 usageResults: [],
                 columns: [{
-                    'type': 'string',
-                    'label': 'Channel'
+                    'type': 'date',
+                    'label': 'Date'
                 }, {
                     'type': 'number',
                     'label': 'Messages'
                 }],
                 options: {
                     title: ``,
-                    hAxis: {
-                        title: 'Date',
-                        textStyle: {fontSize: 14}
-
-                    },
-                    vAxis: {
-                        title: 'Total Messages',
-                        gridlines: {
-                            count:4
-                        },
-                    },
-                    width: 1800,
-                    height: 768,
-                    curveType: 'function'
+                    height: 480,
+                    calendar: {
+                        underYearSpace: 10, // Bottom padding for the year labels.
+                        yearLabel: {
+                            fontName: 'Times-Roman',
+                            fontSize: 32,
+                            color: '#D12026',
+                            bold: true,
+                        }
+                    }
                 },
 
             }
@@ -72,7 +72,7 @@
             rows: function() {
                 let final = [];
                _.forEach(this.usageResults, result => {
-                  final.push([result.date, result.messages])
+                  final.push([moment(result.raw).toDate(), result.messages])
               });
                 return final;
             },
