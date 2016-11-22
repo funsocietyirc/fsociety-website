@@ -1,21 +1,34 @@
 <template>
     <div>
-        <div class="uk-width-2-3">
-            <dl>
-                <dt class="primaryColorText">Total Messages:</dt>
-                <dd>{{totalResults}}</dd>
-                <dt class="primaryColorText">Most Active:</dt>
-                <dd><span class="timeStamp">{{this.mostActive.timestamp}}</span> <span class="primaryColorText">|</span> <span class="timeStamp">{{mostActiveDay}}</span> <span class="primaryColorText">|</span> {{this.mostActive.messages}} messages</dd>
-            </dl>
-            <vue-chart
-                    chart-type="Calendar"
-                    :packages="chartPackages"
-                    :columns="calCols"
-                    :rows="calRows"
-                    :options="calOptions"
-            ></vue-chart>
+        <dl>
+            <dt class="primaryColorText">Total Messages:</dt>
+            <dd>{{totalResults}}</dd>
+            <dt class="primaryColorText">Most Active:</dt>
+            <dd><span class="timeStamp">{{this.mostActive.timestamp}}</span> <span class="primaryColorText">|</span>
+                <span class="timeStamp">{{mostActiveDay}}</span> <span class="primaryColorText">|</span>
+                {{this.mostActive.messages}} messages
+            </dd>
+        </dl>
+        <div class="uk-text-center uk-container-center">
+            <div id="usage" style="height:180px;">
+                <vue-chart
+                        chart-type="Calendar"
+                        :packages="chartPackages"
+                        :columns="cols"
+                        :rows="rows"
+                        :options="calOptions"
+                ></vue-chart>
+            </div>
+            <div id="line" style="height:640px;">
+                <vue-chart
+                        :columns="cols"
+                        :rows="rows"
+                        :options="lineOptions"
+                ></vue-chart>
+            </div>
         </div>
     </div>
+
 </template>
 <style>
     dt:before {
@@ -25,6 +38,8 @@
     dt, dd {
         display: inline;
     }
+
+
 </style>
 <script>
     const _ = require('lodash');
@@ -32,7 +47,7 @@
     Vue.use(require('vue-charts'));
 
     export default{
-        mounted(){
+        created() {
             this.fetchData();
         },
         methods: {
@@ -54,18 +69,55 @@
             return {
                 chartPackages: ['corechart', 'calendar'],
                 usageResults: [],
-                mostActive: null,
-                leastActive: null,
-                calCols: [{
+                mostActive: {
+                    timestamp: '',
+                },
+                leastActive: {
+                    timestamp: '',
+                },
+                cols: [{
                     'type': 'date',
                     'label': 'Date'
                 }, {
                     'type': 'number',
                     'label': 'Messages'
                 }],
+                lineOptions: {
+                    title: 'Frequency',
+                    height:320,
+                    width:1100,
+                    colors: ['#D12026'],
+                    curveType: 'function',
+                    backgroundColor:'black',
+                    legend: {
+                        maxLines:0,
+                        position:'none',
+                    },
+                    lineWidth:2,
+                    hAxis: {
+                      textStyle: {
+                        color: '#666666',
+                        fontName: 'Helvetica Neue',
+                      },
+                      titleTextStyle: {
+                        color: '#666666',
+                        fontName: 'Helvetica Neue',
+                      },
+                    },
+                    vAxis: {
+                      textStyle: {
+                        color: '#666666',
+                        fontName: 'Helvetica Neue',
+                      },
+                      titleTextStyle: {
+                        color: '#666666',
+                        fontName: 'Helvetica Neue',
+                      },
+                    },
+                },
                 calOptions: {
                     title: 'Calender',
-                    height: 360,
+                    width: 1098,
                     colorAxis: {minValue: 0, colors: ['#FFFFFF', '#D12026']},
                     noDataPattern: {
                         backgroundColor: '#000000',
@@ -110,7 +162,7 @@
             }
         },
         computed: {
-            calRows: function () {
+            rows: function () {
                 let final = [];
                 _.forEach(this.usageResults, result => {
                     final.push([moment(result.raw).toDate(), result.messages])
@@ -129,4 +181,6 @@
         },
         props: ['channelName', 'nickName']
     }
+
+
 </script>

@@ -6,13 +6,10 @@
             <h1><span class="to">{{strtoupper($channel)}}</span> Usage Statistics <span class="from">{!! isset($nick) && $nick != '' ? 'For ' . strtoupper($nick) : '' !!}</span></h1>
         </div>
 
-        <div class="uk-width-1-1">
-            <div class="uk-panel">
-                <div id="vue">
-                    <channel-usage channel-name="{!! $channel !!}" nick-name="{!! isset($nick) ? $nick : '' !!}"></channel-usage>
-                </div>
-            </div>
+        <div id="vue" class="uk-width-1-1">
+            <channel-usage style="width:1100px; margin:0 auto;" channel-name="{!! $channel !!}" nick-name="{!! isset($nick) ? $nick : '' !!}"></channel-usage>
         </div>
+
     </div>
 @endsection
 @section('head-script')
