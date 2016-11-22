@@ -1,15 +1,30 @@
 <template>
     <div>
-        <vue-chart
-                chart-type="Calendar"
-                :packages="chartPackages"
-                :columns="calCols"
-                :rows="calRows"
-                :options="calOptions"
-        ></vue-chart>
+        <div class="uk-width-2-3">
+            <dl>
+                <dt>Total Messages:</dt>
+                <dd>{{totalResults}}</dd>
+                <dt>Most Active:</dt>
+                <dd>{{this.mostActive.timestamp}} | {{mostActiveDay}} | {{this.mostActive.messages}} messages</dd>
+            </dl>
+            <vue-chart
+                    chart-type="Calendar"
+                    :packages="chartPackages"
+                    :columns="calCols"
+                    :rows="calRows"
+                    :options="calOptions"
+            ></vue-chart>
+        </div>
     </div>
 </template>
 <style>
+    dt:before {
+        content: "";
+        display: block;
+    }
+    dt, dd {
+        display: inline;
+    }
 </style>
 <script>
     const _ = require('lodash');
@@ -28,6 +43,8 @@
                     return response.json();
                 }).then(function (data) {
                     vm.usageResults = data.results;
+                    vm.leastActive = data.lowest;
+                    vm.mostActive = data.highest;
                 }).catch(e => {
                     console.log(e);
                 });
@@ -37,6 +54,8 @@
             return {
                 chartPackages: ['corechart', 'calendar'],
                 usageResults: [],
+                mostActive: null,
+                leastActive: null,
                 calCols: [{
                     'type': 'date',
                     'label': 'Date'
@@ -45,9 +64,9 @@
                     'label': 'Messages'
                 }],
                 calOptions: {
-                    title:'Calender',
+                    title: 'Calender',
                     height: 360,
-                    colorAxis: {minValue: 0,  colors: ['#FFFFFF','#D12026']},
+                    colorAxis: {minValue: 0, colors: ['#FFFFFF', '#D12026']},
                     noDataPattern: {
                         backgroundColor: '#000000',
                         color: '#000000'
@@ -100,8 +119,14 @@
             },
             apiRoute: function () {
                 return 'https://bot.fsociety.guru/api/usage/overtime/' + this.channelName.replace('#', '%23') + (this.nickName ? `/${this.nickName}` : '');
-            }
+            },
+            totalResults: function () {
+                return _.sumBy(this.usageResults, 'messages');
+            },
+            mostActiveDay: function() {
+                return moment(this.mostActive.raw).fromNow();
+            },
         },
-        props: ['channelName','nickName']
+        props: ['channelName', 'nickName']
     }
 </script>
