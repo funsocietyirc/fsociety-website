@@ -96,6 +96,8 @@
                         color: '#666666',
                         fontName: 'Helvetica Neue',
                       },
+
+
                     },
                     vAxis: {
                       textStyle: {
@@ -107,6 +109,9 @@
                         fontName: 'Helvetica Neue',
                       },
                       minValue: 0,
+                      viewWindow: {
+                        min: 0,
+                      }
                     },
                 },
                 calOptions: {
