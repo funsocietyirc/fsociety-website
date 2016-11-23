@@ -106,6 +106,7 @@
                         color: '#666666',
                         fontName: 'Helvetica Neue',
                       },
+                      minValue: 0,
                     },
                 },
                 calOptions: {
