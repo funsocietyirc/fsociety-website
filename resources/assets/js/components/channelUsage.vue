@@ -1,5 +1,6 @@
 <template>
     <div class="uk-panel root-panel">
+        <div v-show="usageResults.length">
             <div id="usage" style="height:180px;">
                 <vue-chart
                         chart-type="Calendar"
@@ -9,24 +10,28 @@
                         :options="calOptions"
                 ></vue-chart>
             </div>
-        <hr>
-        <div id="line">
+            <hr>
+            <div id="line">
                 <vue-chart
                         :columns="cols"
                         :rows="rows"
                         :options="lineOptions"
                 ></vue-chart>
             </div>
-        <hr>
-        <ul>
-            <li>
-                <span class="primaryColorText">Total:</span> {{totalResults}}
-            </li>
-            <li class="muted">
-                <span class="primaryColorText">Peak </span> {{this.mostActive.messages}} - <span class="timeStamp">{{this.mostActive.timestamp}}</span> - <span class="timeStamp">{{mostActiveDay}}</span>
-            </li>
-        </ul>
-    </div>
+            <p class="uk-text-center">Drag to Zoom, Right click to Reset</p>
+            <hr>
+            <ul>
+                <li>
+                    <span class="primaryColorText">Total:</span> {{numberWithCommas(totalResults)}}
+                </li>
+                <li class="muted">
+                    <span class="primaryColorText">Peak </span> {{numberWithCommas(this.mostActive.messages)}} - <span class="timeStamp">{{this.mostActive.timestamp}}</span> - <span class="timeStamp">{{mostActiveDay}}</span>
+                </li>
+            </ul>
+        </div>
+        <div class="uk-text-center" v-show="!usageResults.length">
+            <h3>There are no results available for this channel and or nick combination</h3>
+        </div>
 
 </template>
 <style>
@@ -44,6 +49,9 @@
             this.fetchData();
         },
         methods: {
+            numberWithCommas: function(n) {
+                return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            },
             fetchData: function () {
                 let vm = this;
                 this.$http
@@ -75,8 +83,21 @@
                     'type': 'number',
                     'label': 'Messages'
                 }],
+                pieCols: [{
+                    'type': 'string',
+                    'label': 'Date'
+                },{
+                    'type': 'number',
+                    'label': 'Messages'
+                }],
                 lineOptions: {
                     title: '',
+                    explorer: {
+                        actions: ['dragToZoom','rightClickToReset'],
+                        axis: 'horizontal',
+                        keepInBounds: true,
+                        maxZoomIn: 0.01,
+                    },
                     height:320,
                     width:1100,
                     colors: ['#D12026'],
@@ -96,10 +117,9 @@
                         color: '#666666',
                         fontName: 'Helvetica Neue',
                       },
-
-
                     },
                     vAxis: {
+                      format: 'decimal',
                       textStyle: {
                         color: '#666666',
                         fontName: 'Helvetica Neue',
