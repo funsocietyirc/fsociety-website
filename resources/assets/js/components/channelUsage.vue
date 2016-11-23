@@ -1,15 +1,5 @@
 <template>
-    <div>
-        <dl>
-            <dt class="primaryColorText">Total Messages:</dt>
-            <dd>{{totalResults}}</dd>
-            <dt class="primaryColorText">Most Active:</dt>
-            <dd><span class="timeStamp">{{this.mostActive.timestamp}}</span> <span class="primaryColorText">|</span>
-                <span class="timeStamp">{{mostActiveDay}}</span> <span class="primaryColorText">|</span>
-                {{this.mostActive.messages}} messages
-            </dd>
-        </dl>
-        <div class="uk-text-center uk-container-center">
+    <div class="uk-panel root-panel">
             <div id="usage" style="height:180px;">
                 <vue-chart
                         chart-type="Calendar"
@@ -19,27 +9,30 @@
                         :options="calOptions"
                 ></vue-chart>
             </div>
-            <div id="line" style="height:640px;">
+        <hr>
+        <div id="line">
                 <vue-chart
                         :columns="cols"
                         :rows="rows"
                         :options="lineOptions"
                 ></vue-chart>
             </div>
-        </div>
+        <hr>
+        <ul>
+            <li>
+                <span class="primaryColorText">Total:</span> {{totalResults}}
+            </li>
+            <li class="muted">
+                <span class="primaryColorText">Peak </span> {{this.mostActive.messages}} - <span class="timeStamp">{{this.mostActive.timestamp}}</span> - <span class="timeStamp">{{mostActiveDay}}</span>
+            </li>
+        </ul>
     </div>
 
 </template>
 <style>
-    dt:before {
-        content: "";
-        display: block;
+    .root-panel {
+        background: rgba(0,0,0,0.8);
     }
-    dt, dd {
-        display: inline;
-    }
-
-
 </style>
 <script>
     const _ = require('lodash');
@@ -116,7 +109,7 @@
                     },
                 },
                 calOptions: {
-                    title: 'Calender',
+                    title: 'Calendar',
                     width: 1098,
                     colorAxis: {minValue: 0, colors: ['#FFFFFF', '#D12026']},
                     noDataPattern: {
@@ -132,7 +125,6 @@
                     },
                     calendar: {
                         underYearSpace: 10, // Bottom padding for the year labels.
-
                         yearLabel: {
                             fontName: 'Helvetica Neue',
                             fontSize: 32,
