@@ -76,7 +76,7 @@
                     'label': 'Messages'
                 }],
                 lineOptions: {
-                    title: 'Frequency',
+                    title: '',
                     height:320,
                     width:1100,
                     colors: ['#D12026'],
@@ -119,30 +119,25 @@
                     width: 1098,
                     colorAxis: {minValue: 0, colors: ['#FFFFFF', '#D12026']},
                     noDataPattern: {
-                        backgroundColor: '#000000',
-                        color: '#000000'
-                    },
-                    dayOfWeekLabel: {
-                        fontName: 'Helvetica Neue',
-                        fontSize: 12,
-                        color: '#666666',
-                        bold: false,
-                        italic: false
+                        backgroundColor: '#1a1a1a',
+                        color: '#1a1a1a'
                     },
                     calendar: {
                         underYearSpace: 10, // Bottom padding for the year labels.
+                        dayOfWeekLabel: {
+                            fontName: 'Helvetica Neue',
+                            fontSize: 12,
+                            color: '#666666',
+                        },
                         yearLabel: {
                             fontName: 'Helvetica Neue',
                             fontSize: 32,
                             color: '#D12026',
-                            bold: true,
                         },
                         monthLabel: {
                             fontName: 'Helvetica Neue',
                             fontSize: 12,
-                            color: '#FFFFFF',
-                            bold: true,
-                            italic: true
+                            color: '#a6a6a6',
                         },
                         monthOutlineColor: {
                             stroke: '#981b48',
@@ -153,6 +148,17 @@
                             stroke: '#bc5679',
                             strokeOpacity: 0.0,
                             strokeWidth: 0
+                        },
+                        focusedCellColor: {
+                            stroke: 'red',
+                            strokeOpacity: 0.8,
+                            strokeWidth: 1,
+                        },
+                        cellSize:17,
+                        cellColor: {
+                            stroke: 'black',
+                            strokeOpacity: 0.5,
+                            strokeWidth: 2,
                         },
                     }
                 },
