@@ -12,7 +12,7 @@
                 <a href="" class="uk-alert-close uk-close"></a>
             @endif
             <p>
-                {!! session('flash_notification.message') !!}
+                {{session('flash_notification.message') }}
             </p>
         </div>
     @endif

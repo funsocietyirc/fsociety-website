@@ -1,11 +1,11 @@
 @php
     $modalId = 'modal' . str_random(5);
 @endphp
-<div id="{!! $modalId !!}" class="uk-modal">
+<div id="{{$modalId}}" class="uk-modal">
     <div class="uk-modal-dialog {{ $modalClass or '' }}">
         <div class="uk-modal-header">{{ $title }}</div>
         <p>
-            {!! $body !!}
+            {{$body}}
         </p>
         <div class="uk-modal-footer">
             <a class="uk-button uk-button-danger uk-modal-close">exit<span class="typed-cursor">|</span></a>
@@ -14,6 +14,6 @@
 </div>
 <script>
     $(function () {
-        jQuery.UIkit.modal('#{!! $modalId !!}').show();
+        jQuery.UIkit.modal('#{{$modalId}}').show();
     });
 </script>

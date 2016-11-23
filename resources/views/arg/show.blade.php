@@ -7,7 +7,7 @@
                 <div class="episode-info uk-cover-background" style="background: url('/images/arg/banner.png')">
                     <div class="uk-container uk-container-center">
                         <div class="uk-block">
-                            <h1 class="uk-text-truncate uk-text-center">{!! $arg->name !!}</h1>
+                            <h1 class="uk-text-truncate uk-text-center">{{$arg->name}}</h1>
                             @include('arg.partials._dlist')
                             <div class="uk-grid">
                                 <div class="uk-width-large-1-2 uk-medium-1-2">
