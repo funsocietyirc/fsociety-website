@@ -50,7 +50,7 @@
         },
         methods: {
             numberWithCommas: function(n) {
-                return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                return (!n || !n.toString) ? '' :  n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             },
             fetchData: function () {
                 let vm = this;

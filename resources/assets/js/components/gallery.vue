@@ -34,7 +34,7 @@
                     <li v-for="image in resultSet" class="uk-width-large-1-6 uk-width-medium-1-4 uk-width-small-1-2">
                         <div class="image-border-overlay">
                             <div class="uk-thumbnail gallery-image">
-                                <a data-uk-lightbox="{group:'images'}" class="image-link" :href="image.url" title=""
+                                <a data-uk-lightbox="{group:'images'}" class="image-link uk-container-center" :href="image.url" title=""
                                    style="display:block !important;margin:auto !important;">
                                     <img v-lazy.container="image.url" class="image">
                                 </a>
