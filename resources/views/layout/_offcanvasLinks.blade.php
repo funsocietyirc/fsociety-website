@@ -13,3 +13,6 @@
 <li class="{{ isActiveRoute('links')}}">
     <a class="uk-navbar-nav-subtitle" href="{{route('links')}}">IRC<div>Links</div></a>
 </li>
+<li class="{{ isActiveRoute('irc-channels')}}">
+    <a class="uk-navbar-nav-subtitle" href="{{route('irc-channels')}}">IRC<div>Channels</div></a>
+</li>

@@ -21,6 +21,6 @@ elixir(mix => {
         .copy('node_modules/vue-infinite-loading/dist/vue-infinite-loading.js', 'public/js/infinite.js')
         .less('uk.less','public/css/uikit.css')
         .version([
-            'css/app.css','css/uikit.css','js/app.js','js/vue.js'
+            'css/app.css','css/uikit.css','js/app.js','js/vue.js', 'js/laroute.js'
         ]);
 });

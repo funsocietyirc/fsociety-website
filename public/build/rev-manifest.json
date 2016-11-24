@@ -1,6 +1,7 @@
 {
   "css/app.css": "css/app-421de1cd0d.css",
-  "css/uikit.css": "css/uikit-b425a0dc26.css",
+  "css/uikit.css": "css/uikit-44256ea9d7.css",
   "js/app.js": "js/app-4cc05dc66f.js",
-  "js/vue.js": "js/vue-bda1032735.js"
+  "js/laroute.js": "js/laroute-e42ab1250f.js",
+  "js/vue.js": "js/vue-3176c85d18.js"
 }

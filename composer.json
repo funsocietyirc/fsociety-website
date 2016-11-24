@@ -16,7 +16,8 @@
         "laravelcollective/html": "5.3.*",
         "barryvdh/laravel-cors": "^0.8.2",
         "laravel/socialite": "^2.0",
-        "pusher/pusher-php-server": "^2.6"
+        "pusher/pusher-php-server": "^2.6",
+        "lord/laroute" : "2.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

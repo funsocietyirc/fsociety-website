@@ -23,6 +23,10 @@ class HomeController extends Controller
         return view('chat');
     }
 
+    public function ircChannels() {
+        return view('channels');
+    }
+
     public function channel($channel, $nick = '') {
         return view('channel')->with('channel',$channel)->with('nick',$nick);
     }

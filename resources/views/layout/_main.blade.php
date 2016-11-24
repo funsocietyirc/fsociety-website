@@ -19,7 +19,7 @@
     <meta name="twitter:description" content="Community content driven site made in homage to the critically acclaimed series Mr. Robot." />
     <meta name="twitter:title" content="FSociety" />
     <meta name="twitter:site" content="@funsocietyirc" />
-
+    <script src="{{elixir('js/laroute.js')}}"></script>
     <script src="{{elixir('js/app.js')}}"></script>
     <link rel="stylesheet" href={{elixir('css/uikit.css')}}>
     <link rel="stylesheet" href={{elixir('css/app.css')}}>

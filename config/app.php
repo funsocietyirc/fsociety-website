@@ -174,7 +174,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Barryvdh\Cors\ServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
-
+        Lord\Laroute\LarouteServiceProvider::class,
         /*
          * Application Service Providers...
          */
