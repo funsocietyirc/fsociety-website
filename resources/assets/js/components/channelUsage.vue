@@ -32,7 +32,7 @@
         <div class="uk-text-center" v-show="!usageResults.length">
             <h3>There are no results available for this channel and or nick combination</h3>
         </div>
-
+    </div>
 </template>
 <style>
     .root-panel {
