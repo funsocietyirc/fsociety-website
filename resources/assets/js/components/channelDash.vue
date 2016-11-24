@@ -3,7 +3,7 @@
         <div class="uk-block uk-width-1-1">
             <h1 class="uk-text-center">Channel Usage Statistics</h1>
         </div>
-            <a v-for="(result, channel) in sortedResults" :title="getTitle(result)" :href="getActionLink(result.channel)" class="uk-panel uk-panel-header uk-panel-box uk-panel-hover uk-width-large-1-4 uk-width-medium-1-1 uk-width-small-1-1">
+            <a v-for="(result, channel) in sortedResults" :title="getTitle(result)" :href="getActionLink(result.channel)" data-uk-tooltip class="uk-panel uk-panel-header uk-panel-box uk-panel-hover uk-width-large-1-4 uk-width-medium-1-1 uk-width-small-1-1">
                 <div class="uk-panel-badge uk-badge">{{numberWithCommas(result.messages)}}</div>
                 <h3 class="uk-panel-title">
                     <i v-bind:class="{ watched: result.isWatching, primaryColorText: !result.isWatching }" class="uk-icon-small uk-icon-eye" style="margin-right:10px;"></i>{{result.channel}}

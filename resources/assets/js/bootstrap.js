@@ -21,6 +21,8 @@ const Pusher = require('pusher-js');
 const UIKit = require('uikit');
 require('../../../node_modules/uikit/dist/js/components/lightbox');
 require('../../../node_modules/uikit/dist/js/components/notify');
+require('../../../node_modules/uikit/dist/js/components/tooltip');
+require('../../../node_modules/uikit/dist/js/components/grid');
 
 
 // Front End Deps
