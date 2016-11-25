@@ -18,47 +18,41 @@
             </h3>
 
             <div v-if="result.currentOps.length || result.currentVoices.length || result.currentParticipants.length" class="uk-flex uk-flex-space-between  uk-flex-wrap-space-between activeUsers">
-
                 <div v-if="result.currentOps.length" data-uk-tooltip title="Operators">
                     {{result.currentOps.length}} <i class="uk-icon-at url"></i>
                 </div>
-
-                <div v-if="result.currentVoices.length" data-uk-tooltip title="Voices">
+                <div v-if="result.currentVoices.length" data-uk-tooltip title="Voiced Users">
                     {{result.currentVoices.length}} <i class="uk-icon-plus timeStamp"></i>
                 </div>
-
-                <div v-if="result.currentParticipants.length" data-uk-tooltip title="Users">
+                <div v-if="result.currentParticipants.length" data-uk-tooltip title="Regular Users">
                     {{result.currentParticipants.length}} <i class="uk-icon-user from"></i>
                 </div>
-
+                <div v-if="result.currentParticipants.length || result.currentOps.length || result.currentVoices.length" data-uk-tooltip title="Total Online">
+                    {{result.currentParticipants.length + result.currentOps.length + result.currentVoices.length}} <i class="uk-icon-male white"></i>
+                </div>
                 <div v-if="result.popularityRanking" data-uk-tooltip title="Popularity Ranking">
                     {{result.popularityRanking.meanScore || 0.00}} <i class="uk-icon-smile-o yellow"></i>
                 </div>
-
                 <div v-if="result.kicks" data-uk-tooltip title="Kicks">
                     {{result.kicks}} <i class="uk-icon-bomb"></i>
                 </div>
-
                 <div v-if="result.actions" data-uk-tooltip title="Actions">
                     {{result.actions}} <i class="uk-icon-check green"></i>
                 </div>
-
                 <div v-if="result.topMonthlyParticipants.length" data-uk-tooltip title="Most Active User this Month">
                     {{getMostActive(result)}} <i class="uk-icon-plus-circle from"></i>
                 </div>
-
                 <div v-if="result.popularityRanking" data-uk-tooltip title="Most Popular User">
                     {{getMostPop(result)}} <i class="uk-icon-graduation-cap"></i>
                 </div>
-
             </div>
-
         </a>
-
     </div>
 </template>
 <style lang="css">
-
+    .white {
+        color: white;
+    }
     .yellow {
         color: yellow;
     }
