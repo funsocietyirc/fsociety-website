@@ -1,15 +1,15 @@
 <template xmlns:v-bind="http://www.w3.org/1999/xhtml">
-    <div class="uk-grid uk-container-center">
+    <div class="uk-grid uk-grid-small uk-container-center" data-uk-grid-match>
         <header class="uk-block  uk-cover-background uk-width-1-1">
             <h1 class="uk-text-truncate uk-text-center">
                 Channel Usage Statistics
             </h1>
         </header>
         <hr class="uk-width-1-1 uk-margin-bottom">
-        <a v-for="(result, key) in sortedResults" :href="getActionLink(result.channel)"
-           class="uk-panel uk-panel-header uk-panel-box uk-panel-hover uk-width-large-1-3 uk-width-medium-1-1 uk-width-small-1-1">
-            <div title="Messages Recorded" data-uk-tooltip class="uk-panel-badge uk-badge">
-                {{numberWithCommas(result.messages)}}
+        <div v-for="(result, key) in sortedResults"
+           class="uk-panel uk-panel-header uk-panel-box uk-width-large-1-3 uk-width-medium-1-1 uk-width-small-1-1">
+            <div title="Messages Recorded, click for Overall usage summary" data-uk-tooltip class="uk-panel-badge uk-badge">
+                <a :href="getActionLink(result.channel)">{{numberWithCommas(result.messages)}}</a>
             </div>
             <h3 class="uk-panel-title">
                 <i data-uk-tooltip v-bind:class="{ watched: result.isWatching, primaryColorText: !result.isWatching }"
@@ -17,7 +17,8 @@
                    style="margin-right:10px;"></i><span :title="getTitle(result)" data-uk-tooltip class="to">{{result.channel}}</span>
             </h3>
 
-            <div v-if="result.currentOps.length || result.currentVoices.length || result.currentParticipants.length" class="uk-flex uk-flex-space-between  uk-flex-wrap-space-between activeUsers">
+            <!-- Statistics Flex -->
+            <div class="uk-flex uk-flex-space-between  uk-flex-wrap-space-between activeUsers">
                 <div v-if="result.currentOps.length" data-uk-tooltip title="Operators">
                     {{result.currentOps.length}} <i class="uk-icon-at url"></i>
                 </div>
@@ -27,8 +28,10 @@
                 <div v-if="result.currentParticipants.length" data-uk-tooltip title="Regular Users">
                     {{result.currentParticipants.length}} <i class="uk-icon-user from"></i>
                 </div>
-                <div v-if="result.currentParticipants.length || result.currentOps.length || result.currentVoices.length" data-uk-tooltip title="Total Online">
-                    {{result.currentParticipants.length + result.currentOps.length + result.currentVoices.length}} <i class="uk-icon-male white"></i>
+                <div v-if="result.currentParticipants.length || result.currentOps.length || result.currentVoices.length"
+                     data-uk-tooltip title="Total Online">
+                    {{result.currentParticipants.length + result.currentOps.length + result.currentVoices.length}} <i
+                        class="uk-icon-male white"></i>
                 </div>
                 <div v-if="result.popularityRanking" data-uk-tooltip title="Popularity Ranking">
                     {{result.popularityRanking.meanScore || 0.00}} <i class="uk-icon-smile-o yellow"></i>
@@ -40,30 +43,77 @@
                     {{result.actions}} <i class="uk-icon-check green"></i>
                 </div>
                 <div v-if="result.topMonthlyParticipants.length" data-uk-tooltip title="Most Active User this Month">
-                    {{getMostActive(result)}} <i class="uk-icon-plus-circle from"></i>
+                    <a :href="getActionLink(result.channel, getMostActive(result))">{{getMostActive(result)}} <i class="uk-icon-plus-circle from"></i></a>
                 </div>
                 <div v-if="result.popularityRanking" data-uk-tooltip title="Most Popular User">
-                    {{getMostPop(result)}} <i class="uk-icon-graduation-cap"></i>
+                    <a :href="getActionLink(result.channel, getMostPop(result))">{{getMostPop(result)}} <i class="uk-icon-graduation-cap"></i></a>
                 </div>
             </div>
-        </a>
+            <hr v-if="displayBar(result)">
+            <div class="uk-accordion" data-uk-accordion="{showfirst: false}">
+                <h3 class="uk-accordion-title primaryColorText" v-if="result.topMonthlyParticipants.length"><span class="uk-icon-justify uk-icon-arrows-v"></span>Top 10 Monthly Participants</h3>
+                <div class="uk-accordion-content" v-if="result.topMonthlyParticipants.length">
+                    <table class="uk-table uk-table-striped">
+                        <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Messages</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="user in result.topMonthlyParticipants">
+                            <td><a :href="getActionLink(result.channel, user.nick)">{{user.nick}}</a></td>
+                            <td>{{user.total}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 class="uk-accordion-title primaryColorText" v-if="result.popularityRanking"><span class="uk-icon-justify uk-icon-arrows-v"></span>Popularity</h3>
+                <div class="uk-accordion-content" v-if="result.popularityRanking">
+                    <table class="uk-table uk-table-striped">
+                        <thead>
+                        <tr>
+                            <th>Candidate</th>
+                            <th>Score</th>
+                            <th>Votes</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="candidate in result.popularityRanking.rankings">
+                            <td><a :href="getActionLink(result.channel, candidate.candidate)">{{candidate.candidate}}</a></td>
+                            <td>{{candidate.score}}</td>
+                            <td>{{candidate.votes}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
     </div>
 </template>
 <style lang="css">
     .white {
         color: white;
     }
+
     .yellow {
         color: yellow;
     }
+
     .green {
         color: forestgreen;
     }
+
     header {
         background-image: url('/images/arg/banner.png');
     }
+
     .watched {
         color: rgba(63, 191, 127, 0.9) !important;
+    }
+    .uk-accordion-title {
+        cursor: pointer;
     }
 </style>
 <script>
@@ -97,16 +147,28 @@
             getTitle: function(result) {
                 return !result.topic || !result.topic.topic ? '' : result.topic.topic;
             },
-            getActionLink: function(channel) {
-                return laroute.route('channel',{
+            getActionLink: function(channel, user) {
+                let args = {
                     channel: encodeURIComponent(channel)
-                });
+                };
+                if(user) args.nick = user;
+                return laroute.route('channel',args);
             },
             getMostPop: function(result) {
                 return _.first(result.popularityRanking.rankings).candidate;
             },
             getMostActive: function(result) {
                 return _.first(result.topMonthlyParticipants).nick;
+            },
+            displayBar: function(result) {
+                return result.currentOps.length ||
+                result.currentVoices.length ||
+                result.currentParticipants.length ||
+                (result.popularityRanking && result.popularityRanking.meanScore) ||
+                result.kicks ||
+                  result.actions ||
+                  result.topMonthlyParticipants.length ||
+                  result.popularityRanking;
             },
         },
         computed: {
@@ -123,5 +185,6 @@
         components:{
         }
     }
+
 
 </script>

@@ -23,6 +23,7 @@ require('../../../node_modules/uikit/dist/js/components/lightbox');
 require('../../../node_modules/uikit/dist/js/components/notify');
 require('../../../node_modules/uikit/dist/js/components/tooltip');
 require('../../../node_modules/uikit/dist/js/components/grid');
+require('../../../node_modules/uikit/dist/js/components/accordion');
 
 // Front End Deps
 require('jquery-ujs');
