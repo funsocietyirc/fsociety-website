@@ -6,8 +6,8 @@
             </h1>
         </header>
         <hr class="uk-width-1-1 uk-margin-bottom">
-        <a v-for="(result, channel) in sortedResults" :href="getActionLink(result.channel)"
-           class="uk-panel uk-panel-header uk-panel-box uk-panel-hover uk-width-large-1-4 uk-width-medium-1-1 uk-width-small-1-1">
+        <a v-for="(result, key) in sortedResults" :href="getActionLink(result.channel)"
+           class="uk-panel uk-panel-header uk-panel-box uk-panel-hover uk-width-large-1-3 uk-width-medium-1-1 uk-width-small-1-1">
             <div title="Messages Recorded" data-uk-tooltip class="uk-panel-badge uk-badge">
                 {{numberWithCommas(result.messages)}}
             </div>
@@ -17,7 +17,7 @@
                    style="margin-right:10px;"></i><span :title="getTitle(result)" data-uk-tooltip class="to">{{result.channel}}</span>
             </h3>
 
-            <div v-if="result.currentOps.length || result.currentVoices.length || result.currentParticipants.length" class="uk-flex uk-flex-space-around uk-flex-space-between activeUsers">
+            <div v-if="result.currentOps.length || result.currentVoices.length || result.currentParticipants.length" class="uk-flex uk-flex-space-between  uk-flex-wrap-space-between activeUsers">
 
                 <div v-if="result.currentOps.length" data-uk-tooltip title="Operators">
                     {{result.currentOps.length}} <i class="uk-icon-at url"></i>
@@ -41,6 +41,14 @@
 
                 <div v-if="result.actions" data-uk-tooltip title="Actions">
                     {{result.actions}} <i class="uk-icon-check green"></i>
+                </div>
+
+                <div v-if="result.topMonthlyParticipants.length" data-uk-tooltip title="Most Active User this Month">
+                    {{_.first(result.topMonthlyParticipants).nick}} <i class="uk-icon-plus-circle from"></i>
+                </div>
+
+                <div v-if="result.popularityRanking" data-uk-tooltip title="Most Popular User">
+                    {{_.first(result.popularityRanking.rankings).candidate}} <i class="uk-icon-graduation-cap"></i>
                 </div>
 
             </div>
