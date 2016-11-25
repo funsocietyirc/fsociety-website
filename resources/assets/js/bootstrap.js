@@ -24,7 +24,6 @@ require('../../../node_modules/uikit/dist/js/components/notify');
 require('../../../node_modules/uikit/dist/js/components/tooltip');
 require('../../../node_modules/uikit/dist/js/components/grid');
 
-
 // Front End Deps
 require('jquery-ujs');
 require('typed.js');

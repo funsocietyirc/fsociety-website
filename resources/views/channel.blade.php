@@ -2,8 +2,13 @@
 @section('title', $channel . ' Usage Statistics ' . (isset($nick) && $nick != '' ? 'For ' . strtoupper($nick) : '') )
 @section('content')
     <div class="uk-grid uk-container-center">
+        <header class="uk-block  uk-cover-background uk-width-1-1">
+            <h1 class="uk-text-truncate uk-text-center">
+                <span class="to">{{strtoupper($channel)}}</span> Usage Statistics <span class="from">{{ isset($nick) && $nick != '' ? 'For ' . strtoupper($nick) : ''}}</span>
+            </h1>
+        </header>
+
         <div class="uk-width-1-1 uk-text-center uk-margin-bottom uk-margin-top">
-            <h1><span class="to">{{strtoupper($channel)}}</span> Usage Statistics <span class="from">{{ isset($nick) && $nick != '' ? 'For ' . strtoupper($nick) : ''}}</span></h1>
         </div>
 
         <div id="vue" class="uk-width-1-1">
