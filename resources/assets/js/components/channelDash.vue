@@ -36,6 +36,9 @@
                 <div v-if="result.popularityRanking" data-uk-tooltip title="Popularity Ranking">
                     {{result.popularityRanking.meanScore || 0.00}} <i class="uk-icon-smile-o yellow uk-icon-justify"></i>
                 </div>
+                <div v-if="result.popularityRanking" data-uk-tooltip title="Total Votes">
+                    {{result.popularityRanking.totalVotes || 0}} <i class="uk-icon-envelope-o white uk-icon-justify"></i>
+                </div>
                 <div v-if="result.kicks" data-uk-tooltip title="Kicks">
                     {{result.kicks}} <i class="uk-icon-bomb uk-icon-justify"></i>
                 </div>
@@ -56,14 +59,14 @@
                     <table class="uk-table uk-table-striped">
                         <thead>
                         <tr>
-                            <th>User</th>
-                            <th>Messages</th>
+                            <th class="primaryColorText">User</th>
+                            <th class="primaryColorText">Messages</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr v-for="user in result.topMonthlyParticipants">
                             <td><a :href="getActionLink(result.channel, user.nick)">{{user.nick}}</a></td>
-                            <td>{{user.total}}</td>
+                            <td>{{numberWithCommas(user.total)}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -73,16 +76,16 @@
                     <table class="uk-table uk-table-striped">
                         <thead>
                         <tr>
-                            <th>Candidate</th>
-                            <th>Score</th>
-                            <th>Votes</th>
+                            <th class="primaryColorText">Candidate</th>
+                            <th class="primaryColorText">Score</th>
+                            <th class="primaryColorText">Votes</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr v-for="candidate in result.popularityRanking.rankings">
                             <td><a :href="getActionLink(result.channel, candidate.candidate)">{{candidate.candidate}}</a></td>
-                            <td>{{candidate.score}}</td>
-                            <td>{{candidate.votes}}</td>
+                            <td v-bind:class="{ red: candidate.score < 0, green: candidate.score > 0, gray: !candidate.score }">{{candidate.score}}</td>
+                            <td>{{numberWithCommas(candidate.votes)}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -93,6 +96,9 @@
     </div>
 </template>
 <style lang="css">
+    .gray {
+        color: gray;
+    }
     .white {
         color: white;
     }
@@ -104,7 +110,9 @@
     .green {
         color: forestgreen;
     }
-
+    .red {
+        color: indianred;
+    }
     header {
         background-image: url('/images/arg/banner.png');
     }
