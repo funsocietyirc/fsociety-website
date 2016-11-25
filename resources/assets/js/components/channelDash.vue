@@ -6,36 +6,60 @@
             </h1>
         </header>
         <hr class="uk-width-1-1 uk-margin-bottom">
-        <a v-for="(result, channel) in sortedResults" :title="getTitle(result)" :href="getActionLink(result.channel)"
-           data-uk-tooltip
+        <a v-for="(result, channel) in sortedResults" :href="getActionLink(result.channel)"
            class="uk-panel uk-panel-header uk-panel-box uk-panel-hover uk-width-large-1-4 uk-width-medium-1-1 uk-width-small-1-1">
-            <div class="uk-panel-badge uk-badge">{{numberWithCommas(result.messages)}}</div>
+            <div title="Messages Recorded" data-uk-tooltip class="uk-panel-badge uk-badge">
+                {{numberWithCommas(result.messages)}}
+            </div>
             <h3 class="uk-panel-title">
-                <i v-bind:class="{ watched: result.isWatching, primaryColorText: !result.isWatching }"
-                   class="uk-icon-small uk-icon-eye" style="margin-right:10px;"></i><span class="to">{{result.channel}}</span>
+                <i data-uk-tooltip v-bind:class="{ watched: result.isWatching, primaryColorText: !result.isWatching }"
+                   :title="result.isWatching ? 'Joined' : 'Not Joined' " class="uk-icon-small uk-icon-hashtag"
+                   style="margin-right:10px;"></i><span :title="getTitle(result)" data-uk-tooltip class="to">{{result.channel}}</span>
             </h3>
-            <ul class="uk-grid">
-                <li class="uk-width-1-2" v-if="result.currentOps.length">
-                    Ops: {{result.currentOps.length}}
-                </li>
-                <li class="uk-width-1-2" v-if="result.currentVoices.length">
-                    Voices: {{result.currentVoices.length}}
-                </li>
-                <li class="uk-width-1-2" v-if="result.currentParticipants.length">
-                    Users: {{result.currentParticipants.length}}
-                </li>
-                <li class="uk-width-1-2" v-if="result.popularityRanking">
-                    Popularity: {{result.popularityRanking.meanScore}}
-                </li>
-            </ul>
+
+            <div v-if="result.currentOps.length || result.currentVoices.length || result.currentParticipants.length" class="uk-flex uk-flex-space-around uk-flex-space-between activeUsers">
+
+                <div v-if="result.currentOps.length" data-uk-tooltip title="Operators">
+                    {{result.currentOps.length}} <i class="uk-icon-at url"></i>
+                </div>
+
+                <div v-if="result.currentVoices.length" data-uk-tooltip title="Voices">
+                    {{result.currentVoices.length}} <i class="uk-icon-plus timeStamp"></i>
+                </div>
+
+                <div v-if="result.currentParticipants.length" data-uk-tooltip title="Users">
+                    {{result.currentParticipants.length}} <i class="uk-icon-user from"></i>
+                </div>
+
+                <div v-if="result.popularityRanking" data-uk-tooltip title="Popularity Ranking">
+                    {{result.popularityRanking.meanScore || 0.00}} <i class="uk-icon-smile-o yellow"></i>
+                </div>
+
+                <div v-if="result.kicks" data-uk-tooltip title="Kicks">
+                    {{result.kicks}} <i class="uk-icon-bomb"></i>
+                </div>
+
+                <div v-if="result.actions" data-uk-tooltip title="Actions">
+                    {{result.actions}} <i class="uk-icon-check green"></i>
+                </div>
+
+            </div>
+
         </a>
 
     </div>
 </template>
 <style lang="css">
-      header {
+
+    .yellow {
+        color: yellow;
+    }
+    .green {
+        color: forestgreen;
+    }
+    header {
         background-image: url('/images/arg/banner.png');
-      }
+    }
     .watched {
         color: rgba(63, 191, 127, 0.9) !important;
     }
@@ -90,4 +114,5 @@
         components:{
         }
     }
+
 </script>
