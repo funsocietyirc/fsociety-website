@@ -1,4 +1,4 @@
-<template>
+<template xmlns:v-bind="http://www.w3.org/1999/xhtml">
     <div class="uk-grid uk-container-center">
         <header class="uk-block  uk-cover-background uk-width-1-1">
             <h1 class="uk-text-truncate uk-text-center">
@@ -6,10 +6,13 @@
             </h1>
         </header>
         <hr class="uk-width-1-1 uk-margin-bottom">
-        <a v-for="(result, channel) in sortedResults" :title="getTitle(result)" :href="getActionLink(result.channel)" data-uk-tooltip class="uk-panel uk-panel-header uk-panel-box uk-panel-hover uk-width-large-1-4 uk-width-medium-1-1 uk-width-small-1-1">
+        <a v-for="(result, channel) in sortedResults" :title="getTitle(result)" :href="getActionLink(result.channel)"
+           data-uk-tooltip
+           class="uk-panel uk-panel-header uk-panel-box uk-panel-hover uk-width-large-1-4 uk-width-medium-1-1 uk-width-small-1-1">
             <div class="uk-panel-badge uk-badge">{{numberWithCommas(result.messages)}}</div>
             <h3 class="uk-panel-title">
-                <i v-bind:class="{ watched: result.isWatching, primaryColorText: !result.isWatching }" class="uk-icon-small uk-icon-eye" style="margin-right:10px;"></i>{{result.channel}}
+                <i v-bind:class="{ watched: result.isWatching, primaryColorText: !result.isWatching }"
+                   class="uk-icon-small uk-icon-eye" style="margin-right:10px;"></i><span class="to">{{result.channel}}</span>
             </h3>
             <ul class="uk-grid">
                 <li class="uk-width-1-2" v-if="result.currentOps.length">
@@ -29,7 +32,7 @@
 
     </div>
 </template>
-<style>
+<style lang="css">
       header {
         background-image: url('/images/arg/banner.png');
       }

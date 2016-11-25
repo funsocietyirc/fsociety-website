@@ -1,32 +1,33 @@
 <template xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
     <div class="gallery-container">
         <div class="uk-grid">
-                <div class="uk-container uk-width-large-1-6">
-                    <div id="options-panel" class="uk-panel uk-panel-header">
-                        <h1 class="uk-panel-title">Images</h1>
-                        <div class="container container-center uk-text-justify">
-                            <h4>Channels</h4>
-                            <ul class="sort-subnav">
-                                <li v-for="channel in channels">
-                                    <a v-bind:class="{ 'active': searchTo == channel }" class="to" @click="updateFilter(null,channel)">{{channel}}</a>
-                                </li>
-                            </ul>
-                            <h4>Nicks</h4>
-                            <ul class="sort-subnav">
-                                <li v-for="nick in nicks">
-                                    <a v-bind:class="{ 'active': searchFrom == nick }" class="from" @click="updateFilter(nick,null)">{{nick}}</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <hr>
-                        <ul class="uk-list uk-text-small uk-margin-bottom">
-                            <li>Click a Thumbnail to active the Lightbox, use the arrow keys to navigate.</li>
-                            <li>Scroll Down for more results.</li>
-                            <li>Use the Arrow keys to navigate inside the Lightbox.</li>
+            <div class="uk-container uk-width-large-1-6">
+                <div id="options-panel" class="uk-panel uk-panel-header">
+                    <h1 class="uk-panel-title">Images</h1>
+                    <div class="container container-center uk-text-justify">
+                        <h4>Channels</h4>
+                        <ul class="sort-subnav">
+                            <li v-for="channel in channels">
+                                <a v-bind:class="{ 'active': searchTo == channel }" class="to"
+                                   @click="updateFilter(null,channel)">{{channel}}</a>
+                            </li>
+                        </ul>
+                        <h4>Nicks</h4>
+                        <ul class="sort-subnav">
+                            <li v-for="nick in nicks">
+                                <a v-bind:class="{ 'active': searchFrom == nick }" class="from"
+                                   @click="updateFilter(nick,null)">{{nick}}</a>
+                            </li>
                         </ul>
                     </div>
-
+                    <hr>
+                    <ul class="uk-list uk-text-small uk-margin-bottom">
+                        <li>Click a Thumbnail to active the Lightbox, use the arrow keys to navigate.</li>
+                        <li>Scroll Down for more results.</li>
+                        <li>Use the Arrow keys to navigate inside the Lightbox.</li>
+                    </ul>
                 </div>
+            </div>
 
             <div class="uk-width-large-5-6" data-uk-observe>
                 <ul id="gallery" class="uk-grid uk-margin-bottom uk-grid-small uk-grid-match" data-uk-grid
@@ -34,8 +35,9 @@
                     <li v-for="image in resultSet" class="uk-width-large-1-6 uk-width-medium-1-4 uk-width-small-1-2">
                         <div class="image-border-overlay">
                             <div class="uk-thumbnail gallery-image">
-                                <a data-uk-lightbox="{group:'images'}" class="image-link uk-container-center" :href="image.url" title=""
-                                   style="display:block !important;margin:auto !important;">
+                                <a data-uk-lightbox="{group:'images'}" class="image-link uk-container-center"
+                                   :href="image.url" title=""
+                                >
                                     <img v-lazy.container="image.url" class="image">
                                 </a>
                             </div>
@@ -55,7 +57,7 @@
         </div>
     </div>
 </template>
-<style scoped>
+<style lang="css" scoped>
     .gallery-close-alt {
         background: black;
     }
@@ -95,6 +97,7 @@
         border: 1px solid #D12026;
         background: rgba(0, 0, 0, 0.8);
     }
+
 </style>
 <script>
     // Fix pusher image not propigating
@@ -227,4 +230,5 @@
             },
         }
     }
+
 </script>

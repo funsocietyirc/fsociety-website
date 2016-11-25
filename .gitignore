@@ -1,6 +1,5 @@
 /node_modules
 /public/storage
-/public/build
 /public/.well-known
 /vendor
 /.idea
@@ -9,3 +8,4 @@ Homestead.yaml
 .env
 .phpstorm.meta.php
 _ide_helper.php
+/public/build/
