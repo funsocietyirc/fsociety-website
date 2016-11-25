@@ -20,38 +20,38 @@
             <!-- Statistics Flex -->
             <div class="uk-flex uk-flex-space-between  uk-flex-wrap-space-between activeUsers">
                 <div v-if="result.currentOps.length" data-uk-tooltip title="Operators">
-                    {{result.currentOps.length}} <i class="uk-icon-at url"></i>
+                    {{result.currentOps.length}} <i class="uk-icon-at url uk-icon-justify"></i>
                 </div>
                 <div v-if="result.currentVoices.length" data-uk-tooltip title="Voiced Users">
-                    {{result.currentVoices.length}} <i class="uk-icon-plus timeStamp"></i>
+                    {{result.currentVoices.length}} <i class="uk-icon-plus timeStamp uk-icon-justify"></i>
                 </div>
                 <div v-if="result.currentParticipants.length" data-uk-tooltip title="Regular Users">
-                    {{result.currentParticipants.length}} <i class="uk-icon-user from"></i>
+                    {{result.currentParticipants.length}} <i class="uk-icon-user from uk-icon-justify"></i>
                 </div>
                 <div v-if="result.currentParticipants.length || result.currentOps.length || result.currentVoices.length"
                      data-uk-tooltip title="Total Online">
                     {{result.currentParticipants.length + result.currentOps.length + result.currentVoices.length}} <i
-                        class="uk-icon-male white"></i>
+                        class="uk-icon-male white uk-icon-justify"></i>
                 </div>
                 <div v-if="result.popularityRanking" data-uk-tooltip title="Popularity Ranking">
-                    {{result.popularityRanking.meanScore || 0.00}} <i class="uk-icon-smile-o yellow"></i>
+                    {{result.popularityRanking.meanScore || 0.00}} <i class="uk-icon-smile-o yellow uk-icon-justify"></i>
                 </div>
                 <div v-if="result.kicks" data-uk-tooltip title="Kicks">
-                    {{result.kicks}} <i class="uk-icon-bomb"></i>
+                    {{result.kicks}} <i class="uk-icon-bomb uk-icon-justify"></i>
                 </div>
                 <div v-if="result.actions" data-uk-tooltip title="Actions">
-                    {{result.actions}} <i class="uk-icon-check green"></i>
+                    {{result.actions}} <i class="uk-icon-check green uk-icon-justify"></i>
                 </div>
                 <div v-if="result.topMonthlyParticipants.length" data-uk-tooltip title="Most Active User this Month">
-                    <a :href="getActionLink(result.channel, getMostActive(result))">{{getMostActive(result)}} <i class="uk-icon-plus-circle from"></i></a>
+                    <a :href="getActionLink(result.channel, getMostActive(result))">{{getMostActive(result)}} <i class="uk-icon-plus-circle from uk-icon-justify"></i></a>
                 </div>
                 <div v-if="result.popularityRanking" data-uk-tooltip title="Most Popular User">
-                    <a :href="getActionLink(result.channel, getMostPop(result))">{{getMostPop(result)}} <i class="uk-icon-graduation-cap"></i></a>
+                    <a :href="getActionLink(result.channel, getMostPop(result))">{{getMostPop(result)}} <i class="uk-icon-graduation-cap white uk-icon-justify"></i></a>
                 </div>
             </div>
             <hr v-if="displayBar(result)">
             <div class="uk-accordion" data-uk-accordion="{showfirst: false}">
-                <h3 class="uk-accordion-title primaryColorText" v-if="result.topMonthlyParticipants.length"><span class="uk-icon-justify uk-icon-arrows-v"></span>Top 10 Monthly Participants</h3>
+                <h3 class="uk-accordion-title primaryColorText" v-if="result.topMonthlyParticipants.length"><span class="uk-icon-justify uk-icon-arrows-v"></span>Top {{result.topMonthlyParticipants.length}} Monthly Participants</h3>
                 <div class="uk-accordion-content" v-if="result.topMonthlyParticipants.length">
                     <table class="uk-table uk-table-striped">
                         <thead>
