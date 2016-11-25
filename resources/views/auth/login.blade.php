@@ -54,6 +54,11 @@
                                     Forgot Your Password?
                                 </a>
                             </div>
+                            <div class="uk-form-row">
+                                <a class="uk-button uk-button-success uk-width-1-1" href="{{ url('/register') }}">
+                                    Sign up Now
+                                </a>
+                            </div>
                         </form>
                     </div>
 
