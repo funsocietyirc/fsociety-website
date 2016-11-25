@@ -44,11 +44,11 @@
                 </div>
 
                 <div v-if="result.topMonthlyParticipants.length" data-uk-tooltip title="Most Active User this Month">
-                    {{_.first(result.topMonthlyParticipants).nick}} <i class="uk-icon-plus-circle from"></i>
+                    {{getMostActive(result)}} <i class="uk-icon-plus-circle from"></i>
                 </div>
 
                 <div v-if="result.popularityRanking" data-uk-tooltip title="Most Popular User">
-                    {{_.first(result.popularityRanking.rankings).candidate}} <i class="uk-icon-graduation-cap"></i>
+                    {{getMostPop(result)}} <i class="uk-icon-graduation-cap"></i>
                 </div>
 
             </div>
@@ -107,7 +107,13 @@
                 return laroute.route('channel',{
                     channel: encodeURIComponent(channel)
                 });
-            }
+            },
+            getMostPop: function(result) {
+                return _.first(result.popularityRanking.rankings).candidate;
+            },
+            getMostActive: function(result) {
+                return _.first(result.topMonthlyParticipants).nick;
+            },
         },
         computed: {
             apiRoute: function () {
