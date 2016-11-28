@@ -4,18 +4,23 @@
 Route::group(['prefix' => '/'], function () {
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('chat', 'HomeController@chat')->name('chat');
-    Route::get('gallery', 'HomeController@gallery')->name('gallery')->middleware('cors');
-    Route::get('links/{search?}', 'HomeController@links')->name('links')->middleware('cors');
-    Route::get('channel/{channel}/{nick?}', 'HomeController@channel')->name('channel')->middleware('cors');
-    Route::get('channels', 'HomeController@ircChannels')->name('irc-channels')->middleware('cors');
-
 });
+
+// cors enabled non indexed
+Route::group(['prefix' => '/', 'middleware' => ['cors','no.follow']], function () {
+    Route::get('gallery', 'HomeController@gallery')->name('gallery');
+    Route::get('links/{search?}', 'HomeController@links')->name('links');
+    Route::get('channel/{channel}/{nick?}', 'HomeController@channel')->name('channel');
+    Route::get('channels', 'HomeController@ircChannels')->name('irc-channels');
+});
+
 // Episode Routes
 Route::group(['prefix' => 'episodes'], function () {
     Route::get('/', 'EpisodeController@index')->name('episodes');
     Route::get('season/{season}','EpisodeController@season')->name('season');
     Route::get('show/{slug}','EpisodeController@show')->name('episode');
 });
+
 // Arg Routes
 Route::model('arg', \Fsociety\Models\ArgTracking::class);
 Route::get('arg/capture/{arg}','ArgController@capture')->name('arg.capture');

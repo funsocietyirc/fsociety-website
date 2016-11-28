@@ -2,6 +2,7 @@
 
 namespace Fsociety\Http;
 
+use Fsociety\Http\Middleware\NoFollow;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -31,7 +32,6 @@ class Kernel extends HttpKernel
             \Fsociety\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \JacobBennett\Http2ServerPush\Middleware\AddHttp2ServerPush::class
-
         ],
 
         'api' => [
@@ -54,5 +54,6 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \Fsociety\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'no.follow' => NoFollow::class,
     ];
 }
