@@ -2,6 +2,7 @@
 
 namespace Fsociety\Http\Middleware;
 
+// Prevent indexing
 use Closure;
 
 class NoFollow
@@ -15,6 +16,9 @@ class NoFollow
      */
     public function handle($request, Closure $next)
     {
-        return $next($request);
+        /** @var Request $response */
+        $response = $next($request);
+        $response->header('X-Robots-Tag', 'noindex, nofollow');
+        return $response;
     }
 }

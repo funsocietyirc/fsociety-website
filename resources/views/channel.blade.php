@@ -1,5 +1,8 @@
 @extends('layout._main')
 @section('title', $channel . ' Usage Statistics ' . (isset($nick) && $nick != '' ? 'For ' . strtoupper($nick) : '') )
+@section('meta')
+    <meta name="robots" content="noindex,nofollow">
+@endsection
 @section('content')
     <div class="uk-grid uk-container-center">
         <header class="uk-block  uk-cover-background uk-width-1-1">

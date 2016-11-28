@@ -1,5 +1,8 @@
 @extends('layout._main')
 @section('title','IRC Image Gallery')
+@section('meta')
+    <meta name="robots" content="noindex,nofollow">
+@endsection
 @section('content')
     <div id="vue">
         <gallery></gallery>
