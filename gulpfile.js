@@ -13,7 +13,14 @@ require('laravel-elixir-vue-2');
  |
  */
 elixir(mix => {
-    mix.sass('app.scss','public/css/app.css')
+    mix
+        .exec('php artisan laroute:generate', err => {
+            if(err) {
+                console.log('Something went wrong generating a Laravel route file');
+                console.dir(err);
+            }
+        })
+        .sass('app.scss','public/css/app.css')
         .copy('node_modules/uikit/dist/fonts','public/fonts')
         .webpack('app.js')
         .webpack('vue.js')
