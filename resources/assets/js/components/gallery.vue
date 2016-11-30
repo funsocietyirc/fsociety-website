@@ -123,6 +123,9 @@
         },
         mounted(){
             $('footer').detach();
+            window.addEventListener('resize', () => this.$refs.infiniteLoading.$emit('$InfiniteLoading:reset'), {
+                passive: false
+            });
         },
         computed: {
             resultSet: function () {
@@ -225,10 +228,15 @@
                         this.nicks = _.filter(this.nicks, nick => nick != data.from);
                         this.nicks.unshift(data.from);
                     }
-                    $('#gallery').trigger('display.uk.check');
+                    // Trigger Updates
+                    this.$nextTick(function () {
+                        this.$refs.infiniteLoading.$emit('$InfiniteLoading:reset');
+                        $('#gallery').trigger('display.uk.check');
+                    });
                 });
             },
         }
     }
+
 
 </script>
