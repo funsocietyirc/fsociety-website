@@ -1,7 +1,7 @@
 <template>
     <div class="uk-panel root-panel">
         <div v-show="usageResults.length">
-            <div id="usage" style="height:180px;">
+            <div id="usage" style="height:360px;">
                 <vue-chart
                         chart-type="Calendar"
                         :packages="chartPackages"
