@@ -137,6 +137,7 @@
                 calOptions: {
                     title: 'Calendar',
                     width: 1098,
+                    height: 640,
                     colorAxis: {minValue: 0, colors: ['#FFFFFF', '#D12026']},
                     noDataPattern: {
                         backgroundColor: '#1a1a1a',
