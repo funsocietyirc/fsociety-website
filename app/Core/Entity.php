@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ViewErrorBag;
 use Validator;
 
+/**
+ * Fsociety\Core\Entity
+ *
+ * @mixin \Eloquent
+ */
 class Entity extends Model
 {
     protected $validationRules = [];

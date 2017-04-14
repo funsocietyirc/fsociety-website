@@ -33,6 +33,8 @@ use Silber\Bouncer\Database\HasRolesAndAbilities;
  * @method static \Illuminate\Database\Query\Builder|\Fsociety\Models\User whereIsAll($role)
  * @method static \Illuminate\Database\Query\Builder|\Fsociety\Models\User whereCan($ability, $model = null)
  * @method static \Illuminate\Database\Query\Builder|\Fsociety\Models\User whereCannot($ability, $model = null)
+ * @property string $nick
+ * @method static \Illuminate\Database\Query\Builder|\Fsociety\Models\User whereNick($value)
  */
 class User extends Authenticatable
 {
