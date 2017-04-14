@@ -6,6 +6,8 @@
         <meta name="csrf-param" content="_token"/>
         <script src="{{elixir('js/laroute.js')}}"></script>
         <script src="{{elixir('js/app.js')}}"></script>
+        <link rel="stylesheet" href={{elixir('css/uikit.css')}}>
+        <link rel="stylesheet" href={{elixir('css/app.css')}}>
     </head>
     <body>
         <div id="vue">
