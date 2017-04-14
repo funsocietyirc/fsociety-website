@@ -20,7 +20,8 @@ body, html {
     export default{
         data(){
             return{
-                currentKey: ''
+                currentKey: '',
+                currentTitle: '',
             }
         },
         computed: {
@@ -29,6 +30,11 @@ body, html {
                 return `//www.youtube.com/embed/${this.currentKey}?rel=0&autoplay=1`;
             }
         },
+        watch: {
+            currentTitle: function(newTitle) {
+                document.title = `${newTitle} - Powered by MrNodeBot`;
+            },
+        },
         mounted(){
             this.initPusher();
         },
@@ -36,8 +42,9 @@ body, html {
             initPusher: function () {
                 var self = this;
                 window.Fsociety.publicChannel.bind('youtube', data  => {
-                console.dir(data);
-                  self.currentKey = data.youtubeKey
+                  if(self.currentKey === data.youtubeKey) self.currentKey = '';
+                  self.currentKey = data.youtubeKey;
+                  self.currentTitle = data.videoTitle;
                 });
             }
         }
