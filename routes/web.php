@@ -12,6 +12,7 @@ Route::group(['prefix' => '/', 'middleware' => ['cors','no.follow']], function (
     Route::get('links/{search?}', 'HomeController@links')->name('links');
     Route::get('channel/{channel}/{nick?}', 'HomeController@channel')->name('channel');
     Route::get('channels', 'HomeController@ircChannels')->name('irc-channels');
+    Route::get('watch-youtube', 'HomeController@watchYoutube')->name('watch-youtube');
 });
 
 // Episode Routes

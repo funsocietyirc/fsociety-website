@@ -27,6 +27,10 @@ class HomeController extends Controller
         return view('channels');
     }
 
+    public function watchYoutube() {
+        return view('watch');
+    }
+
     public function channel($channel, $nick = '') {
         return view('channel')->with('channel',$channel)->with('nick',$nick);
     }

@@ -34,6 +34,8 @@ Vue.component('links', require('./components/links.vue'));
 Vue.component('alert', require('./components/alert.vue'));
 Vue.component('channel-usage',require('./components/channelUsage.vue'));
 Vue.component('channel-dash', require('./components/channelDash.vue'));
+Vue.component('watch-youtube', require('./components/watchYoutube.vue'));
+
 
 Vue.filter('Capitalize', function(value) {
     if(!value) return;
