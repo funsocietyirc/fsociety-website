@@ -23,12 +23,14 @@ body, html {
         data(){
             return{
                 currentKey: '',
+                currentSeekTime: 0,
+                currentIndex: 0
             }
         },
         computed: {
             currentUrl: function(){
                 if(!this.currentKey) return false;
-                return `//www.youtube.com/embed/${this.currentKey}?rel=0&autoplay=1`;
+                return `//www.youtube.com/embed/${this.currentKey}?start=${this.currentSeekTime}&autoplay=1`;
             }
         },
         mounted(){
@@ -38,17 +40,21 @@ body, html {
             initPusher: function () {
                 var self = this;
                 window.Fsociety.publicChannel.bind('youtube', data  => {
+                    console.dir(data);
 
                     // Update the key, if they video is the same, then set the current frame to nothing for a sec
-                    if(self.currentKey === data.youtubeKey) self.currentKey = '';
-                    self.currentKey = data.youtubeKey;
+                    if(self.currentKey === data.video.key) self.currentKey = '';
+                    self.currentKey = data.video.key;
+
+                    self.currentSeekTime = data.seekTime || 0;
+                    self.currentIndex = data.index || 0;
 
                     // Update title
-                    document.title = `${data.videoTitle} - Powered by MrNodeBot`;
+                    document.title = `${data.video.videoTitle} - Powered by MrNodeBot`;
 
                     // Notify
                     UIkit.notify({
-                        message : `<div class="uk-text-center"><h4>Playing ${data.videoTitle}</h4><p>Requested By ${data.from} on ${data.to}</p></div>`,
+                        message : `<div class="uk-text-center"><h4>Playing ${data.video.videoTitle}</h4><p>Requested By ${data.from} on ${data.to}</p></div>`,
                         status  : 'info',
                         timeout : 4000,
                         pos     : 'bottom-center'
