@@ -1,6 +1,6 @@
 <template>
     <div>
-        <iframe class="fullscreen" v-if="currentKey" id="video" :src="currentUrl" frameborder="0"
+        <iframe class="fullscreen" v-if="key" id="video" :src="url" frameborder="0"
                 allowfullscreen></iframe>
     </div>
 </template>
@@ -22,15 +22,20 @@ body, html {
     export default{
         data(){
             return{
-                currentKey: '',
-                currentSeekTime: 0,
-                currentIndex: 0
+                key: '',
+                seekTime: 0,
+                index: 0,
+                list: '',
             }
         },
         computed: {
-            currentUrl: function(){
-                if(!this.currentKey) return false;
-                return `//www.youtube.com/embed/${this.currentKey}?start=${this.currentSeekTime}&autoplay=1`;
+            url: function(){
+                if(!this.key) return false;
+                let args = [];
+                if(this.seekTime) args.push(`start=${this.seekTime}`);
+                if(this.list && this.list != '') args.push(`list=${this.list}`);
+                args.push(`autoplay=1`);
+                return `//www.youtube.com/embed/${this.key}?` + args.join('&');
             }
         },
         mounted(){
@@ -40,14 +45,14 @@ body, html {
             initPusher: function () {
                 var self = this;
                 window.Fsociety.publicChannel.bind('youtube', data  => {
-                    console.dir(data);
-
                     // Update the key, if they video is the same, then set the current frame to nothing for a sec
-                    if(self.currentKey === data.video.key) self.currentKey = '';
-                    self.currentKey = data.video.key;
+                    if(self.key === data.video.key) self.key = '';
+                    self.key = data.video.key;
 
-                    self.currentSeekTime = data.seekTime || 0;
-                    self.currentIndex = data.index || 0;
+                    self.seekTime = data.seekTime || 0;
+                    self.index = data.index || 0;
+
+                    if(data.playlist && data.playlist.key) self.list = data.playlist.key;
 
                     // Update title
                     document.title = `${data.video.videoTitle} - Powered by MrNodeBot`;
