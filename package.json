@@ -15,7 +15,6 @@
     "laravel-elixir-webpack-official": "^1.0.10",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
-    "pusher-js": "^4.1.0",
     "slick-carousel": "^1.6.0",
     "typed.js": "^1.1.1",
     "uikit": "^2.27.2",

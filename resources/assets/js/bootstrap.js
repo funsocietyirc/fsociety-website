@@ -16,7 +16,6 @@ window._ = require('lodash');
 
 // Globals
 const $ = jQuery = window.$ = window.jQuery = require('jquery');
-const Pusher = require('pusher-js');
 
 const UIKit = require('uikit');
 require('../../../node_modules/uikit/dist/js/components/lightbox');
@@ -29,44 +28,36 @@ require('../../../node_modules/uikit/dist/js/components/accordion');
 require('jquery-ujs');
 require('typed.js');
 window.Fsociety = (() => {
-    // Pusher
-    const pusher = new Pusher('9d0bcd17badf5ab7cc79', {
-        encrypted: true,
-        auth: {
-            headers: { "X-CSRF-Token": document.querySelector("meta[name='csrf-token']").getAttribute('content') }
-        }
-    });
-
-    const publicChannel = pusher.subscribe('public');
+    // Establish Socket.io connection
+    const socket = io.connect('https://bot.fsociety.guru');
 
     // Announcements
-    publicChannel.bind('announce', (data)  => {
-        if(!data) {
-            return;
-        }
-        UIkit.notify({
-            message : `<div class="uk-text-center"><h4>Announcement From ${data.from}</h4><p>${data.text}</p></div>`,
-            status  : 'info',
-            timeout : 7500,
-            pos     : 'bottom-right'
-        });
+    socket.on('announce', data => {
+        if(!data) return;
+            UIkit.notify({
+                message : `<div class="uk-text-center"><h4>Announcement From ${data.from}</h4><p>${data.text}</p></div>`,
+                status  : 'info',
+                timeout : 7500,
+                pos     : 'bottom-right'
+            });
     });
+
     // Tweets
-    publicChannel.bind('tweets', (data)  => {
-        if(!data) {
-            return;
-        }
-        UIkit.notify({
-            message : `[Twitter] @${data.tweet.user.screen_name}: ${data.tweet.text}` ,
-            status  : 'success',
-            timeout : 7500,
-            pos     : 'bottom-left'
-        });
+    socket.on('tweets', data => {
+        if (!data) return;
+            UIkit.notify({
+                message : `[Twitter] @${data.tweet.user.screen_name}: ${data.tweet.text}` ,
+                status  : 'success',
+                timeout : 7500,
+                pos     : 'bottom-left'
+            });
     });
+
+    // Expose
     return {
-        pusher,
-        publicChannel
+        socket
     };
+
 })();
 
 /**

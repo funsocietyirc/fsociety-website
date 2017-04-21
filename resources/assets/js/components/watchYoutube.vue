@@ -39,12 +39,12 @@ body, html {
             }
         },
         mounted(){
-            this.initPusher();
+            this.initSocket();
         },
         methods: {
-            initPusher: function () {
+            initSocket: function () {
                 var self = this;
-                window.Fsociety.publicChannel.bind('youtube', data  => {
+                window.Fsociety.socket.on('youtube', data  => {
                     // Update the key, if they video is the same, then set the current frame to nothing for a sec
                     if(self.key === data.video.key) self.key = '';
                     self.key = data.video.key;

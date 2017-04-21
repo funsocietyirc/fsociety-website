@@ -100,9 +100,9 @@
 
 </style>
 <script>
-    // Fix pusher image not propigating
     const _ = require('lodash');
     const apiRoute = 'https://bot.fsociety.guru/api/';
+
     const dataTemplate = {
         // Image data
         images: [],
@@ -119,7 +119,7 @@
         },
         created(){
             this.fetchData();
-            this.initPusher();
+            this.initSocket();
         },
         mounted(){
             $('footer').detach();
@@ -211,11 +211,12 @@
                             }
                         });
             },
-            initPusher: function () {
+            initSocket: function () {
                 let self = this;
-                window.Fsociety.publicChannel.bind('image', data => {
+                window.Fsociety.socket.on('image', data => {
                     // TODO Splice in new users / channels
                     self.images.unshift(data);
+
                     if (!_.includes(this.channels, data.to)) {
                         this.channels.unshift(data.to);
                     } else {

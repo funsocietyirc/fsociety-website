@@ -135,7 +135,7 @@
             $('footer').detach();
             this.searchText = window.activeSearch;
             this.fetchData();
-            this.initPusher();
+            this.initSocket();
         },
         computed: {
             resultSet: function () {
@@ -195,7 +195,7 @@
                     console.log(e);
                 });
             },
-            pusherHandler: function (data) {
+            socketHandler: function (data) {
                 let self = this;
                 self.results.unshift(data);
                 self.$nextTick(function () {
@@ -213,10 +213,10 @@
                     }, 5000);
                 });
             },
-            initPusher: function () {
+            initSocket: function () {
                 let self = this;
-                window.Fsociety.publicChannel.bind('url', self.pusherHandler);
-                window.Fsociety.publicChannel.bind('image', self.pusherHandler);
+                window.Fsociety.socket.on('url', self.socketHandler);
+                window.Fsociety.socket.on('image', self.socketHandler);
             }
         }
     }

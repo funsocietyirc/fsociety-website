@@ -20,6 +20,7 @@
     <meta name="twitter:title" content="FSociety" />
     <meta name="twitter:site" content="@funsocietyirc" />
     @yield('meta')
+    <script src="https://bot.fsociety.guru/socket.io/socket.io.js"></script>
     <script src="{{elixir('js/laroute.js')}}"></script>
     <script src="{{elixir('js/app.js')}}"></script>
     <link rel="stylesheet" href={{elixir('css/uikit.css')}}>
