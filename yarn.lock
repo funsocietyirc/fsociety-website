@@ -5171,6 +5171,10 @@ vue-template-validator@^1.0.0:
   dependencies:
     chalk "^1.1.1"
 
+vue-youtube-embed@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/vue-youtube-embed/-/vue-youtube-embed-2.1.0.tgz#b71a84ad4f70dcae6388ff8a465c0f454d5100c4"
+
 vue@^1.0.24:
   version "1.0.28"
   resolved "https://registry.yarnpkg.com/vue/-/vue-1.0.28.tgz#ed2ff07b200bde15c87a90ef8727ceea7d38567d"

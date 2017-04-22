@@ -1,5 +1,5 @@
 String.prototype.replaceAll = function(search, replacement) {
-    var target = this;
+    let target = this;
     return target.replace(new RegExp(search, 'g'), replacement);
 };
 
@@ -25,6 +25,9 @@ Vue.use(vueLazyLoad, {
     loading: '/images/gallery-loader.gif',
     attempt: 1
 });
+
+import VueYouTubeEmbed from 'vue-youtube-embed';
+Vue.use(VueYouTubeEmbed);
 
 // Vue Filters
 Vue.use(vueFilter);
