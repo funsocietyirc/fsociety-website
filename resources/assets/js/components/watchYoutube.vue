@@ -93,7 +93,6 @@ body, html {
                 key, from, to, title, seekTime
             ) {
                 title = title || '';
-                seekTime = seekTime || 0;
                 return {
                     key, from, to, title, seekTime
                 };
@@ -101,8 +100,8 @@ body, html {
             initSocket: function () {
                 var self = this;
                 window.Fsociety.socket.on('youtube', data  => {
-                    // No Key, bail
-                    if(!data.video || !data.video.key) return;
+                    // No Key, Same key as currently playing, bail
+                    if(!data.video || !data.video.key || data.video.key === self.key) return;
                     // Create the item
                     let item = self.queueItem(
                         data.video.key,
