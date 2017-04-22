@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div id="nowPlaying">
+        <div v-if="key" id="nowPlaying">
             <i style="color:darkred" class="uk-icon-play uk-margin-small-right"></i> {{title}} <span class="from"><i class="uk-margin-small-right uk-margin-small-left uk-icon-user"></i>  {{from}}</span>
         </div>
         <div id="queue">
