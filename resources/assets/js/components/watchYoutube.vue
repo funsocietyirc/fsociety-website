@@ -2,20 +2,17 @@
     <div>
         <div  id="queue">
             <h4>FSociety TV</h4>
-            <dl v-if="key" class="uk-description-list">
-                <dt>Playing</dt>
-                <dd>{{title}}</dd>
-                <dt>From</dt>
-                <dd>{{from}}</dd>
-            </dl>
-            <div v-if="queue.length > 0">
-                <h4>Up Next</h4>
-                <ul>
-                    <li v-for="item in queue">
-                        {{item.title}} - {{item.from}}
-                    </li>
-                </ul>
-            </div>
+            <ul class="uk-list uk-list-line">
+                <li v-if="key"><h4>Now Playing</h4></li>
+                <li v-if="key">{{title}} <span class="text-muted">-- {{from}}</span></li>
+                <li v-if="queue.length > 0">
+                    <h4>Up Next <div class="uk-badge uk-badge-notification">{{queue.length}}</div></h4>
+                </li>
+                <li v-for="(item, index) in queue">
+                    <div class="uk-badge uk-badge-notification">{{index + 1}}</div> {{item.title}} <span class="text-muted">-- {{item.from}}</span>
+                </li>
+            </ul>
+
         </div>
         <youtube v-if="key" class="fullscreen" :player-width="windowWidth" :player-height="windowHeight" :video-id="key" :player-vars="playerVars" @paused="paused"  @ready="ready" @playing="playing" @ended="ended"></youtube>
     </div>
@@ -25,15 +22,7 @@ body, html {
     height: 100%;
     margin: 0;
 }
-.fullScreen {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color:rgba(210, 13, 29, 0.74);
-    text-align: right;
-}
+
 #queue {
     position: fixed;
     top: 0;
@@ -43,9 +32,14 @@ body, html {
     height:100%;
     background: #000;
     pointer-events: none;
-    opacity: 0.7;
+    opacity: 0.8;
     color: #fff;
     padding: 5px;
+}
+.uk-list-line > li:nth-child(n+2) {
+    margin-top: 5px;
+    padding-top: 5px;
+    border-top: 1px solid #dd212d;
 }
 </style>
 <script>
@@ -129,6 +123,27 @@ body, html {
             },
             initSocket: function () {
                 var self = this;
+                // YouTube Control Channel
+                window.Fsociety.socket.on('youtube-control', data => {
+                    if(!data.command) return;
+                    switch(data.command) {
+                        case 'clear':
+                            // Reset the key
+                            self.key = '';
+                            self.from = '';
+                            self.to = '';
+                            self.title = '';
+                            self.seekTime = 0;
+                            self.queue.splice(0);
+                            break;
+                        case 'remove':
+                            if(isNaN(data.index) || data.index > self.queue.length || data.index < 0 ) return;
+                            self.queue.splice(data.index, 1);
+                            break;
+                    }
+                });
+
+                // YouTube Broadcast channel
                 window.Fsociety.socket.on('youtube', data  => {
                     // No Key, Same key as currently playing, bail
                     if(!data.video || !data.video.key || data.video.key === self.key) return;
@@ -145,7 +160,7 @@ body, html {
                     self.queue.push(item);
 
                     // If nothing is currently playing, process the item
-                    if(self.key == '') {
+                    if(self.key === '') {
                         let item = self.queue.splice(0,1)[0];
                         self.key = item.key;
                         self.seekTime = item.seekTime;
