@@ -124,52 +124,52 @@
 
     @keyframes glitch {
         0% {
-            opacity: .8;
+            opacity: .4;
         }
         10% {
-            opacity: .6;
+            opacity: .2;
         }
         20% {
-            opacity: .7;
+            opacity: .3;
         }
         30% {
-            opacity: .5;
+            opacity: .1;
         }
         40% {
-            opacity: .6;
+            opacity: .2;
         }
         50% {
-            opacity: .6;
+            opacity: .2;
         }
         54% {
-            opacity: .8;
+            opacity: .4;
         }
         58% {
-            opacity: .6;
+            opacity: .2;
         }
         60% {
-            opacity: .6;
+            opacity: .2;
         }
         65% {
-            opacity: .7;
+            opacity: .3;
         }
         70% {
-            opacity: .5;
+            opacity: .2;
         }
         80% {
-            opacity: .6;
+            opacity: .2;
         }
         90% {
-            opacity: .7;
+            opacity: .3;
         }
         93% {
-            opacity: .8;
+            opacity: .4;
         }
         96% {
-            opacity: .6;
+            opacity: .2;
         }
         100% {
-            opacity: .7;
+            opacity: .3;
         }
     }
 
