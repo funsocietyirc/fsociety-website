@@ -4,7 +4,9 @@
         <meta name="robots" content="noindex,nofollow">
         <meta name="csrf-token" content="{{csrf_token()}}"/>
         <meta name="csrf-param" content="_token"/>
-        <script src="https://bot.fsociety.guru/socket.io/socket.io.js"></script>
+        {{--<script src="https://bot.fsociety.guru/socket.io/socket.io.js"></script>--}}
+        <script src="http://192.168.1.2:8084/socket.io/socket.io.js"></script>
+
         <script src="{{elixir('js/laroute.js')}}"></script>
         <script src="{{elixir('js/app.js')}}"></script>
         <link rel="stylesheet" href={{elixir('css/uikit.css')}}>

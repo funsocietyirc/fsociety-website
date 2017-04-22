@@ -24,10 +24,11 @@ elixir(mix => {
         .copy('node_modules/uikit/dist/fonts','public/fonts')
         .webpack('app.js')
         .webpack('vue.js')
+        .webpack('sockets.js')
         // Hack until I figure buble thing out
         .copy('node_modules/vue-infinite-loading/dist/vue-infinite-loading.js', 'public/js/infinite.js')
         .less('uk.less','public/css/uikit.css')
         .version([
-            'css/app.css','css/uikit.css','js/app.js','js/vue.js', 'js/laroute.js'
+            'css/app.css','css/uikit.css','js/app.js','js/vue.js', 'js/laroute.js', 'js/sockets.js'
         ]);
 });

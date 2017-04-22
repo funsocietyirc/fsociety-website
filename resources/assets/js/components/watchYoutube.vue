@@ -172,6 +172,9 @@
 
 </style>
 <script>
+//    const socketUrl = 'https://bot.fsociety.guru/youtube';
+    const socketUrl = 'http://192.168.1.2:8084/youtube';
+
     const _ = window._ || require('lodash');
 
     export default{
@@ -182,7 +185,8 @@
                 from: '',
                 to: '',
                 title: '',
-
+                timestamp: null,
+                hrtime: null,
                 paused: false,
                 queue: [],
 
@@ -230,28 +234,31 @@
 
                 if (this.queue.length > 0) {
                     let item = this.queue.splice(0, 1)[0];
+
                     this.key = item.key;
                     this.seekTime = item.seekTime;
+                    this.hrtime = item.hrtime;
+                    this.timestamp = item.timestamp;
                     this.title = item.title;
                     this.from = item.from;
                     this.to = item.to;
 
-                    this.notifyPlay();
+                    this.notifyPlay('Playing', this);
                 }
             },
-            notifyPlay: function () {
+            notifyPlay: function (message, item) {
                 // Notify
                 UIkit.notify({
-                    message: `<div class="uk-text-center"><h4>Playing ${this.title}</h4><p>Requested By ${this.from} on ${this.to}</p></div>`,
+                    message: `<div class="uk-text-center"><h4>${message} ${item.title}</h4><p>Requested By ${item.from} on ${item.to}</p></div>`,
                     status: 'info',
                     timeout: 4000,
                     pos: 'bottom-center'
                 });
             },
-            queueItem: function (key, from, to, title, seekTime) {
+            queueItem: function (key, from, to, hrtime, timestamp, title, seekTime) {
                 title = title || '';
                 return {
-                    key, from, to, title, seekTime
+                    key, from, to, hrtime, timestamp,title, seekTime
                 };
             },
             clearQueue: function () {
@@ -263,14 +270,21 @@
                 this.to = '';
                 this.title = '';
                 this.seekTime = 0;
+                this.timestamp = null;
                 this.paused = false;
+                this.hrtime = null;
             },
             initSocket: function () {
                 const self = this;
 
+                // Establish Socket.io connection
+                const channel = io.connect(socketUrl);
+
                 // YouTube Control Channel
-                window.Fsociety.socket.on('youtube-control', data => {
+                channel.on('control', data => {
                     if (!data.command) return;
+                    // TODO scope commands to active channel
+
                     switch (data.command) {
                         case 'clear':
                             self.clearNowPlaying();
@@ -284,17 +298,20 @@
                 });
 
                 // YouTube Broadcast channel
-                window.Fsociety.socket.on('youtube', data => {
+                channel.on('message', data => {
                     // We are not listening on the current channel
                     if(activeChannel !== '' && data.to.toLowerCase() !== activeChannel) return;
 
                     // No Key, Same key as currently playing, bail
                     if (!data.video || !data.video.key || data.video.key === self.key || _.find(self.queue, {key: data.video.key})) return;
+
                     // Create the item
                     let item = self.queueItem(
                         data.video.key,
                         data.from,
                         data.to,
+                        data.hrtime,
+                        data.timestamp,
                         data.video.videoTitle,
                         data.seekTime
                     );
@@ -304,23 +321,21 @@
 
                     // If nothing is currently playing, process the item
                     if (self.key === '') {
+                        // Pop the first item from the queue
                         let item = self.queue.splice(0, 1)[0];
+
                         self.key = item.key;
                         self.seekTime = item.seekTime;
+                        self.hrtime = item.hrtime;
+                        self.timestamp = item.timestamp;
                         self.title = item.title;
                         self.from = item.from;
                         self.to = item.to;
-
-                        self.notifyPlay();
-                    } else {
-                        // Notify
-                        UIkit.notify({
-                            message: `<div class="uk-text-center"><h4>Added ${item.title}</h4><p>Requested By ${item.from} on ${item.to} to queue</p></div>`,
-                            status: 'success',
-                            timeout: 4000,
-                            pos: 'top-center'
-                        });
+                        self.notifyPlay('Playing', self);
                     }
+
+                    // Otherwise Notify we are adding it
+                    else self.notifyPlay('Adding', item);
                 });
             }
         }
