@@ -214,19 +214,13 @@
         },
         watch: {
             title: function (val) {
-                document.title = `${this.title} - Powered by MrNodeBot`;
+                let out = this.title === '' ? 'Fsociety TV' : this.title;
+                document.title = `${out} - Powered by MrNodeBot`;
             },
         },
         methods: {
             playing: function (player) {
                 this.paused = false;
-                // Notify
-                UIkit.notify({
-                    message: `<div class="uk-text-center"><h4>Playing ${this.title}</h4><p>Requested By ${this.from} on ${this.to}</p></div>`,
-                    status: 'info',
-                    timeout: 4000,
-                    pos: 'bottom-center'
-                });
             },
             ready: function (player) {
             },
@@ -244,7 +238,18 @@
                     this.title = item.title;
                     this.from = item.from;
                     this.to = item.to;
+
+                    this.notifyPlay();
                 }
+            },
+            notifyPlay: function () {
+                // Notify
+                UIkit.notify({
+                    message: `<div class="uk-text-center"><h4>Playing ${this.title}</h4><p>Requested By ${this.from} on ${this.to}</p></div>`,
+                    status: 'info',
+                    timeout: 4000,
+                    pos: 'bottom-center'
+                });
             },
             queueItem: function (key, from, to, title, seekTime) {
                 title = title || '';
@@ -304,6 +309,8 @@
                         self.title = item.title;
                         self.from = item.from;
                         self.to = item.to;
+
+                        self.notifyPlay();
                     } else {
                         // Notify
                         UIkit.notify({
