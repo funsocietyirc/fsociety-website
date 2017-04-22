@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Watch Youtube</title>
+        <title>Watch YouTube - Powered By MrNodeBot</title>
         <meta name="robots" content="noindex,nofollow">
         <meta name="csrf-token" content="{{csrf_token()}}"/>
         <meta name="csrf-param" content="_token"/>
@@ -11,6 +11,9 @@
         <link rel="stylesheet" href={{elixir('css/app.css')}}>
     </head>
     <body>
+        <script>
+            const activeChannel = '{{$activeChannel}}';
+        </script>
         <div id="vue">
             <watch-youtube></watch-youtube>
         </div>

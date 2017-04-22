@@ -68,11 +68,8 @@
         top: 0;
         width: 100%;
         height: 100%;
-        background: url('/images/standby.jpg');
         color: transparent;
-        background-position: center center;
-        background-repeat:  no-repeat;
-        background-attachment: fixed;
+        background: url('/images/standby.jpg') no-repeat fixed center center;
         background-size:  cover;
         text-shadow: 0 0 30px rgba(0, 0, 0, .5);
         animation: glitch 8s linear infinite;
@@ -102,7 +99,7 @@
     }
 
     .frame div:nth-child(1) {
-        animation-delay: 0;
+        animation-delay: 0s;
     }
 
     .frame div:nth-child(2) {
@@ -270,6 +267,7 @@
             },
             initSocket: function () {
                 const self = this;
+
                 // YouTube Control Channel
                 window.Fsociety.socket.on('youtube-control', data => {
                     if (!data.command) return;
@@ -287,6 +285,9 @@
 
                 // YouTube Broadcast channel
                 window.Fsociety.socket.on('youtube', data => {
+                    // We are not listening on the current channel
+                    if(activeChannel !== '' && data.to.toLowerCase() !== activeChannel) return;
+
                     // No Key, Same key as currently playing, bail
                     if (!data.video || !data.video.key || data.video.key === self.key || _.find(self.queue, {key: data.video.key})) return;
                     // Create the item
