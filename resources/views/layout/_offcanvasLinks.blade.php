@@ -16,3 +16,6 @@
 <li class="{{ isActiveRoute('irc-channels')}}">
     <a class="uk-navbar-nav-subtitle" href="{{route('irc-channels')}}">IRC<div>Channels</div></a>
 </li>
+<li class="{{ isActiveRoute('watch-youtube')}}">
+    <a class="uk-navbar-nav-subtitle" href="{{route('watch-youtube')}}">Watch<div>YouTube</div></a>
+</li>
