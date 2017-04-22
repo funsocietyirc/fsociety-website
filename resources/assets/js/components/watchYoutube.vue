@@ -1,5 +1,22 @@
 <template>
     <div>
+        <div  id="queue">
+            <h4>FSociety TV</h4>
+            <dl v-if="key" class="uk-description-list">
+                <dt>Playing</dt>
+                <dd>{{title}}</dd>
+                <dt>From</dt>
+                <dd>{{from}}</dd>
+            </dl>
+            <div v-if="queue.length > 0">
+                <h4>Up Next</h4>
+                <ul>
+                    <li v-for="item in queue">
+                        {{item.title}} - {{item.from}}
+                    </li>
+                </ul>
+            </div>
+        </div>
         <youtube v-if="key" class="fullscreen" :player-width="windowWidth" :player-height="windowHeight" :video-id="key" :player-vars="playerVars" @paused="paused"  @ready="ready" @playing="playing" @ended="ended"></youtube>
     </div>
 </template>
@@ -14,9 +31,22 @@ body, html {
     position: absolute;
     top: 0;
     left: 0;
+    background-color:rgba(210, 13, 29, 0.74);
+    text-align: right;
 }
-
-
+#queue {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 50;
+    width:15%;
+    height:100%;
+    background: #000;
+    pointer-events: none;
+    opacity: 0.7;
+    color: #fff;
+    padding: 5px;
+}
 </style>
 <script>
     export default{
@@ -122,6 +152,14 @@ body, html {
                         self.title = item.title;
                         self.from = item.from;
                         self.to = item.to;
+                    } else {
+                        // Notify
+                        UIkit.notify({
+                            message : `<div class="uk-text-center"><h4>Added ${item.title}</h4><p>Requested By ${item.from} on ${item.to} to queue</p></div>`,
+                            status  : 'success',
+                            timeout : 4000,
+                            pos     : 'top-center'
+                        });
                     }
                 });
             }
