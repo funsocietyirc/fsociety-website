@@ -20,8 +20,8 @@
 
         </div>
         <youtube v-if="key" class="fullscreen" :player-width="windowWidth" :player-height="windowHeight" :video-id="key"
-                 :player-vars="playerVars" @paused="paused" @ready="ready" @playing="playing" @ended="ended"></youtube>
-        <div v-if="key == ''">
+                 :player-vars="playerVars" @paused="pause" @ready="ready" @playing="playing" @ended="ended"></youtube>
+        <div v-if="!key || paused">
             <div class="frame">
                 <div></div>
                 <div></div>
@@ -43,13 +43,14 @@
         width: 80%;
         height: 1.1em;
         padding: 5px;
+        z-index: 4;
     }
 
     #queue {
         position: fixed;
         top: 0;
         right: 0;
-        z-index: 50;
+        z-index: 5;
         width: 15%;
         height: 100%;
         background: #000;
@@ -58,14 +59,8 @@
         color: #fff;
         padding: 5px;
     }
-    .uk-list-line > li:nth-child(n+2) {
-        margin-top: 5px;
-        padding-top: 5px;
-        border-top: 1px solid #dd212d;
-    }
-    .uk-badge {
-        border-radius: 8px;
-    }
+
+    /*noinspection CssUnknownTarget*/
     .image-layer {
         z-index: 1;
         position: absolute;
@@ -73,11 +68,15 @@
         top: 0;
         width: 100%;
         height: 100%;
-        background: url(http://www.windowscentral.com/sites/wpcentral.com/files/styles/larger/public/field/image/2015/06/fallout-4-teaser.jpg?itok=L6Ln4CRc);
+        background: url('/images/standby.jpg');
         color: transparent;
-        background-size: cover;
+        background-position: center center;
+        background-repeat:  no-repeat;
+        background-attachment: fixed;
+        background-size:  cover;
         text-shadow: 0 0 30px rgba(0, 0, 0, .5);
         animation: glitch 8s linear infinite;
+        pointer-events: none;
     }
 
     .frame {
@@ -88,6 +87,7 @@
         width: 100%;
         height: 100%;
         background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 19%, rgba(0, 0, 0, 0.9) 100%);
+        pointer-events: none;
     }
 
     .frame div {
@@ -175,7 +175,7 @@
 
 </style>
 <script>
-    import _ from 'lodash';
+    const _ = window._ || require('lodash');
 
     export default{
         data(){
@@ -186,6 +186,7 @@
                 to: '',
                 title: '',
 
+                paused: false,
                 queue: [],
 
                 windowHeight: 0,
@@ -218,6 +219,7 @@
         },
         methods: {
             playing: function (player) {
+                this.paused = false;
                 // Notify
                 UIkit.notify({
                     message: `<div class="uk-text-center"><h4>Playing ${this.title}</h4><p>Requested By ${this.from} on ${this.to}</p></div>`,
@@ -228,15 +230,12 @@
             },
             ready: function (player) {
             },
-            paused: function (player) {
+            pause: function (player) {
+                this.paused = true;
             },
             ended: function (player) {
                 // Reset the key
-                this.key = '';
-                this.from = '';
-                this.to = '';
-                this.title = '';
-                this.seekTime = 0;
+                this.clearNowPlaying();
 
                 if (this.queue.length > 0) {
                     let item = this.queue.splice(0, 1)[0];
@@ -253,24 +252,30 @@
                     key, from, to, title, seekTime
                 };
             },
+            clearQueue: function () {
+                this.queue.splice(0);
+            },
+            clearNowPlaying: function () {
+                this.key = '';
+                this.from = '';
+                this.to = '';
+                this.title = '';
+                this.seekTime = 0;
+                this.paused = false;
+            },
             initSocket: function () {
-                var self = this;
+                const self = this;
                 // YouTube Control Channel
                 window.Fsociety.socket.on('youtube-control', data => {
                     if (!data.command) return;
                     switch (data.command) {
                         case 'clear':
-                            // Reset the key
-                            self.key = '';
-                            self.from = '';
-                            self.to = '';
-                            self.title = '';
-                            self.seekTime = 0;
-                            self.queue.splice(0);
+                            self.clearNowPlaying();
+                            self.clearQueue();
                             break;
                         case 'remove':
-                            if (!_.isInteger(data.index) || data.index > self.queue.length || data.index < 0) return;
-                            self.queue.splice(data.index, 1);
+                            if (data.index > self.queue.length || data.index - 1 < 0) return;
+                            self.queue.splice(data.index - 1, 1);
                             break;
                     }
                 });
@@ -278,7 +283,7 @@
                 // YouTube Broadcast channel
                 window.Fsociety.socket.on('youtube', data => {
                     // No Key, Same key as currently playing, bail
-                    if (!data.video || !data.video.key || data.video.key === self.key) return;
+                    if (!data.video || !data.video.key || data.video.key === self.key || _.find(self.queue, {key: data.video.key})) return;
                     // Create the item
                     let item = self.queueItem(
                         data.video.key,
