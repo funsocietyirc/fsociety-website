@@ -172,9 +172,7 @@
 
 </style>
 <script>
-//    const socketUrl = 'https://bot.fsociety.guru/youtube';
-    const socketUrl = 'http://192.168.1.2:8084/youtube';
-
+    const socketUrl = 'https://bot.fsociety.guru/youtube';
     const _ = window._ || require('lodash');
 
     export default{
