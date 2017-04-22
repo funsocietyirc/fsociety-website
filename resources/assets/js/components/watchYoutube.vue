@@ -1,15 +1,16 @@
 <template>
     <div>
-        <div  id="queue">
-            <h4>FSociety TV</h4>
+        <div id="nowPlaying">
+            <i style="color:darkred" class="uk-icon-play uk-margin-small-right"></i> {{title}} <span class="from"><i class="uk-margin-small-right uk-margin-small-left uk-icon-user"></i>  {{from}}</span>
+        </div>
+        <div id="queue">
+            <h4 class="uk-text-right">FSociety TV</h4>
             <ul class="uk-list uk-list-line">
-                <li v-if="key"><h4>Now Playing</h4></li>
-                <li v-if="key">{{title}} <span class="text-muted">-- {{from}}</span></li>
                 <li v-if="queue.length > 0">
-                    <h4>Up Next <div class="uk-badge uk-badge-notification">{{queue.length}}</div></h4>
+                    <h4><i style="color:darkred" class="uk-icon-fast-forward uk-margin-small-right"></i> Up Next <div class="uk-badge uk-badge-danger uk-margin-small-left">{{queue.length}}</div></h4>
                 </li>
                 <li v-for="(item, index) in queue">
-                    <div class="uk-badge uk-badge-notification">{{index + 1}}</div> {{item.title}} <span class="text-muted">-- {{item.from}}</span>
+                    <span class="timestamp uk-margin-small-right">{{index + 1}}</span> {{item.title}}  <span class="from uk-margin-small-left">{{item.from}}</span>
                 </li>
             </ul>
 
@@ -21,6 +22,13 @@
 body, html {
     height: 100%;
     margin: 0;
+}
+#nowPlaying {
+    position: fixed;
+    left:0;
+    width:80%;
+    height:1.1em;
+    padding:5px;
 }
 
 #queue {
@@ -41,8 +49,13 @@ body, html {
     padding-top: 5px;
     border-top: 1px solid #dd212d;
 }
+.uk-badge {
+    border-radius: 8px;
+}
 </style>
 <script>
+    import _ from 'lodash';
+
     export default{
         data(){
             return{
@@ -137,7 +150,7 @@ body, html {
                             self.queue.splice(0);
                             break;
                         case 'remove':
-                            if(isNaN(data.index) || data.index > self.queue.length || data.index < 0 ) return;
+                            if(!_.isInteger(data.index) || data.index > self.queue.length || data.index < 0 ) return;
                             self.queue.splice(data.index, 1);
                             break;
                     }
