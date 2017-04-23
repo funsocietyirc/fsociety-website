@@ -31,6 +31,7 @@
         </div>
     </div>
 </template>
+
 <style>
     body, html {
         height: 100%;
@@ -187,7 +188,9 @@
                 hrtime: null,
                 paused: false,
                 queue: [],
+                firstLoad: true,
 
+                player: null,
                 windowHeight: 0,
                 windowWidth: 0
             }
@@ -222,6 +225,12 @@
                 this.paused = false;
             },
             ready: function (player) {
+                // Hold on to the player object
+                this.player = player;
+                if(this.firstLoad) {
+                    player.seekTo(this.seekTime, true);
+                    this.firstLoad = false;
+                }
             },
             pause: function (player) {
                 this.paused = true;
@@ -232,9 +241,8 @@
 
                 if (this.queue.length > 0) {
                     let item = this.queue.splice(0, 1)[0];
-
-                    this.key = item.key;
                     this.seekTime = item.seekTime;
+                    this.key = item.key;
                     this.hrtime = item.hrtime;
                     this.timestamp = item.timestamp;
                     this.title = item.title;
@@ -272,17 +280,65 @@
                 this.paused = false;
                 this.hrtime = null;
             },
+            buildState: function() {
+                let currentState = {
+                    key: this.key,
+                    from: this.from,
+                    to: this.to,
+                    title: this.title,
+                    seekTime: this.player.getCurrentTime(),
+                    timestamp: this.timestamp,
+                    hrtime: this.hrtime
+                };
+
+                // Create a copy of the current queue
+                let queue = JSON.parse(JSON.stringify(this.queue));
+                // Put the current state at the start
+                queue.unshift(currentState);
+                // Return state
+                return queue;
+            },
             initSocket: function () {
                 const self = this;
 
                 // Establish Socket.io connection
                 const channel = io.connect(socketUrl);
 
+                // YouTube new Connection event
+                channel.on('new', data => {
+                    if(self.hrtime) channel.emit('new-reply', self.buildState());
+                });
+
+                // Handle Queue Sync
+                channel.on('queue', data => {
+                    // something is not right in denmark
+
+                    if(!self.hrtime || self.hrtime[1] > data[0].hrtime[1]) {
+                        // Clear Current State
+                        self.clearNowPlaying();
+                        self.clearQueue();
+                        // Pop off first item
+                        let item = data.splice(0, 1)[0];
+                        // Set First Item
+                        self.seekTime = item.seekTime;
+                        self.key = item.key;
+                        self.hrtime = item.hrtime;
+                        self.timestamp = item.timestamp;
+                        self.title = item.title;
+                        self.from = item.from;
+                        self.to = item.to;
+                        // Notify
+                        self.notifyPlay('Playing (sync)', self);
+                        // Assign the rest of the queue
+                        self.queue = data;
+                    }
+                });
+
                 // YouTube Control Channel
                 channel.on('control', data => {
-                    if (!data.command) return;
-                    // TODO scope commands to active channel
-
+                    // Gate
+                    if(!data.command || (activeChannel !== '' && data.from.toLowerCase() !== activeChannel)) return;
+                    // Switch Control commands
                     switch (data.command) {
                         case 'clear':
                             self.clearNowPlaying();
@@ -321,9 +377,8 @@
                     if (self.key === '') {
                         // Pop the first item from the queue
                         let item = self.queue.splice(0, 1)[0];
-
-                        self.key = item.key;
                         self.seekTime = item.seekTime;
+                        self.key = item.key;
                         self.hrtime = item.hrtime;
                         self.timestamp = item.timestamp;
                         self.title = item.title;
