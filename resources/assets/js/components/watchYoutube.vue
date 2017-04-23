@@ -12,10 +12,12 @@
         </div>
         <div id="userCount">
             <h3 class="shadow uk-display-inline-block">
-                <a v-on:click="likeButton" class="uk-icon-button uk-icon-heart uk-margin-small-right uk-text-danger uk-display-inline-block"></a>
+                <a v-on:click="likeButton"
+                   class="uk-icon-button uk-icon-heart uk-margin-small-right uk-text-danger uk-display-inline-block"></a>
             </h3>
             <span class="uk-icon-button uk-icon-headphones  uk-text-danger uk-margin-small-right uk-display-inline-block"></span>
-            <vue-slider tooltip="hover" v-model="slider" width="200" class="uk-display-inline-block" height="3"></vue-slider>
+            <vue-slider tooltip="hover" v-model="slider" width="200" class="uk-display-inline-block"
+                        height="3"></vue-slider>
         </div>
         <div v-if="key" id="nowPlaying">
             <i class="uk-icon-play uk-margin-small-right from"></i> {{title}} <span class="from"><i
@@ -27,6 +29,7 @@
             </h4>
             <div id="queueInner">
                 <ul class="uk-list uk-list-line">
+                    <!--suppress CommaExpressionJS -->
                     <li v-for="(item, index) in queue">
                         <span class="timestamp uk-margin-small-right">{{index + 1}}</span> {{item.title}}  <span
                             class="from uk-margin-small-left">{{item.from}}</span>
@@ -34,8 +37,11 @@
                 </ul>
             </div>
         </div>
-        <youtube id="player" v-if="key" class="fullscreen" :player-width="windowWidth" :player-height="windowHeight" :video-id="key"
+
+        <youtube id="player" v-if="key" type="text/html" class="youtube-player" :player-width="windowWidth"
+                 :player-height="windowHeight" :video-id="key"
                  :player-vars="playerVars" @paused="pause" @ready="ready" @playing="playing" @ended="ended"></youtube>
+
         <div v-if="!key || paused">
             <div class="frame">
                 <div></div>
@@ -226,7 +232,8 @@
 </style>
 <script>
 
-    const socketUrl =  'https://bot.fsociety.guru/youtube';
+    // const socketUrl = 'https://bot.fsociety.guru/youtube';
+    const socketUrl = 'http://192.168.1.2:8084/youtube';
 
     const _ = window._ || require('lodash');
     const $ = window.$ || require('jquery');
@@ -237,6 +244,7 @@
         components: {
             vueSlider
         },
+        // Initial Data Structure
         data(){
             return {
                 key: '',            // Current Video
@@ -245,10 +253,12 @@
                 to: '',             // Current Video sent to channel
                 title: '',          // Current Video title
                 timestamp: null,    // Time current video was received
-                hrtime: null,       // Current Hardware timestamp
+                initialTime: null,  // Current Hardware timestamp
                 paused: false,      // Player pause status
                 queue: [],          // Video Queue
                 firstLoad: true,    // Has a video been loaded yet?
+                synced: false,      // We have been synced with the rest of the clients
+                syncedTime: null,   // initial Sync Time
                 activeChannel: activeChannel ? activeChannel.toLowerCase() : '', // Active channel, defaults to ''
                 player: null,       // Holder for the video player
                 windowHeight: 0,    // Browser Window Height
@@ -256,23 +266,24 @@
                 totalListeners: 1,    // Current Total Listeners, defaulted to 1
                 channelListeners: 1,  // Current Channel Total Listeners, defaulted to 1,
                 slider: 50,
-                channel: null         // Socket Connection
+                channel: null,        // Socket Connection,
             }
         },
+        // Computed Properties
         computed: {
             playerVars: function () {
                 return {
                     autoplay: 1,
                     start: this.seekTime,
                     controls: 0,
-                    modestBranding:1,
-                    disablekb:1,
-                    showinfo:0,
+                    modestBranding: 1,
+                    disablekb: 1,
+                    showinfo: 0,
                 }
             },
         },
+        // On Component mount
         mounted(){
-            const self = this;
             // Establish Socket.io connection
             this.$nextTick(function () {
                 this.initSocket();
@@ -284,37 +295,46 @@
                 });
             });
         },
+        // Watched Properties
         watch: {
+            // Modify the page Title
             title: function (val) {
-                let out = this.title === '' ? 'Fsociety TV' : this.title;
+                let out = val === '' ? 'Fsociety TV' : val;
                 document.title = `${out} - Powered by MrNodeBot`;
             },
-            slider: function(val) {
-              if(this.player) this.player.setVolume(val);
+            // Bind the volume slider to the youtube player
+            slider: function (val) {
+                if (this.player) this.player.setVolume(val);
             },
         },
+        // Vue Methods
         methods: {
-            likeButton: function() {
+            // Fire off like button event
+            likeButton: function () {
                 this.channel.emit('like');
             },
-            playing: function (player) {
+            // Youtube player is playing
+            playing: function () {
                 this.paused = false;
             },
+            // Youtube player is ready
             ready: function (player) {
                 // Hold on to the player object
                 this.player = player;
                 // Hack to have the first synced song seem to the appropriate time
                 if (this.firstLoad) {
-                    player.seekTo(parseFloat(this.seekTime), true);
+                    if(this.seekTime !== null) player.seekTo(parseFloat(this.seekTime), true);
                     this.firstLoad = false;
                 }
-                // Volume stuffs
+                // Set Default volume
                 player.setVolume(this.slider);
             },
-            pause: function (player) {
+            // Youtube player is paused
+            pause: function () {
                 this.paused = true;
             },
-            ended: function (player) {
+            // Youtube video has ended
+            ended: function () {
                 // Reset the key
                 this.clearNowPlaying();
                 // There are still items left in the queue
@@ -324,7 +344,6 @@
                     // Play it
                     this.seekTime = item.seekTime;
                     this.key = item.key;
-                    this.hrtime = item.hrtime;
                     this.timestamp = item.timestamp;
                     this.title = item.title;
                     this.from = item.from;
@@ -333,6 +352,7 @@
                     this.notifyPlay('Playing', this);
                 }
             },
+            // Wrapper around UIkits notify, notify on an item (including this)
             notifyPlay: function (message, item) {
                 // Notify
                 UIkit.notify({
@@ -342,21 +362,23 @@
                     pos: 'bottom-center'
                 });
             },
-            queueItem: function (key, from, to, hrtime, timestamp, title, seekTime) {
+            // Build a queue item
+            queueItem: function (key, from, to, timestamp, title, seekTime) {
                 title = title || '';
                 return {
                     key,
                     from,
                     to,
-                    hrtime,
                     timestamp,
                     title,
                     seekTime
                 };
             },
+            // Clear the queue
             clearQueue: function () {
                 this.queue.splice(0);
             },
+            // Clear the current playing video
             clearNowPlaying: function () {
                 this.key = '';
                 this.from = '';
@@ -365,98 +387,144 @@
                 this.seekTime = 0;
                 this.timestamp = null;
                 this.paused = false;
-                this.hrtime = null;
             },
+            // Build a state for this client
             buildState: function () {
                 let currentState = {
                     key: this.key,
                     from: this.from,
                     to: this.to,
                     title: this.title,
-                    seekTime: this.player.getCurrentTime(),
+                    seekTime: this.player ? this.player.getCurrentTime() : 0,
                     timestamp: this.timestamp,
-                    hrtime: this.hrtime
+                    initialTime: this.initialTime
                 };
 
                 // Create a copy of the current queue
                 let queue = JSON.parse(JSON.stringify(this.queue));
                 // Put the current state at the start
                 queue.unshift(currentState);
+
                 // Return state
                 return {
+                    initialTime: this.initialTime,
                     activeChannel: this.activeChannel,
                     queue: queue,
                 };
             },
             initSocket: function () {
                 const self = this;
+
+                // Subscribe th websocket
                 const channel = this.channel = io.connect(socketUrl, {query: `activeChannel=${activeChannel}`});
 
                 // YouTube new Connection event
                 channel.on('new', data => {
+
                     // Update the total listeners
                     self.totalListeners = data.totalListeners;
                     self.channelListeners = data.channelListeners;
 
                     // If we have a HR Time broadcast our state
-                    if (self.hrtime) channel.emit('new-reply', self.buildState());
+                    if (self.initialTime) channel.emit('new-reply', self.buildState());
                 });
-                
-                // On Like
+
+
+                // Respond to the like event
                 channel.on('like', () => UIkit.notify(`<i class="uk-icon-heartbeat"></i> Someone Likes This!`, {
                     timeout: 1000,
                     pos: 'bottom-center'
                 }));
-                
+
                 // Listen for Disconnects
                 channel.on('left', data => {
+                    // Update the current count
                     self.totalListeners = data.totalListeners;
                     self.channelListeners = data.channelListeners;
                 });
 
                 // Handle Queue Sync
                 channel.on('queue', data => {
-                    if (!self.hrtime || self.hrtime[1] > data.queue[0].hrtime[1]) {
+                    // If we do not have an HR time or if the current one is older then ours
+                    console.log('local');
+                    console.dir(self.initialTime);
+                    console.log('remote');
+                    console.dir(data.initialTime);
+
+                    if (
+                        //!self.initialTime || // We have an Initial HR Time
+                        (
+                            !self.syncedTime ||
+                            self.syncedTime > data.initialTime
+                        ) &&
+                        (
+                            data && // We Have Data
+                            data.initialTime && // The State has an Initial Time
+                            self.initialTime > data.initialTime // Ours is newer
+                        )
+                    ) {
+                        console.log('fired');
+
+                        // Hold on to the initial Synced time
+                        self.syncedTime = data.initialTime;
 
                         // Clear Current State
                         self.clearNowPlaying();
                         self.clearQueue();
+
                         // Pop off first item
                         let item = data.queue.splice(0, 1)[0];
 
                         // Figure out time shift?
                         // Super magic experimental number
-                        let timeshift = 1.255;
+                        let timeshift = 0.2; //1.255;
 
                         // Set First Item
                         self.seekTime = item.seekTime + timeshift;
                         self.key = item.key;
-                        self.hrtime = item.hrtime;
                         self.timestamp = item.timestamp;
                         self.title = item.title;
                         self.from = item.from;
                         self.to = item.to;
+
+                        self.intialTime= item.timestamp;
+
                         // Notify
-                        self.notifyPlay('Playing (Sync)', self);
-                        // Assign the rest of the queue
+                        if(!self.synced)  self.notifyPlay('Playing (Sync)', self);
+                        self.synced = true;
+
+                        // Assign the rest of the queue to the clients
                         self.queue = data.queue;
                     }
+                });
+
+                // Time Sync
+                channel.on('timesync', data => {
+                    console.log('Time Sync');
+                    console.dir(data);
+                    self.initialTime = data;
                 });
 
                 // YouTube Control Channel
                 channel.on('control', data => {
                     // Gate
                     if (!data.command) return;
+
                     // Switch Control commands
                     switch (data.command) {
+                        // Clear current queue
                         case 'clear':
                             self.clearNowPlaying();
                             self.clearQueue();
                             break;
+                        // Remove item from queue
                         case 'remove':
                             if (data.index > self.queue.length || data.index - 1 < 0) return;
                             self.queue.splice(data.index - 1, 1);
                             break;
+                        // Reload Page
+                        case 'reload':
+                            location.reload();
                     }
                 });
 
@@ -470,11 +538,13 @@
                         data.video.key,
                         data.from,
                         data.to,
-                        data.hrtime,
                         data.timestamp,
                         data.video.videoTitle,
                         data.seekTime
                     );
+
+                    // If we for some reason do not have an initial HR time, set it baseed on thee current track
+                    if(!self.initialTime) self.initialTime = data.timestamp;
 
                     // Add Item To queue
                     self.queue.push(item);
@@ -485,7 +555,6 @@
                         let item = self.queue.splice(0, 1)[0];
                         self.seekTime = item.seekTime;
                         self.key = item.key;
-                        self.hrtime = item.hrtime;
                         self.timestamp = item.timestamp;
                         self.title = item.title;
                         self.from = item.from;
