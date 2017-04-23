@@ -1,7 +1,8 @@
 <template>
     <div>
         <div id="logo">
-            <h2 class="uk-text-right">FSOCIETY TV <span v-if="activeChannel">/ {{activeChannel.toUpperCase()}}</span></h2>
+            <h2 class="uk-text-right">FSOCIETY TV <span v-if="activeChannel">/ {{activeChannel.toUpperCase()}}</span>
+            </h2>
         </div>
         <div id="userCount">
             <h2 class="from">
@@ -13,22 +14,18 @@
             <i class="uk-icon-play uk-margin-small-right from"></i> {{title}} <span class="from"><i
                 class="uk-margin-small-right uk-margin-small-left uk-icon-user"></i>  {{from}}</span>
         </div>
-        <div id="queue">
-            <h4 class="uk-text-right">FSociety TV <span v-if="activeChannel">/ {{activeChannel}}</span></h4>
-            <div v-if="queue.length > 0" id="queueInner">
+        <div id="queue" v-if="queue.length > 0">
+            <h4><i class="uk-icon-fast-forward uk-margin-small-right from"></i> Up Next
+                <div class="uk-badge uk-badge-danger uk-margin-small-left">{{queue.length}}</div>
+            </h4>
+            <div id="queueInner">
                 <ul class="uk-list uk-list-line">
-                    <li v-if="queue.length > 0">
-                        <h4><i class="uk-icon-fast-forward uk-margin-small-right from"></i> Up Next
-                            <div class="uk-badge uk-badge-danger uk-margin-small-left">{{queue.length}}</div>
-                        </h4>
-                    </li>
                     <li v-for="(item, index) in queue">
                         <span class="timestamp uk-margin-small-right">{{index + 1}}</span> {{item.title}}  <span
                             class="from uk-margin-small-left">{{item.from}}</span>
                     </li>
                 </ul>
             </div>
-
         </div>
         <youtube v-if="key" class="fullscreen" :player-width="windowWidth" :player-height="windowHeight" :video-id="key"
                  :player-vars="playerVars" @paused="pause" @ready="ready" @playing="playing" @ended="ended"></youtube>
@@ -47,20 +44,22 @@
     .from {
         text-shadow: 4px 4px 7px rgba(0, 0, 0, 0.79);
     }
+
     body, html {
         height: 100%;
         margin: 0;
     }
-    #userCount
-    {
+
+    #userCount {
         position: fixed;
         left: 2%;
-        bottom:9%;
+        bottom: 9%;
         width: 20%;
         height: 1.1em;
         padding: 5px;
         z-index: 4;
     }
+
     #nowPlaying {
         position: fixed;
         left: 0;
@@ -69,6 +68,7 @@
         padding: 5px;
         z-index: 5;
     }
+
     #logo {
         position: fixed;
         right: 5%;
@@ -76,6 +76,7 @@
         padding: 5px;
         z-index: 5;
     }
+
     #queue {
         position: fixed;
         top: 50%;
@@ -90,10 +91,11 @@
         border-top-left-radius: 6px;
 
     }
+
     #queueInner {
-        height:40%;
-        width:100%;
-        overflow-y : auto;
+        height: 40%;
+        width: 100%;
+        overflow-y: auto;
     }
 
     ::-webkit-scrollbar-track {
@@ -110,7 +112,7 @@
         height: 100%;
         color: transparent;
         background: url('/images/standby.jpg') no-repeat fixed center center;
-        background-size:  cover;
+        background-size: cover;
         text-shadow: 0 0 30px rgba(0, 0, 0, .5);
         animation: glitch 8s linear infinite;
         pointer-events: none;
@@ -268,7 +270,7 @@
                 // Hold on to the player object
                 this.player = player;
                 // Hack to have the first synced song seem to the appropriate time
-                if(this.firstLoad) {
+                if (this.firstLoad) {
                     player.seekTo(parseFloat(this.seekTime), true);
                     this.firstLoad = false;
                 }
@@ -329,7 +331,7 @@
                 this.paused = false;
                 this.hrtime = null;
             },
-            buildState: function() {
+            buildState: function () {
                 let currentState = {
                     key: this.key,
                     from: this.from,
@@ -363,7 +365,7 @@
                     self.totalListeners = data;
 
                     // If we have a HR Time broadcast our state
-                    if(self.hrtime) channel.emit('new-reply', self.buildState());
+                    if (self.hrtime) channel.emit('new-reply', self.buildState());
                 });
 
                 // Listen for Disconnects
@@ -373,7 +375,7 @@
                 // Handle Queue Sync
                 channel.on('queue', data => {
 
-                    if(self.activeChannel === data.activeChannel.toLowerCase() && (!self.hrtime || self.hrtime[1] > data.queue[0].hrtime[1])) {
+                    if (self.activeChannel === data.activeChannel.toLowerCase() && (!self.hrtime || self.hrtime[1] > data.queue[0].hrtime[1])) {
 
                         // Clear Current State
                         self.clearNowPlaying();
@@ -404,7 +406,7 @@
                 // YouTube Control Channel
                 channel.on('control', data => {
                     // Gate
-                    if(!data.command || (data.from.toLowerCase() !== self.activeChannel)) return;
+                    if (!data.command || (data.from.toLowerCase() !== self.activeChannel)) return;
                     // Switch Control commands
                     switch (data.command) {
                         case 'clear':
@@ -421,7 +423,7 @@
                 // YouTube Broadcast channel
                 channel.on('message', data => {
                     // We are not listening on the current channel
-                    if(data.to.toLowerCase() !== self.activeChannel) return;
+                    if (data.to.toLowerCase() !== self.activeChannel) return;
 
                     // No Key, Same key as currently playing, bail
                     if (!data.video || !data.video.key || data.video.key === self.key || _.find(self.queue, {key: data.video.key})) return;
