@@ -54,7 +54,7 @@
     #userCount {
         position: fixed;
         left: 0;
-        bottom: 9%;
+        bottom: 0;
         height: 1.1em;
         padding: 5px;
         z-index: 4;
