@@ -411,7 +411,6 @@
                 // YouTube new Connection event
                 channel.on('new', data => {
                     // Update the total listeners
-                    // TODO Scope to channel
                     self.totalListeners = data.totalListeners;
                     self.channelListeners = data.channelListeners;
 
@@ -434,6 +433,10 @@
                 // Handle Queue Sync
                 channel.on('queue', data => {
                     if (!self.hrtime || self.hrtime[1] > data.queue[0].hrtime[1]) {
+
+                        // Reset Counts
+                        self.totalListeners = data.totalListeners;
+                        self.channelListeners = data.channelListeners;
 
                         // Clear Current State
                         self.clearNowPlaying();
