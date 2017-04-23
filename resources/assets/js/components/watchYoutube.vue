@@ -53,7 +53,7 @@
 
     #userCount {
         position: fixed;
-        left: 2%;
+        left: 0;
         bottom: 9%;
         height: 1.1em;
         padding: 5px;
@@ -71,7 +71,7 @@
 
     #logo {
         position: fixed;
-        right: 6%;
+        right: 0;
         height: 1.1em;
         padding: 5px;
         z-index: 5;
@@ -211,47 +211,6 @@
             opacity: .3;
         }
     }
-
-    .heart {
-        font-size: 152px;
-        text-align: center;
-        color: rgba(165, 25, 25, 1);
-        padding: 0;
-        margin: 0;
-    }
-
-    .pulse {
-        -webkit-animation: pulse 1s linear infinite;
-        -moz-animation: pulse 1s linear infinite;
-        -ms-animation: pulse 1s linear infinite;
-        animation: pulse 1s linear infinite;
-    }
-
-    @keyframes pulse {
-        0% {
-            -webkit-transform: scale(1.1);
-            -moz-transform: scale(1.1);
-            -o-transform: scale(1.1);
-            -ms-transform: scale(1.1);
-            transform: scale(1.1);
-        }
-        50% {
-            -webkit-transform: scale(0.8);
-            -moz-transform: scale(0.8);
-            -o-transform: scale(0.8);
-            -ms-transform: scale(0.8);
-            transform: scale(0.8);
-        }
-        100% {
-            -webkit-transform: scale(1);
-            -moz-transform: scale(1);
-            -o-transform: scale(1);
-            -ms-transform: scale(1);
-            transform: scale(1);
-        }
-
-    }
-
 </style>
 <script>
     const socketUrl = 'https://bot.fsociety.guru/youtube';
