@@ -7,7 +7,7 @@
         <div id="userCount">
             <h2 class="from">
                 <span href="" class="uk-icon-button uk-icon-users uk-margin-small-right from"></span>
-                {{totalListeners}}
+                {{totalListeners}} / {{channelListeners}}
             </h2>
         </div>
         <div v-if="key" id="nowPlaying">
@@ -54,7 +54,6 @@
         position: fixed;
         left: 2%;
         bottom: 9%;
-        width: 20%;
         height: 1.1em;
         padding: 5px;
         z-index: 4;
@@ -71,7 +70,7 @@
 
     #logo {
         position: fixed;
-        right: 5%;
+        right: 6%;
         height: 1.1em;
         padding: 5px;
         z-index: 5;
@@ -214,7 +213,7 @@
 
 </style>
 <script>
-    const socketUrl = 'https://bot.fsociety.guru/youtube';
+    const socketUrl = 'http://192.168.1.2:8084/youtube'; // 'https://bot.fsociety.guru/youtube';
     const _ = window._ || require('lodash');
     const $ = window.$ || require('jquery');
 
@@ -235,7 +234,8 @@
                 player: null,       // Holder for the video player
                 windowHeight: 0,    // Browser Window Height
                 windowWidth: 0,      // Browser Window Width
-                totalListeners: 1   // Current Total Listeners, defaulted to 1
+                totalListeners: 1,   // Current Total Listeners, defaulted to 1
+                channelListeners: 1  // Current Channel Total Listeners, defaulted to 1
             }
         },
         computed: {
@@ -358,13 +358,15 @@
                 const self = this;
 
                 // Establish Socket.io connection
-                const channel = io.connect(socketUrl);
+                const channel = io.connect(socketUrl, {query: `activeChannel=${self.activeChannel}`});
 
                 // YouTube new Connection event
                 channel.on('new', data => {
+                    console.log('got it');
                     // Update the total listeners
                     // TODO Scope to channel
-                    self.totalListeners = data;
+                    self.totalListeners = data.totalListeners;
+                    self.channelListeners = data.channelListeners;
 
                     // If we have a HR Time broadcast our state
                     if (self.hrtime) channel.emit('new-reply', self.buildState());
@@ -372,7 +374,11 @@
 
                 // Listen for Disconnects
                 // TODO Scope to channel
-                channel.on('left', data => self.totalListeners = data);
+                channel.on('left', data => {
+                    console.dir(data);
+                    self.totalListeners = data.totalListeners;
+                    self.channelListeners = data.channelListeners;
+                });
 
                 // Handle Queue Sync
                 channel.on('queue', data => {
