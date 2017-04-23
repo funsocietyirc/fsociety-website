@@ -1,14 +1,20 @@
 <template>
     <div>
+        <div id="userCount">
+            <h2 class="from">
+                <span href="" class="uk-icon-button uk-icon-users uk-margin-small-right from"></span>
+                {{totalListeners}}
+            </h2>
+        </div>
         <div v-if="key" id="nowPlaying">
-            <i style="color:darkred" class="uk-icon-play uk-margin-small-right"></i> {{title}} <span class="from"><i
+            <i class="uk-icon-play uk-margin-small-right from"></i> {{title}} <span class="from"><i
                 class="uk-margin-small-right uk-margin-small-left uk-icon-user"></i>  {{from}}</span>
         </div>
         <div v-if="queue.length > 0" id="queue">
             <h4 class="uk-text-right">FSociety TV</h4>
             <ul class="uk-list uk-list-line">
                 <li v-if="queue.length > 0">
-                    <h4><i style="color:darkred" class="uk-icon-fast-forward uk-margin-small-right"></i> Up Next
+                    <h4><i class="uk-icon-fast-forward uk-margin-small-right from"></i> Up Next
                         <div class="uk-badge uk-badge-danger uk-margin-small-left">{{queue.length}}</div>
                     </h4>
                 </li>
@@ -32,19 +38,31 @@
     </div>
 </template>
 
-<style>
+<style scoped>
+    .from {
+        text-shadow: 4px 4px 7px rgba(0, 0, 0, 0.79);
+    }
     body, html {
         height: 100%;
         margin: 0;
     }
-
+    #userCount
+    {
+        position: fixed;
+        left: 2%;
+        bottom:9%;
+        width: 20%;
+        height: 1.1em;
+        padding: 5px;
+        z-index: 4;
+    }
     #nowPlaying {
         position: fixed;
         left: 0;
         width: 80%;
         height: 1.1em;
         padding: 5px;
-        z-index: 4;
+        z-index: 5;
     }
 
     #queue {
@@ -179,20 +197,21 @@
     export default{
         data(){
             return {
-                key: '',
-                seekTime: 0,
-                from: '',
-                to: '',
-                title: '',
-                timestamp: null,
-                hrtime: null,
-                paused: false,
-                queue: [],
-                firstLoad: true,
-
-                player: null,
-                windowHeight: 0,
-                windowWidth: 0
+                key: '',            // Current Video
+                seekTime: 0,        // Current Seek Time
+                from: '',           // Current Video sent From Nick
+                to: '',             // Current Video sent to channel
+                title: '',          // Current Video title
+                timestamp: null,    // Time current video was received
+                hrtime: null,       // Current Hardware timestamp
+                paused: false,      // Player pause status
+                queue: [],          // Video Queue
+                firstLoad: true,    // Has a video been loaded yet?
+                activeChannel: activeChannel ? activeChannel.toLowerCase() : '', // Active channel, defaults to ''
+                player: null,       // Holder for the video player
+                windowHeight: 0,    // Browser Window Height
+                windowWidth: 0,      // Browser Window Width
+                totalListeners: 1   // Current Total Listeners, defaulted to 1
             }
         },
         computed: {
@@ -227,8 +246,9 @@
             ready: function (player) {
                 // Hold on to the player object
                 this.player = player;
+                // Hack to have the first synced song seem to the appropriate time
                 if(this.firstLoad) {
-                    player.seekTo(this.seekTime, true);
+                    player.seekTo(parseFloat(this.seekTime), true);
                     this.firstLoad = false;
                 }
             },
@@ -238,9 +258,11 @@
             ended: function (player) {
                 // Reset the key
                 this.clearNowPlaying();
-
+                // There are still items left in the queue
                 if (this.queue.length > 0) {
+                    // Pop the first item off
                     let item = this.queue.splice(0, 1)[0];
+                    // Play it
                     this.seekTime = item.seekTime;
                     this.key = item.key;
                     this.hrtime = item.hrtime;
@@ -248,7 +270,7 @@
                     this.title = item.title;
                     this.from = item.from;
                     this.to = item.to;
-
+                    // Notify
                     this.notifyPlay('Playing', this);
                 }
             },
@@ -264,7 +286,13 @@
             queueItem: function (key, from, to, hrtime, timestamp, title, seekTime) {
                 title = title || '';
                 return {
-                    key, from, to, hrtime, timestamp,title, seekTime
+                    key,
+                    from,
+                    to,
+                    hrtime,
+                    timestamp,
+                    title,
+                    seekTime
                 };
             },
             clearQueue: function () {
@@ -296,7 +324,10 @@
                 // Put the current state at the start
                 queue.unshift(currentState);
                 // Return state
-                return queue;
+                return {
+                    activeChannel: this.activeChannel,
+                    queue: queue,
+                };
             },
             initSocket: function () {
                 const self = this;
@@ -306,21 +337,36 @@
 
                 // YouTube new Connection event
                 channel.on('new', data => {
+                    // Update the total listeners
+                    // TODO Scope to channel
+                    self.totalListeners = data;
+
+                    // If we have a HR Time broadcast our state
                     if(self.hrtime) channel.emit('new-reply', self.buildState());
                 });
 
+                // Listen for Disconnects
+                // TODO Scope to channel
+                channel.on('left', data => self.totalListeners = data);
+
                 // Handle Queue Sync
                 channel.on('queue', data => {
-                    // something is not right in denmark
 
-                    if(!self.hrtime || self.hrtime[1] > data[0].hrtime[1]) {
+                    if(self.activeChannel === data.activeChannel.toLowerCase() && (!self.hrtime || self.hrtime[1] > data.queue[0].hrtime[1])) {
+
                         // Clear Current State
                         self.clearNowPlaying();
                         self.clearQueue();
                         // Pop off first item
-                        let item = data.splice(0, 1)[0];
+                        let item = data.queue.splice(0, 1)[0];
+
+                        // Figure out time shift?
+                        // Super magic experimental number
+                        let timeshift = 1.255;
+
+                        console.dir(timeshift);
                         // Set First Item
-                        self.seekTime = item.seekTime;
+                        self.seekTime = item.seekTime + timeshift;
                         self.key = item.key;
                         self.hrtime = item.hrtime;
                         self.timestamp = item.timestamp;
@@ -328,16 +374,16 @@
                         self.from = item.from;
                         self.to = item.to;
                         // Notify
-                        self.notifyPlay('Playing (sync)', self);
+                        self.notifyPlay('Playing (Sync)', self);
                         // Assign the rest of the queue
-                        self.queue = data;
+                        self.queue = data.queue;
                     }
                 });
 
                 // YouTube Control Channel
                 channel.on('control', data => {
                     // Gate
-                    if(!data.command || (activeChannel !== '' && data.from.toLowerCase() !== activeChannel)) return;
+                    if(!data.command || (data.from.toLowerCase() !== self.activeChannel)) return;
                     // Switch Control commands
                     switch (data.command) {
                         case 'clear':
@@ -354,7 +400,7 @@
                 // YouTube Broadcast channel
                 channel.on('message', data => {
                     // We are not listening on the current channel
-                    if(activeChannel !== '' && data.to.toLowerCase() !== activeChannel) return;
+                    if(data.to.toLowerCase() !== self.activeChannel) return;
 
                     // No Key, Same key as currently playing, bail
                     if (!data.video || !data.video.key || data.video.key === self.key || _.find(self.queue, {key: data.video.key})) return;
