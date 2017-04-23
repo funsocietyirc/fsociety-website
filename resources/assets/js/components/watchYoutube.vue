@@ -1,14 +1,21 @@
 <template>
     <div>
         <div id="logo">
-            <h2 class="uk-text-right">FSOCIETY TV <span v-if="activeChannel">/ {{activeChannel.toUpperCase()}}</span>
-            </h2>
+            <h3 class="uk-display-inline uk-text-right uk-margin-small-right">
+                FSOCIETY TV
+                <i class="url uk-icon-justify uk-icon-users" style="margin-right:10px; margin-left:10px;"></i>{{totalListeners}}
+            </h3>
+            <h3 class="uk-display-inline uk-text-right uk-margin-small-right">
+                <span class="to">{{activeChannel.toUpperCase()}}</span>
+                <i class="url uk-icon-justify uk-icon-users" style="margin-right:10px; margin-left:10px;"></i>{{channelListeners}}
+            </h3>
         </div>
         <div id="userCount">
-            <h2 class="shadow">
-                <a v-on:click="likeButton" class="uk-icon-button uk-icon-heart uk-margin-small-right uk-text-danger"></a>
-                {{totalListeners}} / {{channelListeners}}
-            </h2>
+            <h3 class="shadow uk-display-inline-block">
+                <a v-on:click="likeButton" class="uk-icon-button uk-icon-heart uk-margin-small-right uk-text-danger uk-display-inline-block"></a>
+            </h3>
+            <span class="uk-icon-button uk-icon-headphones  uk-text-danger uk-margin-small-right uk-display-inline-block"></span>
+            <vue-slider tooltip="hover" v-model="slider" width="200" class="uk-display-inline-block" height="3"></vue-slider>
         </div>
         <div v-if="key" id="nowPlaying">
             <i class="uk-icon-play uk-margin-small-right from"></i> {{title}} <span class="from"><i
@@ -27,7 +34,7 @@
                 </ul>
             </div>
         </div>
-        <youtube v-if="key" class="fullscreen" :player-width="windowWidth" :player-height="windowHeight" :video-id="key"
+        <youtube id="player" v-if="key" class="fullscreen" :player-width="windowWidth" :player-height="windowHeight" :video-id="key"
                  :player-vars="playerVars" @paused="pause" @ready="ready" @playing="playing" @ended="ended"></youtube>
         <div v-if="!key || paused">
             <div class="frame">
@@ -51,13 +58,18 @@
         margin: 0;
     }
 
+    #player {
+        pointer-events: none;
+    }
+
     #userCount {
         position: fixed;
-        left: 0;
-        bottom: 20px;
+        left: 5px;
+        bottom: 43px;
         height: 1.1em;
         padding: 5px;
-        z-index: 4;
+        z-index: 5;
+        width: 85%;
     }
 
     #nowPlaying {
@@ -71,7 +83,7 @@
 
     #logo {
         position: fixed;
-        right: 0;
+        right: 5px;
         height: 1.1em;
         padding: 5px;
         z-index: 5;
@@ -217,8 +229,12 @@
     const _ = window._ || require('lodash');
     const $ = window.$ || require('jquery');
 
+    import vueSlider from 'vue-slider-component';
 
     export default{
+        components: {
+            vueSlider
+        },
         data(){
             return {
                 key: '',            // Current Video
@@ -237,6 +253,7 @@
                 windowWidth: 0,     // Browser Window Width
                 totalListeners: 1,    // Current Total Listeners, defaulted to 1
                 channelListeners: 1,  // Current Channel Total Listeners, defaulted to 1,
+                slider: 50,
                 channel: null         // Socket Connection
             }
         },
@@ -270,6 +287,9 @@
                 let out = this.title === '' ? 'Fsociety TV' : this.title;
                 document.title = `${out} - Powered by MrNodeBot`;
             },
+            slider: function(val) {
+              if(this.player) this.player.setVolume(val);
+            },
         },
         methods: {
             likeButton: function() {
@@ -286,6 +306,8 @@
                     player.seekTo(parseFloat(this.seekTime), true);
                     this.firstLoad = false;
                 }
+                // Volume stuffs
+                player.setVolume(this.slider);
             },
             pause: function (player) {
                 this.paused = true;
