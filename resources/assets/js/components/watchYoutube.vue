@@ -5,8 +5,8 @@
             </h2>
         </div>
         <div id="userCount">
-            <h2 class="from">
-                <span href="" class="uk-icon-button uk-icon-users uk-margin-small-right from"></span>
+            <h2 class="shadow">
+                <a v-on:click="likeButton" class="uk-icon-button uk-icon-heart uk-margin-small-right uk-text-danger"></a>
                 {{totalListeners}} / {{channelListeners}}
             </h2>
         </div>
@@ -41,6 +41,7 @@
 </template>
 
 <style scoped>
+    .shadow,
     .from {
         text-shadow: 4px 4px 7px rgba(0, 0, 0, 0.79);
     }
@@ -211,11 +212,54 @@
         }
     }
 
+    .heart {
+        font-size: 152px;
+        text-align: center;
+        color: rgba(165, 25, 25, 1);
+        padding: 0;
+        margin: 0;
+    }
+
+    .pulse {
+        -webkit-animation: pulse 1s linear infinite;
+        -moz-animation: pulse 1s linear infinite;
+        -ms-animation: pulse 1s linear infinite;
+        animation: pulse 1s linear infinite;
+    }
+
+    @keyframes pulse {
+        0% {
+            -webkit-transform: scale(1.1);
+            -moz-transform: scale(1.1);
+            -o-transform: scale(1.1);
+            -ms-transform: scale(1.1);
+            transform: scale(1.1);
+        }
+        50% {
+            -webkit-transform: scale(0.8);
+            -moz-transform: scale(0.8);
+            -o-transform: scale(0.8);
+            -ms-transform: scale(0.8);
+            transform: scale(0.8);
+        }
+        100% {
+            -webkit-transform: scale(1);
+            -moz-transform: scale(1);
+            -o-transform: scale(1);
+            -ms-transform: scale(1);
+            transform: scale(1);
+        }
+
+    }
+
 </style>
 <script>
     const socketUrl = 'https://bot.fsociety.guru/youtube';
     const _ = window._ || require('lodash');
     const $ = window.$ || require('jquery');
+
+    // Establish Socket.io connection
+    const channel = io.connect(socketUrl, {query: `activeChannel=${activeChannel}`});
 
     export default{
         data(){
@@ -242,7 +286,11 @@
             playerVars: function () {
                 return {
                     autoplay: 1,
-                    start: this.seekTime
+                    start: this.seekTime,
+                    controls: 0,
+                    modestBranding:1,
+                    disablekb:1,
+                    showinfo:0,
                 }
             },
         },
@@ -265,6 +313,9 @@
             },
         },
         methods: {
+            likeButton: function() {
+                channel.emit('like');
+            },
             playing: function (player) {
                 this.paused = false;
             },
@@ -357,9 +408,6 @@
             initSocket: function () {
                 const self = this;
 
-                // Establish Socket.io connection
-                const channel = io.connect(socketUrl, {query: `activeChannel=${self.activeChannel}`});
-
                 // YouTube new Connection event
                 channel.on('new', data => {
                     // Update the total listeners
@@ -370,11 +418,15 @@
                     // If we have a HR Time broadcast our state
                     if (self.hrtime) channel.emit('new-reply', self.buildState());
                 });
-
+                
+                // On Like
+                channel.on('like', () => UIkit.notify(`<i class="uk-icon-heartbeat"></i> Someone Likes This!`, {
+                    timeout: 1000,
+                    pos: 'bottom-center'
+                }));
+                
                 // Listen for Disconnects
-                // TODO Scope to channel
                 channel.on('left', data => {
-                    console.dir(data);
                     self.totalListeners = data.totalListeners;
                     self.channelListeners = data.channelListeners;
                 });
