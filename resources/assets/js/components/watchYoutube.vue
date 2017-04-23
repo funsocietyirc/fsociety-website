@@ -258,8 +258,6 @@
     const _ = window._ || require('lodash');
     const $ = window.$ || require('jquery');
 
-    // Establish Socket.io connection
-    const channel = io.connect(socketUrl, {query: `activeChannel=${activeChannel}`});
 
     export default{
         data(){
@@ -277,9 +275,10 @@
                 activeChannel: activeChannel ? activeChannel.toLowerCase() : '', // Active channel, defaults to ''
                 player: null,       // Holder for the video player
                 windowHeight: 0,    // Browser Window Height
-                windowWidth: 0,      // Browser Window Width
-                totalListeners: 1,   // Current Total Listeners, defaulted to 1
-                channelListeners: 1  // Current Channel Total Listeners, defaulted to 1
+                windowWidth: 0,     // Browser Window Width
+                totalListeners: 1,    // Current Total Listeners, defaulted to 1
+                channelListeners: 1,  // Current Channel Total Listeners, defaulted to 1,
+                channel: null         // Socket Connection
             }
         },
         computed: {
@@ -296,6 +295,7 @@
         },
         mounted(){
             const self = this;
+            // Establish Socket.io connection
             this.$nextTick(function () {
                 this.initSocket();
                 this.windowWidth = window.innerWidth;
@@ -314,7 +314,7 @@
         },
         methods: {
             likeButton: function() {
-                channel.emit('like');
+                this.channel.emit('like');
             },
             playing: function (player) {
                 this.paused = false;
@@ -407,6 +407,7 @@
             },
             initSocket: function () {
                 const self = this;
+                const channel = this.channel = io.connect(socketUrl, {query: `activeChannel=${activeChannel}`});
 
                 // YouTube new Connection event
                 channel.on('new', data => {
@@ -433,10 +434,6 @@
                 // Handle Queue Sync
                 channel.on('queue', data => {
                     if (!self.hrtime || self.hrtime[1] > data.queue[0].hrtime[1]) {
-
-                        // Reset Counts
-                        self.totalListeners = data.totalListeners;
-                        self.channelListeners = data.channelListeners;
 
                         // Clear Current State
                         self.clearNowPlaying();
