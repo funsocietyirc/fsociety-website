@@ -216,6 +216,7 @@
 <script>
     const socketUrl = 'https://bot.fsociety.guru/youtube';
     const _ = window._ || require('lodash');
+    const $ = window.$ || require('jquery');
 
     export default{
         data(){
@@ -246,6 +247,7 @@
             },
         },
         mounted(){
+            const self = this;
             this.$nextTick(function () {
                 this.initSocket();
                 this.windowWidth = window.innerWidth;
@@ -387,7 +389,6 @@
                         // Super magic experimental number
                         let timeshift = 1.255;
 
-                        console.dir(timeshift);
                         // Set First Item
                         self.seekTime = item.seekTime + timeshift;
                         self.key = item.key;
