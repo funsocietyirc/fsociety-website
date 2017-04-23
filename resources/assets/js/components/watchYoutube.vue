@@ -1,5 +1,8 @@
 <template>
     <div>
+        <div id="logo">
+            <h2 class="uk-text-right">FSOCIETY TV <span v-if="activeChannel">/ {{activeChannel.toUpperCase()}}</span></h2>
+        </div>
         <div id="userCount">
             <h2 class="from">
                 <span href="" class="uk-icon-button uk-icon-users uk-margin-small-right from"></span>
@@ -10,19 +13,21 @@
             <i class="uk-icon-play uk-margin-small-right from"></i> {{title}} <span class="from"><i
                 class="uk-margin-small-right uk-margin-small-left uk-icon-user"></i>  {{from}}</span>
         </div>
-        <div v-if="queue.length > 0" id="queue">
-            <h4 class="uk-text-right">FSociety TV</h4>
-            <ul class="uk-list uk-list-line">
-                <li v-if="queue.length > 0">
-                    <h4><i class="uk-icon-fast-forward uk-margin-small-right from"></i> Up Next
-                        <div class="uk-badge uk-badge-danger uk-margin-small-left">{{queue.length}}</div>
-                    </h4>
-                </li>
-                <li v-for="(item, index) in queue">
-                    <span class="timestamp uk-margin-small-right">{{index + 1}}</span> {{item.title}}  <span
-                        class="from uk-margin-small-left">{{item.from}}</span>
-                </li>
-            </ul>
+        <div id="queue">
+            <h4 class="uk-text-right">FSociety TV <span v-if="activeChannel">/ {{activeChannel}}</span></h4>
+            <div v-if="queue.length > 0" id="queueInner">
+                <ul class="uk-list uk-list-line">
+                    <li v-if="queue.length > 0">
+                        <h4><i class="uk-icon-fast-forward uk-margin-small-right from"></i> Up Next
+                            <div class="uk-badge uk-badge-danger uk-margin-small-left">{{queue.length}}</div>
+                        </h4>
+                    </li>
+                    <li v-for="(item, index) in queue">
+                        <span class="timestamp uk-margin-small-right">{{index + 1}}</span> {{item.title}}  <span
+                            class="from uk-margin-small-left">{{item.from}}</span>
+                    </li>
+                </ul>
+            </div>
 
         </div>
         <youtube v-if="key" class="fullscreen" :player-width="windowWidth" :player-height="windowHeight" :video-id="key"
@@ -64,19 +69,35 @@
         padding: 5px;
         z-index: 5;
     }
-
+    #logo {
+        position: fixed;
+        right: 5%;
+        height: 1.1em;
+        padding: 5px;
+        z-index: 5;
+    }
     #queue {
         position: fixed;
-        top: 0;
+        top: 50%;
         right: 0;
         z-index: 5;
         width: 15%;
         height: 100%;
         background: #000;
-        pointer-events: none;
-        opacity: 0.8;
+        opacity: 0.7;
         color: #fff;
         padding: 5px;
+        border-top-left-radius: 6px;
+
+    }
+    #queueInner {
+        height:40%;
+        width:100%;
+        overflow-y : auto;
+    }
+
+    ::-webkit-scrollbar-track {
+        margin-top: 0;
     }
 
     /*noinspection CssUnknownTarget*/
