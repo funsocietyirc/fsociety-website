@@ -225,7 +225,9 @@
     }
 </style>
 <script>
-    const socketUrl = 'https://bot.fsociety.guru/youtube';
+
+    const socketUrl =  'https://bot.fsociety.guru/youtube';
+
     const _ = window._ || require('lodash');
     const $ = window.$ || require('jquery');
 
