@@ -362,7 +362,6 @@
 
                 // YouTube new Connection event
                 channel.on('new', data => {
-                    console.log('got it');
                     // Update the total listeners
                     // TODO Scope to channel
                     self.totalListeners = data.totalListeners;
@@ -382,8 +381,7 @@
 
                 // Handle Queue Sync
                 channel.on('queue', data => {
-
-                    if (self.activeChannel === data.activeChannel.toLowerCase() && (!self.hrtime || self.hrtime[1] > data.queue[0].hrtime[1])) {
+                    if (!self.hrtime || self.hrtime[1] > data.queue[0].hrtime[1]) {
 
                         // Clear Current State
                         self.clearNowPlaying();
@@ -413,7 +411,7 @@
                 // YouTube Control Channel
                 channel.on('control', data => {
                     // Gate
-                    if (!data.command || (data.from.toLowerCase() !== self.activeChannel)) return;
+                    if (!data.command) return;
                     // Switch Control commands
                     switch (data.command) {
                         case 'clear':
@@ -429,9 +427,6 @@
 
                 // YouTube Broadcast channel
                 channel.on('message', data => {
-                    // We are not listening on the current channel
-                    if (data.to.toLowerCase() !== self.activeChannel) return;
-
                     // No Key, Same key as currently playing, bail
                     if (!data.video || !data.video.key || data.video.key === self.key || _.find(self.queue, {key: data.video.key})) return;
 
