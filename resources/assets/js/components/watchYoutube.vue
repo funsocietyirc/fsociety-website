@@ -352,9 +352,13 @@
             },
             // Wrapper around UIkits notify, notify on an item (including this)
             notifyPlay: function (message, item) {
-                // Notify
+                // Required Items are missing
+                if(!message) return;
+
                 UIkit.notify({
-                    message: `<div class="uk-text-center"><h4>${message} ${item.title}</h4><p>Requested By ${item.from} on ${item.to}</p></div>`,
+                    message: (item && item.from && item.to && item.title) ?
+                        `<div class="uk-text-center"><h1>${message}</h1><h2>${item.title}</h2><h3>${item.from}</h3></div>` :
+                        `<h1 class="uk-text-center">${message}</h1>`,
                     status: 'info',
                     timeout: 4000,
                     pos: 'bottom-center'
@@ -488,7 +492,7 @@
                         self.intialTime= item.timestamp;
 
                         // Notify
-                        if(!self.synced)  self.notifyPlay('Playing (Sync)', self);
+                        if(!self.synced)  self.notifyPlay('Synced', self);
                         self.synced = true;
 
                         // Assign the rest of the queue to the clients
