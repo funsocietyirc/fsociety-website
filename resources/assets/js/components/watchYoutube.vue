@@ -15,7 +15,7 @@
                 <a v-on:click="likeButton"
                    class="uk-icon-button uk-icon-heart uk-margin-small-right uk-text-danger uk-display-inline-block"></a>
             </h3>
-            <span class="uk-icon-button uk-icon-headphones  uk-text-danger uk-margin-small-right uk-display-inline-block"></span>
+            <a v-on:click="muteButton" v-bind:class="muted" class="uk-icon-button  uk-margin-small-right uk-display-inline-block"></a>
             <vue-slider tooltip="hover" v-model="slider" width="200" class="uk-display-inline-block"
                         height="3"></vue-slider>
         </div>
@@ -264,6 +264,7 @@
                 totalListeners: 1,    // Current Total Listeners, defaulted to 1
                 channelListeners: 1,  // Current Channel Total Listeners, defaulted to 1,
                 slider: 50,
+                originalVolume: 50,
                 channel: null,        // Socket Connection,
             }
         },
@@ -278,6 +279,9 @@
                     disablekb: 1,
                     showinfo: 0,
                 }
+            },
+            muted: function() {
+                return this.slider === 0 ? 'uk-text-danger uk-icon-volume-off' : 'uk-text-success uk-icon-volume-up';
             },
         },
         // On Component mount
@@ -304,12 +308,22 @@
             slider: function (val) {
                 if (this.player) this.player.setVolume(val);
             },
+
         },
         // Vue Methods
         methods: {
             // Fire off like button event
             likeButton: function () {
                 this.channel.emit('like');
+            },
+            muteButton: function() {
+                if(this.slider === 0) {
+                    this.slider = this.originalVolume;
+                }
+                else {
+                    this.originalVolume = this.slider;
+                    this.slider = 0;
+                }
             },
             // Youtube player is playing
             playing: function () {
@@ -502,8 +516,6 @@
 
                 // Time Sync
                 channel.on('timesync', data => {
-                    console.log('Time Sync');
-                    console.dir(data);
                     self.initialTime = data;
                 });
 
