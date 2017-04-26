@@ -238,12 +238,6 @@
 
     import vueSlider from 'vue-slider-component';
 
-    // Hold on to speech synth
-    const speechSynth = 'speechSynthesis' in window;
-    // Hold on to speech recog
-    const speechRecog = 'SpeechRecognition' in window;
-
-
     export default{
         components: {
             vueSlider
@@ -373,10 +367,11 @@
             speak: function(message) {
                 // No Message
                 if(!message || message === '') return;
-                if(!speechSynth) {
+                if(!window.speechSynthesis) {
                     this.notifyPlay(message);
                 } else {
-                    speechSynth.speak(new SpeechSynthesisUtterance('Hello World'));
+                    let toSay = new SpeechSynthesisUtterance(message);
+                    window.speechSynthesis.speak(msg);
                 }
             },
             // Wrapper around UIkits notify, notify on an item (including this)
@@ -561,6 +556,7 @@
                             break;
                         case 'speak':
                             self.speak(data.message);
+                            break;
 
                     }
                 });
