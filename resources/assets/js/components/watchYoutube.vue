@@ -371,7 +371,7 @@
                     this.notifyPlay(message);
                 } else {
                     let toSay = new SpeechSynthesisUtterance(message);
-                    window.speechSynthesis.speak(msg);
+                    window.speechSynthesis.speak(toSay);
                 }
             },
             // Wrapper around UIkits notify, notify on an item (including this)
