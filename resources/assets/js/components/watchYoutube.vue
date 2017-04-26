@@ -238,6 +238,12 @@
 
     import vueSlider from 'vue-slider-component';
 
+    // Hold on to speech synth
+    const speechSynth = 'speechSynthesis' in window;
+    // Hold on to speech recog
+    const speechRecog = 'SpeechRecognition' in window;
+
+
     export default{
         components: {
             vueSlider
@@ -364,6 +370,15 @@
                     this.notifyPlay('Playing', this);
                 }
             },
+            speak: function(message) {
+                // No Message
+                if(!message || message === '') return;
+                if(!speechSynth) {
+                    this.notifyPlay(message);
+                } else {
+                    speechSynth.speak(new SpeechSynthesisUtterance('Hello World'));
+                }
+            },
             // Wrapper around UIkits notify, notify on an item (including this)
             notifyPlay: function (message, item) {
                 // Required Items are missing
@@ -459,6 +474,10 @@
                     self.channelListeners = data.channelListeners;
                 });
 
+                // Speak
+                channel.on('speak', data => self.speak(data));
+
+
                 // Handle Queue Sync
                 channel.on('queue', data => {
                     // If we do not have an HR time or if the current one is older then ours
@@ -539,6 +558,10 @@
                         // Reload Page
                         case 'reload':
                             location.reload();
+                            break;
+                        case 'speak':
+                            self.speak(data.message);
+
                     }
                 });
 
