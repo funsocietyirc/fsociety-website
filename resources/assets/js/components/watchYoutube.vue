@@ -233,6 +233,8 @@
 <script>
 
     const socketUrl = 'https://bot.fsociety.guru/youtube';
+
+    // Window Holders
     const _ = window._ || require('lodash');
     const $ = window.$ || require('jquery');
 
@@ -476,11 +478,6 @@
                 // Handle Queue Sync
                 channel.on('queue', data => {
                     // If we do not have an HR time or if the current one is older then ours
-                    console.log('local');
-                    console.dir(self.initialTime);
-                    console.log('remote');
-                    console.dir(data.initialTime);
-
                     if (
                         //!self.initialTime || // We have an Initial HR Time
                         (
@@ -557,14 +554,28 @@
                         case 'speak':
                             self.speak(data.message);
                             break;
-
+                        case 'skip':
+                            if(_.isEmpty(self.queue)) return;
+                            // Pop off first item
+                            let item = self.queue.splice(0, 1)[0];
+                            self.seekTime = item.seekTime;
+                            self.key = item.key;
+                            self.timestamp = item.timestamp;
+                            self.title = item.title;
+                            self.from = item.from;
+                            self.to = item.to;
+                            self.notifyPlay('Skipping to play', item);
                     }
                 });
 
                 // YouTube Broadcast channel
                 channel.on('message', data => {
                     // No Key, Same key as currently playing, bail
-                    if (!data.video || !data.video.key || data.video.key === self.key || _.find(self.queue, {key: data.video.key})) return;
+                    if (!data.video ||
+                        !data.video.key ||
+                        data.video.key === self.key ||
+                        _.find(self.queue, {key: data.video.key})
+                    ) return;
 
                     // Create the item
                     let item = self.queueItem(
