@@ -232,7 +232,6 @@ const socketUrl = 'https://bot.fsociety.guru/youtube';
 
 // Window Holders
 const _ = window._ || require('lodash');
-const $ = window.$ || require('jquery');
 
 import vueSlider from 'vue-slider-component';
 
@@ -455,7 +454,7 @@ export default {
 
 
       // Respond to the like event
-      channel.on('like', () => UIkit.notify(`<i class="uk-icon-heartbeat"></i> Someone Likes This!`, {
+      channel.on('like', () => UIkit.notify(`<div class="uk-text-center from"><i class="uk-icon-heartbeat uk-margin-small-right"></i> Someone Likes This!</div>`, {
         timeout: 1000,
         pos: 'bottom-center'
       }));
@@ -559,6 +558,7 @@ export default {
             self.title = item.title;
             self.from = item.from;
             self.to = item.to;
+
             self.notifyPlay('Skipping to play', item);
         }
       });

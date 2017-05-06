@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Watch YouTube - Powered By MrNodeBot</title>
+        <title>{{$activeChannel ?? 'Channels'}} Watch YouTube - Powered By MrNodeBot</title>
         <meta name="robots" content="noindex,nofollow">
         <meta name="csrf-token" content="{{csrf_token()}}"/>
         <meta name="csrf-param" content="_token"/>
