@@ -368,7 +368,7 @@
             speak: function (message) {
                 // No Message
                 if (!message || message === '') return;
-                if (!window.speechSynthesis || !SpeechSynthesisUtterance) {
+                if (!window.speechSynthesis || !window.speechSynthesis.speak || !SpeechSynthesisUtterance) {
                     this.notifyPlay(message);
                 } else {
                     let toSay = new SpeechSynthesisUtterance(message);
