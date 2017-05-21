@@ -12,7 +12,7 @@
         </div>
         <div id="channels">
             <h4>
-                <i class="uk-icon-fast-forward uk-margin-small-right from"></i> Channels
+                <i class="uk-icon-fast-forward uk-margin-small-left uk-margin-small-right from"></i> Channels
             </h4>
             <div class="listContainer">
                 <ul class="uk-list uk-list-line">
@@ -391,17 +391,14 @@
                 // There are still items left in the queue
                 if (this.queue.length > 0) {
                     // Pop the first item off
-                    let item = this.queue.splice(0, 1)[0];
+                    const item = this.queue.splice(0, 1)[0];
 
-                    // Modify state
-                    Object.assign(this, {
-                        seekTime: item.seekTime,
-                        key: item.key,
-                        timestamp: item.timestamp,
-                        title: item.title,
-                        from: item.from,
-                        to: item.to,
-                    });
+                    this.seekTime = item.seekTime;
+                    this.key = item.key;
+                    this.timestamp = item.timestamp;
+                    this.title = item.title;
+                    this.from = item.from;
+                    this.to = item.to;
 
                     // Notify
                     this.notifyPlay('Playing', this);
@@ -448,15 +445,13 @@
             },
             // Clear the current playing video
             clearNowPlaying: function () {
-                Object.assign(self, {
-                    key: '',
-                    from: '',
-                    to: '',
-                    title: '',
-                    seekTime: '',
-                    timestamp: null,
-                    paused: false,
-                });
+                self.key = '';
+                self.from = '';
+                self.to = '';
+                self.title = '';
+                self.seekTime = '';
+                self.timestamp = null;
+                self.paused = false;
             },
             // Build a state for this client
             buildState: function () {
@@ -493,12 +488,10 @@
                 // YouTube new Connection event
                 channel.on('new', data => {
 
-                    // Modify State
-                    Object.assign(self, {
-                        totalListeners: data.totalListeners || 1,
-                        channelListeners: data.channelListeners || 1,
-                        channels: data.channels || {},
-                    });
+                    // Modify state
+                    self.totalListeners = data.totalListeners;
+                    self.channelListeners = data.channelListeners;
+                    self.channels = data.channels || {};
 
                     // If we have a HR Time broadcast our state
                     if (self.initialTime) channel.emit('new-reply', self.buildState());
@@ -514,11 +507,9 @@
                 // Listen for Disconnects
                 channel.on('left', data => {
                     // Modify state
-                    Object.assign(self, {
-                        totalListeners: data.totalListeners || 1,
-                        channelListeners: data.channelListeners || 1,
-                        channels: data.channels || {},
-                    });
+                    self.totalListeners = data.totalListeners;
+                    self.channelListeners = data.channelListeners;
+                    self.channels = data.channels || {};
                 });
 
                 // Speak
@@ -539,35 +530,29 @@
                         self.initialTime > data.initialTime // Ours is newer
                     )
                     ) {
-                        // Pop off first item
-                        let item = data.queue.splice(0, 1)[0];
-
-                        // Figure out time shift?
-                        // Super magic experimental number
-                        let timeshift = 0.2; //1.255;
-
-                        // Modify State
-                        Object.assign(self, {
-                            // Hold on to the initial Synced time
-                            syncedTime: data.initialTime,
-                            seekTime: item.seekTime + timeshift,
-                            key: item.key,
-                            timestamp: item.timestamp,
-                            title: item.title,
-                            from: item.from,
-                            to: item.to,
-                            initialTime: item.timestamp,
-                            queue: data.queue
-                        });
-
-                        // Notify
-                        if (!self.synced) self.notifyPlay('Synced', self);
-                        self.synced = true;
-
+                        // Hold on to the initial Synced time
+                        self.syncedTime = data.initialTime;
                         // Clear Current State
                         self.clearNowPlaying();
                         self.clearQueue();
-
+                        // Pop off first item
+                        const item = data.queue.splice(0, 1)[0];
+                        // Figure out time shift?
+                        // Super magic experimental number
+                        const timeshift = 0.2; //1.255;
+                        // Set First Item
+                        self.seekTime = item.seekTime + timeshift;
+                        self.key = item.key;
+                        self.timestamp = item.timestamp;
+                        self.title = item.title;
+                        self.from = item.from;
+                        self.to = item.to;
+                        self.initialTime = item.timestamp;
+                        // Notify
+                        if (!self.synced) self.notifyPlay('Synced', self);
+                        self.synced = true;
+                        // Assign the rest of the queue to the clients
+                        self.queue = data.queue;
                     }
                 });
 
@@ -603,17 +588,15 @@
                         case 'skip':
                             if (_.isEmpty(self.queue)) return;
                             // Pop off first item
-                            let item = self.queue.splice(0, 1)[0];
+                            const item = self.queue.splice(0, 1)[0];
                             // Adjust the state
-                            Object.assign(self, {
-                                seekTime: item.seekTime,
-                                key: item.key,
-                                timestamp: item.timestamp,
-                                title: item.title,
-                                from: item.from,
-                                to: item.to,
-                            });
-
+                            self.seekTime = item.seekTime;
+                            self.key = item.key;
+                            self.timestamp = item.timestamp;
+                            self.title = item.title;
+                            self.from = item.from;
+                            self.to = item.to;
+                            // Notify
                             self.notifyPlay('Skipping to play', item);
                     }
                 });
