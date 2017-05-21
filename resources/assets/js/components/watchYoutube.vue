@@ -10,6 +10,21 @@
                 <i class="url uk-icon-justify uk-icon-users" style="margin-right:10px; margin-left:10px;"></i>{{channelListeners}}
             </h3>
         </div>
+        <div id="channels">
+            <h4>
+                <i class="uk-icon-fast-forward uk-margin-small-right from"></i> Channels
+            </h4>
+            <div class="listContainer">
+                <ul class="uk-list uk-list-line">
+                    <!--suppress CommaExpressionJS -->
+                    <li v-for="channel in channels">
+                        <i class="url uk-icon-justify uk-icon-users" style="margin-right:10px; margin-left:10px;"></i>
+                        <span class="uk-margin-small-right">{{channel.count}}</span>
+                        <a v-bind:href="channelLink(channel.channel)" class="uk-margin-small-right">{{channel.channel}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
         <div id="userCount">
             <h3 class="shadow uk-display-inline-block">
                 <a v-on:click="likeButton"
@@ -22,14 +37,14 @@
         </div>
         <div v-if="key" id="nowPlaying">
             <i class="uk-icon-play uk-margin-small-right from"></i> {{title}} <span class="from">
-    <i class="uk-margin-small-right uk-margin-small-left uk-icon-user"></i>  {{from}}</span>
+            <i class="uk-margin-small-right uk-margin-small-left uk-icon-user"></i>  {{from}}</span>
         </div>
         <div id="queue" v-if="queue.length > 0">
             <h4>
                 <i class="uk-icon-fast-forward uk-margin-small-right from"></i> Up Next
                 <div class="uk-badge uk-badge-danger uk-margin-small-left">{{queue.length}}</div>
             </h4>
-            <div id="queueInner">
+            <div class="listContainer">
                 <ul class="uk-list uk-list-line">
                     <!--suppress CommaExpressionJS -->
                     <li v-for="(item, index) in queue">
@@ -110,7 +125,23 @@
         border-top-left-radius: 6px;
     }
 
-    #queueInner {
+    #channels {
+        position: fixed;
+        top: 50%;
+        left: 0;
+        z-index: 5;
+        width: 15%;
+        height: 70%;
+        background: #000;
+        opacity: 0.7;
+        color: #fff;
+        padding: 5px;
+        border-top-right-radius: 6px;
+        border-bottom-right-radius: 6px;
+
+    }
+
+    .listContainer {
         height: 40%;
         width: 100%;
         overflow-y: auto;
@@ -268,6 +299,7 @@
                 slider: 50,
                 originalVolume: 50,
                 channel: null, // Socket Connection,
+                channels: {},
             }
         },
         // Computed Properties
@@ -314,6 +346,12 @@
         },
         // Vue Methods
         methods: {
+            // Channel link
+            channelLink: function (chan) {
+                return laroute.route('watch-youtube', {
+                    activeChannel: chan
+                }).replaceAll('#','%23');
+            },
             // Fire off like button event
             likeButton: function () {
                 this.channel.emit('like');
@@ -354,13 +392,17 @@
                 if (this.queue.length > 0) {
                     // Pop the first item off
                     let item = this.queue.splice(0, 1)[0];
-                    // Play it
-                    this.seekTime = item.seekTime;
-                    this.key = item.key;
-                    this.timestamp = item.timestamp;
-                    this.title = item.title;
-                    this.from = item.from;
-                    this.to = item.to;
+
+                    // Modify state
+                    Object.assign(this, {
+                        seekTime: item.seekTime,
+                        key: item.key,
+                        timestamp: item.timestamp,
+                        title: item.title,
+                        from: item.from,
+                        to: item.to,
+                    });
+
                     // Notify
                     this.notifyPlay('Playing', this);
                 }
@@ -406,13 +448,15 @@
             },
             // Clear the current playing video
             clearNowPlaying: function () {
-                this.key = '';
-                this.from = '';
-                this.to = '';
-                this.title = '';
-                this.seekTime = 0;
-                this.timestamp = null;
-                this.paused = false;
+                Object.assign(self, {
+                    key: '',
+                    from: '',
+                    to: '',
+                    title: '',
+                    seekTime: '',
+                    timestamp: null,
+                    paused: false,
+                });
             },
             // Build a state for this client
             buildState: function () {
@@ -449,9 +493,12 @@
                 // YouTube new Connection event
                 channel.on('new', data => {
 
-                    // Update the total listeners
-                    self.totalListeners = data.totalListeners;
-                    self.channelListeners = data.channelListeners;
+                    // Modify State
+                    Object.assign(self, {
+                        totalListeners: data.totalListeners || 1,
+                        channelListeners: data.channelListeners || 1,
+                        channels: data.channels || {},
+                    });
 
                     // If we have a HR Time broadcast our state
                     if (self.initialTime) channel.emit('new-reply', self.buildState());
@@ -466,9 +513,12 @@
 
                 // Listen for Disconnects
                 channel.on('left', data => {
-                    // Update the current count
-                    self.totalListeners = data.totalListeners;
-                    self.channelListeners = data.channelListeners;
+                    // Modify state
+                    Object.assign(self, {
+                        totalListeners: data.totalListeners || 1,
+                        channelListeners: data.channelListeners || 1,
+                        channels: data.channels || {},
+                    });
                 });
 
                 // Speak
@@ -489,13 +539,6 @@
                         self.initialTime > data.initialTime // Ours is newer
                     )
                     ) {
-                        // Hold on to the initial Synced time
-                        self.syncedTime = data.initialTime;
-
-                        // Clear Current State
-                        self.clearNowPlaying();
-                        self.clearQueue();
-
                         // Pop off first item
                         let item = data.queue.splice(0, 1)[0];
 
@@ -503,22 +546,28 @@
                         // Super magic experimental number
                         let timeshift = 0.2; //1.255;
 
-                        // Set First Item
-                        self.seekTime = item.seekTime + timeshift;
-                        self.key = item.key;
-                        self.timestamp = item.timestamp;
-                        self.title = item.title;
-                        self.from = item.from;
-                        self.to = item.to;
-
-                        self.intialTime = item.timestamp;
+                        // Modify State
+                        Object.assign(self, {
+                            // Hold on to the initial Synced time
+                            syncedTime: data.initialTime,
+                            seekTime: item.seekTime + timeshift,
+                            key: item.key,
+                            timestamp: item.timestamp,
+                            title: item.title,
+                            from: item.from,
+                            to: item.to,
+                            initialTime: item.timestamp,
+                            queue: data.queue
+                        });
 
                         // Notify
                         if (!self.synced) self.notifyPlay('Synced', self);
                         self.synced = true;
 
-                        // Assign the rest of the queue to the clients
-                        self.queue = data.queue;
+                        // Clear Current State
+                        self.clearNowPlaying();
+                        self.clearQueue();
+
                     }
                 });
 
@@ -555,12 +604,15 @@
                             if (_.isEmpty(self.queue)) return;
                             // Pop off first item
                             let item = self.queue.splice(0, 1)[0];
-                            self.seekTime = item.seekTime;
-                            self.key = item.key;
-                            self.timestamp = item.timestamp;
-                            self.title = item.title;
-                            self.from = item.from;
-                            self.to = item.to;
+                            // Adjust the state
+                            Object.assign(self, {
+                                seekTime: item.seekTime,
+                                key: item.key,
+                                timestamp: item.timestamp,
+                                title: item.title,
+                                from: item.from,
+                                to: item.to,
+                            });
 
                             self.notifyPlay('Skipping to play', item);
                     }
