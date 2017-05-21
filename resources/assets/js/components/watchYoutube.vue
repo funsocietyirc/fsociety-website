@@ -348,6 +348,9 @@
         methods: {
             // Channel link
             channelLink: function (chan) {
+                // Lobby
+                if (chan === 'Lobby') return laroute.route('watch-youtube');
+                // Normal Channel
                 return laroute.route('watch-youtube', {
                     activeChannel: chan
                 }).replaceAll('#','%23');
