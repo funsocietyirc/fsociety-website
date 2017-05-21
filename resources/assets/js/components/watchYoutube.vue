@@ -1,6 +1,7 @@
 <template>
     <div>
-        <div id="logo">
+        <!--Current Listener Stats-->
+        <div id="stats">
             <h3 class="uk-display-inline uk-text-right uk-margin-small-right">
                 FSOCIETY TV <i class="url uk-icon-justify uk-icon-users"
                                style="margin-right:10px; margin-left:10px;"></i>{{totalListeners}}
@@ -10,6 +11,7 @@
                 <i class="url uk-icon-justify uk-icon-users" style="margin-right:10px; margin-left:10px;"></i>{{channelListeners}}
             </h3>
         </div>
+        <!--Channel List-->
         <div id="channels">
             <h4>
                 <i class="uk-icon-fast-forward uk-margin-small-left uk-margin-small-right from"></i> Channels
@@ -25,7 +27,8 @@
                 </ul>
             </div>
         </div>
-        <div id="userCount">
+        <!--Controls-->
+        <div id="controls">
             <h3 class="shadow uk-display-inline-block">
                 <a v-on:click="likeButton"
                    class="uk-icon-button uk-icon-heart uk-margin-small-right uk-text-danger uk-display-inline-block"></a>
@@ -35,10 +38,12 @@
             <vue-slider tooltip="hover" v-model="slider" width="200" class="uk-display-inline-block"
                         height="3"></vue-slider>
         </div>
+        <!--Now Playing Bar-->
         <div v-if="key" id="nowPlaying">
             <i class="uk-icon-play uk-margin-small-right from"></i> {{title}} <span class="from">
             <i class="uk-margin-small-right uk-margin-small-left uk-icon-user"></i>  {{from}}</span>
         </div>
+        <!--Song Queue-->
         <div id="queue" v-if="queue.length > 0">
             <h4>
                 <i class="uk-icon-fast-forward uk-margin-small-right from"></i> Up Next
@@ -54,9 +59,11 @@
                 </ul>
             </div>
         </div>
+        <!--Youtube Player-->
         <youtube id="player" v-if="key" type="text/html" class="youtube-player" :player-width="windowWidth"
                  :player-height="windowHeight" :video-id="key" :player-vars="playerVars" @paused="pause"
                  @ready="ready" @playing="playing" @ended="ended"></youtube>
+        <!--Background animation-->
         <div v-if="!key || paused">
             <div class="frame">
                 <div></div>
@@ -84,7 +91,7 @@
         pointer-events: none;
     }
 
-    #userCount {
+    #controls {
         position: fixed;
         left: 5px;
         bottom: 43px;
@@ -103,7 +110,7 @@
         z-index: 5;
     }
 
-    #logo {
+    #stats {
         position: fixed;
         right: 5px;
         height: 1.1em;
@@ -335,7 +342,7 @@
         watch: {
             // Modify the page Title
             title: function (val) {
-                let out = val === '' ? 'Fsociety TV' : val;
+                const out = val === '' ? 'Fsociety TV' : val;
                 document.title = `${out} - Powered by MrNodeBot`;
             },
             // Bind the volume slider to the youtube player
@@ -413,7 +420,7 @@
                 if (!window.speechSynthesis || !window.speechSynthesis.speak || !SpeechSynthesisUtterance) {
                     this.notifyPlay(message);
                 } else {
-                    let toSay = new SpeechSynthesisUtterance(message);
+                    const toSay = new SpeechSynthesisUtterance(message);
                     window.speechSynthesis.speak(toSay);
                 }
             },
@@ -448,28 +455,29 @@
             },
             // Clear the current playing video
             clearNowPlaying: function () {
-                self.key = '';
-                self.from = '';
-                self.to = '';
-                self.title = '';
-                self.seekTime = '';
-                self.timestamp = null;
-                self.paused = false;
+                this.key = '';
+                this.from = '';
+                this.to = '';
+                this.title = '';
+                this.seekTime = '';
+                this.timestamp = null;
+                this.paused = false;
             },
             // Build a state for this client
             buildState: function () {
-                let currentState = {
+                const currentState = {
                     key: this.key,
                     from: this.from,
                     to: this.to,
                     title: this.title,
                     seekTime: this.player ? this.player.getCurrentTime() : 0,
                     timestamp: this.timestamp,
-                    initialTime: this.initialTime
+                    initialTime: this.initialTime,
                 };
 
                 // Create a copy of the current queue
-                let queue = JSON.parse(JSON.stringify(this.queue));
+                const queue = JSON.parse(JSON.stringify(this.queue));
+
                 // Put the current state at the start
                 queue.unshift(currentState);
 
@@ -517,7 +525,6 @@
 
                 // Speak
                 channel.on('speak', data => self.speak(data));
-
 
                 // Handle Queue Sync
                 channel.on('queue', data => {
@@ -616,7 +623,7 @@
                     ) return;
 
                     // Create the item
-                    let item = self.queueItem(
+                    const item = self.queueItem(
                         data.video.key,
                         data.from,
                         data.to,
@@ -634,13 +641,13 @@
                     // If nothing is currently playing, process the item
                     if (self.key === '') {
                         // Pop the first item from the queue
-                        let item = self.queue.splice(0, 1)[0];
-                        self.seekTime = item.seekTime;
-                        self.key = item.key;
-                        self.timestamp = item.timestamp;
-                        self.title = item.title;
-                        self.from = item.from;
-                        self.to = item.to;
+                        const currentItem = self.queue.splice(0, 1)[0];
+                        self.seekTime = currentItem.seekTime;
+                        self.key = currentItem.key;
+                        self.timestamp = currentItem.timestamp;
+                        self.title = currentItem.title;
+                        self.from = currentItem.from;
+                        self.to = currentItem.to;
                         self.notifyPlay('Playing', self);
                     }
 
