@@ -476,6 +476,7 @@
                 };
 
                 // Create a copy of the current queue
+                // TODO Replace with object.assign?
                 const queue = JSON.parse(JSON.stringify(this.queue));
 
                 // Put the current state at the start
