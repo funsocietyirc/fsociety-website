@@ -1,7 +1,7 @@
 <template>
     <div>
         <!--Current Listener Stats-->
-        <div id="stats">
+        <div v-if="uiVisible" id="stats">
             <h3 class="uk-display-inline uk-text-right uk-margin-small-right">
                 FSOCIETY TV <i class="url uk-icon-justify uk-icon-users"
                                style="margin-right:10px; margin-left:10px;"></i>{{totalListeners}}
@@ -12,7 +12,7 @@
             </h3>
         </div>
         <!--Channel List-->
-        <div id="channels">
+        <div v-if="uiVisible" id="channels">
             <h4>
                 <i class="uk-icon-fast-forward uk-margin-small-left uk-margin-small-right from"></i> Channels
             </h4>
@@ -28,23 +28,25 @@
             </div>
         </div>
         <!--Controls-->
-        <div id="controls">
-            <h3 class="shadow uk-display-inline-block">
+        <div id="controls" class="noselect">
+            <a v-on:click="visibleButton" v-bind:class="ui"
+               class="uk-icon-button uk-margin-small-right uk-display-inline-block"></a>
+            <div v-if="uiVisible" class="uk-display-inline">
                 <a v-on:click="likeButton"
                    class="uk-icon-button uk-icon-heart uk-margin-small-right uk-text-danger uk-display-inline-block"></a>
-            </h3>
-            <a v-on:click="muteButton" v-bind:class="muted"
-               class="uk-icon-button  uk-margin-small-right uk-display-inline-block"></a>
-            <vue-slider tooltip="hover" v-model="slider" width="200" class="uk-display-inline-block"
-                        height="3"></vue-slider>
+                <a v-on:click="muteButton" v-bind:class="muted"
+                   class="uk-icon-button uk-margin-small-right uk-display-inline-block"></a>
+                <vue-slider tooltip="hover" v-model="slider" width="200" class="uk-display-inline-block"
+                            height="3"></vue-slider>
+            </div>
         </div>
         <!--Now Playing Bar-->
-        <div v-if="key" id="nowPlaying">
+        <div v-if="key && uiVisible" id="nowPlaying">
             <i class="uk-icon-play uk-margin-small-right from"></i> {{title}} <span class="from">
             <i class="uk-margin-small-right uk-margin-small-left uk-icon-user"></i>  {{from}}</span>
         </div>
         <!--Song Queue-->
-        <div id="queue" v-if="queue.length > 0">
+        <div id="queue" v-if="queue.length > 0 && uiVisible">
             <h4>
                 <i class="uk-icon-fast-forward uk-margin-small-right from"></i> Up Next
                 <div class="uk-badge uk-badge-danger uk-margin-small-left">{{queue.length}}</div>
@@ -76,6 +78,17 @@
 </template>
 
 <style scoped>
+
+    .noselect {
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+        -khtml-user-select: none; /* Konqueror HTML */
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+        user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+    }
+
     .shadow,
     .from {
         text-shadow: 4px 4px 7px rgba(0, 0, 0, 0.79);
@@ -306,7 +319,8 @@
                 slider: 50,
                 originalVolume: 50,
                 channel: null, // Socket Connection,
-                channels: {},
+                channels: {}, // Channels available
+                uiVisible: true, // User Interface Visibility
             }
         },
         // Computed Properties
@@ -324,6 +338,9 @@
             muted: function () {
                 return this.slider === 0 ? 'uk-text-danger uk-icon-volume-off' : 'uk-text-success uk-icon-volume-up';
             },
+            ui: function () {
+                return this.uiVisible ? 'uk-icon-eye' : 'uk-icon-eye-slash';
+            }
         },
         // On Component mount
         mounted() {
@@ -365,6 +382,9 @@
             // Fire off like button event
             likeButton: function () {
                 this.channel.emit('like');
+            },
+            visibleButton: function () {
+                this.uiVisible = !this.uiVisible;
             },
             muteButton: function () {
                 if (this.slider === 0) {
