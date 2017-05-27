@@ -879,8 +879,8 @@ caniuse-api@^1.5.2:
     lodash.uniq "^4.5.0"
 
 caniuse-db@^1.0.30000529, caniuse-db@^1.0.30000634, caniuse-db@^1.0.30000639:
-  version "1.0.30000670"
-  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000670.tgz#90d33b79e3090e25829c311113c56d6b1788bf43"
+  version "1.0.30000673"
+  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000673.tgz#f3333f7ba6871a190f7a26ed20c1285bc96ca072"
 
 capture-stack-trace@^1.0.0:
   version "1.0.0"
@@ -1520,8 +1520,8 @@ editorconfig@^0.13.2:
     sigmund "^1.0.1"
 
 electron-to-chromium@^1.2.7:
-  version "1.3.11"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.11.tgz#744761df1d67b492b322ce9aa0aba5393260eb61"
+  version "1.3.12"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.12.tgz#62f33e4a59b4855f0de4bb8972bf1b841b98b6d2"
 
 elliptic@^6.0.0:
   version "6.4.0"
@@ -4144,19 +4144,7 @@ read-pkg@^1.0.0:
     isarray "0.0.1"
     string_decoder "~0.10.x"
 
-readable-stream@^2.0.0, readable-stream@^2.0.1, readable-stream@^2.0.2, readable-stream@^2.0.5, readable-stream@^2.1.5, readable-stream@~2.1.0:
-  version "2.1.5"
-  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.1.5.tgz#66fa8b720e1438b364681f2ad1a63c618448c9d0"
-  dependencies:
-    buffer-shims "^1.0.0"
-    core-util-is "~1.0.0"
-    inherits "~2.0.1"
-    isarray "~1.0.0"
-    process-nextick-args "~1.0.6"
-    string_decoder "~0.10.x"
-    util-deprecate "~1.0.1"
-
-readable-stream@^2.0.6, readable-stream@^2.1.4, readable-stream@^2.2.6:
+readable-stream@^2.0.0, readable-stream@^2.0.1, readable-stream@^2.0.2, readable-stream@^2.0.5, readable-stream@^2.0.6, readable-stream@^2.1.4, readable-stream@^2.1.5, readable-stream@^2.2.6:
   version "2.2.9"
   resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.2.9.tgz#cf78ec6f4a6d1eb43d26488cac97f042e74b7fc8"
   dependencies:
@@ -4176,6 +4164,18 @@ readable-stream@~1.1.8, readable-stream@~1.1.9:
     inherits "~2.0.1"
     isarray "0.0.1"
     string_decoder "~0.10.x"
+
+readable-stream@~2.1.0:
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.1.5.tgz#66fa8b720e1438b364681f2ad1a63c618448c9d0"
+  dependencies:
+    buffer-shims "^1.0.0"
+    core-util-is "~1.0.0"
+    inherits "~2.0.1"
+    isarray "~1.0.0"
+    process-nextick-args "~1.0.6"
+    string_decoder "~0.10.x"
+    util-deprecate "~1.0.1"
 
 readdirp@^2.0.0:
   version "2.1.0"
@@ -5119,13 +5119,13 @@ vue-html-loader@^1.2.2:
     loader-utils "^1.0.2"
     object-assign "^4.1.0"
 
-vue-infinite-loading@^2.1.2:
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/vue-infinite-loading/-/vue-infinite-loading-2.1.2.tgz#6da22fa6825d6e2fa7146d76d012669c12ef072a"
+vue-infinite-loading@^2.1.3:
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/vue-infinite-loading/-/vue-infinite-loading-2.1.3.tgz#638e13b5c3c57acbbbfde75c138eb4815eee6d52"
 
-vue-lazyload@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/vue-lazyload/-/vue-lazyload-1.0.3.tgz#6bd881a5bf3c681e74e86190094cad104bc403fa"
+vue-lazyload@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/vue-lazyload/-/vue-lazyload-1.0.4.tgz#b507bf6c3c7d5672d80d2b5746da9f4d61d21d92"
 
 vue-loader@^10.0.0:
   version "10.3.0"
@@ -5166,9 +5166,9 @@ vue-resource@^1.3.3:
   dependencies:
     got "^6.7.1"
 
-vue-slider-component@^2.2.9:
-  version "2.2.9"
-  resolved "https://registry.yarnpkg.com/vue-slider-component/-/vue-slider-component-2.2.9.tgz#ae81b908f1fa7fcddadc75834b2423f1f8000a9d"
+vue-slider-component@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/vue-slider-component/-/vue-slider-component-2.3.0.tgz#3fee245c44bf9c95820430b75244adc4014cc96a"
 
 vue-style-loader@^1.0.0:
   version "1.0.0"
