@@ -17,7 +17,7 @@
     "moment": "^2.18.1",
     "slick-carousel": "^1.6.0",
     "typed.js": "^1.1.1",
-    "uikit": "^2.27.3",
+    "uikit": "^2.27.4",
     "vue": "^2.3.3",
     "vue-charts": "^0.2.1",
     "vue-filter": "^0.2.1",
@@ -29,6 +29,7 @@
     "webfontloader": "^1.6.28"
   },
   "dependencies": {
+    "require-dir": "0.3.2",
     "vue-slider-component": "^2.3.0"
   }
 }
