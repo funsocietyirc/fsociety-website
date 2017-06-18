@@ -4868,9 +4868,9 @@ tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   version "0.14.5"
   resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-0.14.5.tgz#5ae68177f192d4456269d108afa93ff8743f4f64"
 
-typed.js@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/typed.js/-/typed.js-1.1.1.tgz#c2d240da36e9d2dfcfa24fb69c583aec8877a8af"
+typed.js@^1.1.7:
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/typed.js/-/typed.js-1.1.7.tgz#573d9c11a6e61e806b7bdefe9ea78befe25a9d63"
 
 uglify-js@2.6.4, uglify-js@2.6.x, uglify-js@~2.6.0:
   version "2.6.4"
@@ -5125,9 +5125,9 @@ vue-infinite-loading@^2.1.3:
   version "2.1.3"
   resolved "https://registry.yarnpkg.com/vue-infinite-loading/-/vue-infinite-loading-2.1.3.tgz#638e13b5c3c57acbbbfde75c138eb4815eee6d52"
 
-vue-lazyload@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/vue-lazyload/-/vue-lazyload-1.0.4.tgz#b507bf6c3c7d5672d80d2b5746da9f4d61d21d92"
+vue-lazyload@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/vue-lazyload/-/vue-lazyload-1.0.5.tgz#767c041472e85237c6efa8a486badfa4dbb96edb"
 
 vue-loader@^10.0.0:
   version "10.3.0"
