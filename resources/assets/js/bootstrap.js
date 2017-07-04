@@ -26,7 +26,7 @@ require('../../../node_modules/uikit/dist/js/components/accordion');
 
 // Front End Deps
 require('jquery-ujs');
-require('typed.js');
+const Typed = window.Typed = require('typed.js');
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

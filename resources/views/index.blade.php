@@ -37,7 +37,7 @@
 @endsection
 @section('scripts')
     <script type="text/javascript">
-        var lines = [
+        let lines = [
             'Hello friend.',
             "If you've come, you've come for a reason.",
             "but there's a part of you that's exhausted with this world...",
@@ -50,9 +50,10 @@
             "<a  href='/chat'>Connect to FreeNode</a>, and join us on <strong>#fsociety</strong>."
         ];
         $(function () {
-            $(".message").typed({
+            let p = document.querySelector('.message');
+            let t = new Typed(p, {
                 strings: lines,
-                typeSpeed: 4,
+                typeSpeed: 40,
                 contentType: 'html'
             });
         });
