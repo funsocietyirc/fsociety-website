@@ -10,6 +10,8 @@
                    class="{{isActiveRoute('season',null,'season',1)}} uk-button uk-button-danger uk-width-1-1 season-button uk-margin-small-bottom">Season 1</a>
                 <a href="{{ route('season',2) }}"
                    class="{{isActiveRoute('season',null,'season',2)}} uk-button uk-button-danger uk-width-1-1 season-button uk-margin-small-bottom">Season 2</a>
+                <a href="{{ route('season',3) }}"
+                   class="{{isActiveRoute('season',null,'season',3)}} uk-button uk-button-danger uk-width-1-1 season-button uk-margin-small-bottom">Season 3</a>
             </li>
             @foreach($episodes as $episode)
                 <li class="uk-animation-fade uk-width-small-1-3 uk-width-medium-1-3 uk-width-large-1-5">

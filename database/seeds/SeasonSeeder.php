@@ -15,6 +15,7 @@ class SeasonSeeder extends Seeder
         collect([
             '1' => 'Our democracy has been hacked.',
             '2' => 'Control is an illusion.',
+            '3' => '',
         ])->each(function ($value, $key) {
             Season::firstOrCreate([
                 'number' => $key,

@@ -68,6 +68,7 @@ class EpisodeService
                 return false;
             }
             $data = json_decode($response->getBody(), true);
+
             foreach ($data as $episode) {
                 $model = Episode::firstOrNew([
                     'season_id' => $episode['season'],
@@ -81,12 +82,14 @@ class EpisodeService
                 $model->runtime = $episode['runtime'];
                 $model->summary = strip_tags($episode['summary']);
 
+
                 // Grab the images and save if the model does not already exist
                 if (!$model->imageMedium && $episode['image']['medium']) {
                     $path = $this->saveImage($episode['image']['medium'], $episode['season'], $episode['number'],
                         'medium');
                     $model->imageMedium = $path;
                 }
+
                 if (!$model->imageOriginal && $episode['image']['original']) {
                     $path = $this->saveImage($episode['image']['original'], $episode['season'], $episode['number'],
                         'original');
