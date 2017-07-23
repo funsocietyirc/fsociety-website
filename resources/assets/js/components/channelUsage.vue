@@ -1,33 +1,28 @@
 <template>
-    <div>
-        <div v-show="!loaded">
-            <h2>Loading....</h2>
+    <div class="uk-panel root-panel">
+        <div v-show="usageResults.length">
+            <div id="usage" style="height:360px;">
+                <vue-chart chart-type="Calendar" :packages="chartPackages" :columns="cols" :rows="rows"
+                           :options="calOptions"></vue-chart>
+            </div>
+            <hr>
+            <div id="line">
+                <vue-chart :columns="cols" :rows="rows" :options="lineOptions"></vue-chart>
+            </div>
+            <p class="uk-text-center">Drag to Zoom, Right click to Reset</p>
+            <hr>
+            <ul>
+                <li>
+                    <span class="primaryColorText">Total:</span> {{numberWithCommas(totalResults)}}
+                </li>
+                <li class="muted">
+                    <span class="primaryColorText">Peak </span> {{numberWithCommas(this.mostActive.messages)}} - <span
+                        class="timeStamp">{{this.mostActive.timestamp}}</span> - <span class="timeStamp">{{mostActiveDay}}</span>
+                </li>
+            </ul>
         </div>
-        <div v-show="loaded" class="uk-panel root-panel">
-            <div v-show="usageResults.length">
-                <div id="usage" style="height:360px;">
-                    <vue-chart chart-type="Calendar" :packages="chartPackages" :columns="cols" :rows="rows"
-                               :options="calOptions"></vue-chart>
-                </div>
-                <hr>
-                <div id="line">
-                    <vue-chart :columns="cols" :rows="rows" :options="lineOptions"></vue-chart>
-                </div>
-                <p class="uk-text-center">Drag to Zoom, Right click to Reset</p>
-                <hr>
-                <ul>
-                    <li>
-                        <span class="primaryColorText">Total:</span> {{numberWithCommas(totalResults)}}
-                    </li>
-                    <li class="muted">
-                        <span class="primaryColorText">Peak </span> {{numberWithCommas(this.mostActive.messages)}} - <span
-                            class="timeStamp">{{this.mostActive.timestamp}}</span> - <span class="timeStamp">{{mostActiveDay}}</span>
-                    </li>
-                </ul>
-            </div>
-            <div class="uk-text-center" v-show="!usageResults.length">
-                <h3>There are no results available for this channel and or nick combination</h3>
-            </div>
+        <div class="uk-text-center" v-show="!usageResults.length">
+            <h3>There are no results available for this channel and or nick combination</h3>
         </div>
     </div>
 </template>
@@ -58,7 +53,6 @@
                     vm.usageResults = data.results;
                     vm.leastActive = data.lowest;
                     vm.mostActive = data.highest;
-                    vm.loaded = true;
                 }).catch(e => {
                     console.log(e);
                 });
@@ -66,7 +60,6 @@
         },
         data() {
             return {
-                loaded: false,
                 chartPackages: ['corechart', 'calendar'],
                 usageResults: [],
                 mostActive: {
