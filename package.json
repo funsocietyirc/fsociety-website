@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "require-dir": "0.3.2",
-    "vue-loader": "^13.0.4",
+    "vue-loader": "^12.2.2",
     "vue-slider-component": "^2.3.5"
   }
 }
