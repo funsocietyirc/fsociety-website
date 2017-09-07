@@ -2334,9 +2334,9 @@ hosted-git-info@^2.1.4:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.4.2.tgz#0076b9f46a270506ddbaaea56496897460612a67"
 
-hover.css@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/hover.css/-/hover.css-2.2.0.tgz#3a457c4f6bf756dcebae0317f09a8088c7626a77"
+hover.css@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/hover.css/-/hover.css-2.2.1.tgz#11d81525f7a8fa33b564fc322c07b454b6bc51a0"
 
 html-comment-regex@^1.1.0:
   version "1.1.1"
@@ -5179,9 +5179,9 @@ vue-infinite-loading@^2.1.3:
   version "2.1.3"
   resolved "https://registry.yarnpkg.com/vue-infinite-loading/-/vue-infinite-loading-2.1.3.tgz#638e13b5c3c57acbbbfde75c138eb4815eee6d52"
 
-vue-lazyload@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/vue-lazyload/-/vue-lazyload-1.0.6.tgz#7d5494fc35c35fc84dcc271165b827e309b4e793"
+vue-lazyload@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/vue-lazyload/-/vue-lazyload-1.1.3.tgz#527a1e3e6ba6509fe27326d34f0ab9687c9a1e95"
 
 vue-loader@^10.0.0:
   version "10.3.0"
@@ -5240,9 +5240,9 @@ vue-resource@^1.3.4:
   dependencies:
     got "^7.0.0"
 
-vue-slider-component@^2.3.5:
-  version "2.3.5"
-  resolved "https://registry.yarnpkg.com/vue-slider-component/-/vue-slider-component-2.3.5.tgz#ea06a4db17188affbbd731ebdc1f4d8f4338f4ef"
+vue-slider-component@^2.3.9:
+  version "2.3.9"
+  resolved "https://registry.yarnpkg.com/vue-slider-component/-/vue-slider-component-2.3.9.tgz#3d2b8107d065fbb18ffb4705de8cf9ba1be45b72"
 
 vue-style-loader@^1.0.0:
   version "1.0.0"
@@ -5288,9 +5288,9 @@ vue-template-validator@^1.0.0:
   dependencies:
     chalk "^1.1.1"
 
-vue-youtube-embed@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/vue-youtube-embed/-/vue-youtube-embed-2.1.1.tgz#c0ee3a839b8ad2da189d190b8c0abe90f041fa91"
+vue-youtube-embed@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/vue-youtube-embed/-/vue-youtube-embed-2.1.2.tgz#de5992c4e0aa99cbc9ae5e1e076c94e2f049a5c2"
 
 vue@^1.0.24:
   version "1.0.28"
