@@ -2137,7 +2137,7 @@ gulp-rev@^7.0.0:
     through2 "^2.0.0"
     vinyl-file "^1.1.0"
 
-gulp-sass@^2.3.1:
+gulp-sass@^2.3.2:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/gulp-sass/-/gulp-sass-2.3.2.tgz#82b7ab90fe902cdc34c04f180d92f2c34902dd52"
   dependencies:
@@ -2777,8 +2777,8 @@ laravel-elixir-webpack-official@^1.0.10:
     webpack-stream "github:jeroennoten/webpack-stream#patch-1"
 
 laravel-elixir@^6.0.0-9:
-  version "6.0.0-15"
-  resolved "https://registry.yarnpkg.com/laravel-elixir/-/laravel-elixir-6.0.0-15.tgz#cb1dc2f4991c5a212855ee9c33739672b1f36c80"
+  version "6.0.0-16"
+  resolved "https://registry.yarnpkg.com/laravel-elixir/-/laravel-elixir-6.0.0-16.tgz#a8dd0c6bffc30f9977d8db40eb756ebf11647d18"
   dependencies:
     clean-css "^3.4.12"
     cli-table "^0.3.1"
@@ -2794,7 +2794,7 @@ laravel-elixir@^6.0.0-9:
     gulp-rename "^1.2.2"
     gulp-rev "^7.0.0"
     gulp-rev-replace "^0.4.3"
-    gulp-sass "^2.3.1"
+    gulp-sass "^2.3.2"
     gulp-shell "^0.5.2"
     gulp-sourcemaps "^1.6.0"
     gulp-uglify "^1.5.3"
@@ -2802,7 +2802,7 @@ laravel-elixir@^6.0.0-9:
     parse-filepath "^1.0.1"
     path "^0.12.7"
     q "^1.4.1"
-    require-dir "^0.3.0"
+    require-dir "^0.3.2"
     run-sequence "^1.1.5"
     underscore "^1.8.3"
     vinyl-map2 "^1.2.1"
@@ -4396,7 +4396,7 @@ request@2, request@^2.61.0, request@^2.72.0, request@^2.81.0:
     tunnel-agent "^0.6.0"
     uuid "^3.0.0"
 
-require-dir@0.3.2, require-dir@^0.3.0:
+require-dir@0.3.2, require-dir@^0.3.2:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/require-dir/-/require-dir-0.3.2.tgz#c1d5c75e9fbffde9f2e6b33e383db4f594b5a6a9"
 
@@ -5176,8 +5176,8 @@ vue-html-loader@^1.2.2:
     object-assign "^4.1.0"
 
 vue-infinite-loading@^2.1.3:
-  version "2.1.3"
-  resolved "https://registry.yarnpkg.com/vue-infinite-loading/-/vue-infinite-loading-2.1.3.tgz#638e13b5c3c57acbbbfde75c138eb4815eee6d52"
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/vue-infinite-loading/-/vue-infinite-loading-2.2.0.tgz#6fa64fc5d532c9f05fa54da126631297ff5d992f"
 
 vue-lazyload@^1.1.3:
   version "1.1.3"
@@ -5241,8 +5241,8 @@ vue-resource@^1.3.4:
     got "^7.0.0"
 
 vue-slider-component@^2.3.9:
-  version "2.3.9"
-  resolved "https://registry.yarnpkg.com/vue-slider-component/-/vue-slider-component-2.3.9.tgz#3d2b8107d065fbb18ffb4705de8cf9ba1be45b72"
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/vue-slider-component/-/vue-slider-component-2.4.1.tgz#ad0c215c2bb56f96015244dc02fda3063aa38666"
 
 vue-style-loader@^1.0.0:
   version "1.0.0"
@@ -5272,8 +5272,8 @@ vue-template-compiler@^2.1.0:
     he "^1.1.0"
 
 vue-template-compiler@^2.4.2:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.4.2.tgz#5a45d843f148b098f6c1d1e35ac20c4956d30ad1"
+  version "2.4.4"
+  resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.4.4.tgz#2cde3b704124985c27d50b5387c9691ba515fb57"
   dependencies:
     de-indent "^1.0.2"
     he "^1.1.0"
@@ -5303,8 +5303,8 @@ vue@^2.0.3:
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.3.4.tgz#5ec3b87a191da8090bbef56b7cfabd4158038171"
 
 vue@^2.4.2:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/vue/-/vue-2.4.2.tgz#a9855261f191c978cc0dc1150531b8d08149b58c"
+  version "2.4.4"
+  resolved "https://registry.yarnpkg.com/vue/-/vue-2.4.4.tgz#ea9550b96a71465fd2b8b17b61673b3561861789"
 
 watchpack@^0.2.1:
   version "0.2.9"

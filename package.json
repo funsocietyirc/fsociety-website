@@ -29,7 +29,9 @@
     "webfontloader": "^1.6.28"
   },
   "dependencies": {
+    "babel-loader": "^7.1.2",
     "require-dir": "0.3.2",
+    "sass-loader": "^6.0.6",
     "vue-loader": "^12.2.2",
     "vue-slider-component": "^2.3.9"
   }
