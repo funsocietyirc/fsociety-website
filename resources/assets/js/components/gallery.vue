@@ -46,7 +46,7 @@
             </div>
           </div>
         </li>
-        <infinite-loading :on-infinite="onInfinite" ref="infiniteLoading"></infinite-loading>
+        <infinite-loading @infinite="onInfinite" ref="infiniteLoading"></infinite-loading>
       </ul>
     </div>
   </div>
@@ -129,7 +129,7 @@ export default {
         if (!vm.searchText && !vm.searchFrom) {
           return true;
         }
-        return image.from == vm.searchFrom || image.to == vm.searchTo;
+        return image.from === vm.searchFrom || image.to === vm.searchTo;
       });
     },
   },
@@ -164,7 +164,7 @@ export default {
         });
     },
     // END
-    onInfinite() {
+    onInfinite(state) {
       let params = {
         'type': 'images',
         page: Math.ceil(this.images.length / this.pageSize) + 1,
@@ -194,15 +194,15 @@ export default {
                 this.nicks.push(item.from);
               }
             });
-            this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded');
+            state.loaded();
             if (data.page >= data.pageCount) {
-              this.$refs.infiniteLoading.$emit('$InfiniteLoading:complete');
+                state.complete();
             }
             this.$nextTick(function() {
               $('#gallery').trigger('display.uk.check');
             });
           } else {
-            this.$refs.infiniteLoading.$emit('$InfiniteLoading:complete');
+              state.complete();
           }
         });
     },
@@ -215,13 +215,13 @@ export default {
         if (!_.includes(this.channels, data.to)) {
           this.channels.unshift(data.to);
         } else {
-          this.channels = _.filter(this.channels, channel => channel != data.to);
+          this.channels = _.filter(this.channels, channel => channel !== data.to);
           this.channels.unshift(data.to)
         }
         if (!_.includes(this.nicks, data.from)) {
           this.nicks.unshift(data.from);
         } else {
-          this.nicks = _.filter(this.nicks, nick => nick != data.from);
+          this.nicks = _.filter(this.nicks, nick => nick !== data.from);
           this.nicks.unshift(data.from);
         }
         // Trigger Updates
