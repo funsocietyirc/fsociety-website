@@ -3404,8 +3404,8 @@ modify-filename@^1.0.0, modify-filename@^1.1.0:
   resolved "https://registry.yarnpkg.com/modify-filename/-/modify-filename-1.1.0.tgz#9a2dec83806fbb2d975f22beec859ca26b393aa1"
 
 moment@^2.18.1:
-  version "2.19.1"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.19.1.tgz#56da1a2d1cbf01d38b7e1afc31c10bcfa1929167"
+  version "2.19.2"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.19.2.tgz#8a7f774c95a64550b4c7ebd496683908f9419dbe"
 
 ms@2.0.0:
   version "2.0.0"
@@ -5284,8 +5284,8 @@ vue-charts@^0.2.1:
     vue "^2.0.3"
 
 vue-filter@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/vue-filter/-/vue-filter-0.2.1.tgz#598582f5309c60f43482462bb9485fe667d8a241"
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/vue-filter/-/vue-filter-0.2.2.tgz#ed4fd73870c0c831ae2a92f1f99b2c480e30f010"
   dependencies:
     underscore "^1.8.3"
 
@@ -5312,8 +5312,8 @@ vue-infinite-loading@^2.1.3:
   resolved "https://registry.yarnpkg.com/vue-infinite-loading/-/vue-infinite-loading-2.2.1.tgz#91a349c0fde8a1a51befd9d867eafd80c0dc2126"
 
 vue-lazyload@^1.1.3:
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/vue-lazyload/-/vue-lazyload-1.1.3.tgz#527a1e3e6ba6509fe27326d34f0ab9687c9a1e95"
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/vue-lazyload/-/vue-lazyload-1.1.4.tgz#94dbb3fcb047f147f37900c0e22ad4fd478e31c4"
 
 vue-loader@^10.0.0:
   version "10.3.0"
@@ -5373,8 +5373,8 @@ vue-resource@^1.3.4:
     got "^7.0.0"
 
 vue-slider-component@^2.3.9:
-  version "2.4.3"
-  resolved "https://registry.yarnpkg.com/vue-slider-component/-/vue-slider-component-2.4.3.tgz#3eed82176590e24b1320ed32c9db1b9f258bcf94"
+  version "2.4.5"
+  resolved "https://registry.yarnpkg.com/vue-slider-component/-/vue-slider-component-2.4.5.tgz#412395a94cd6a8958b5462a4b604cf2393a46d9b"
 
 vue-style-loader@^1.0.0:
   version "1.0.0"
@@ -5404,8 +5404,8 @@ vue-template-compiler@^2.1.0:
     he "^1.1.0"
 
 vue-template-compiler@^2.4.2:
-  version "2.5.2"
-  resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.5.2.tgz#6f198ebc677b8f804315cd33b91e849315ae7177"
+  version "2.5.6"
+  resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.5.6.tgz#93f062a230a4437ef16064f1eef9cf3797d34bb4"
   dependencies:
     de-indent "^1.0.2"
     he "^1.1.0"
@@ -5435,8 +5435,8 @@ vue@^2.0.3:
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.3.4.tgz#5ec3b87a191da8090bbef56b7cfabd4158038171"
 
 vue@^2.4.2:
-  version "2.5.2"
-  resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.2.tgz#fd367a87bae7535e47f9dc5c9ec3b496e5feb5a4"
+  version "2.5.6"
+  resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.6.tgz#73654fefa4b37f25dfc657b8b834b44c90822cd7"
 
 watchpack@^0.2.1:
   version "0.2.9"
