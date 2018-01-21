@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "babel-loader": "^7.1.2",
+    "marked": "0.3.9",
     "require-dir": "0.3.2",
     "sass-loader": "^6.0.6",
     "vue-loader": "^12.2.2",
