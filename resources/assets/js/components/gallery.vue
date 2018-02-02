@@ -96,7 +96,7 @@
 </style>
 <script>
 const _ = require('lodash');
-const apiRoute = 'https://bot.fsociety.guru/api/';
+const apiRoute = 'https://bot.fsociety.online/api/';
 
 const dataTemplate = {
   // Image data

@@ -190,7 +190,7 @@
                 return final;
             },
             apiRoute: function () {
-                return 'https://bot.fsociety.guru/api/usage/channels/overtime/' + this.channelName.replaceAll('#', '%23') + (this.nickName ? `/${this.nickName}` : '');
+                return 'https://bot.fsociety.online/api/usage/channels/overtime/' + this.channelName.replaceAll('#', '%23') + (this.nickName ? `/${this.nickName}` : '');
             },
             totalResults: function () {
                 return _.sumBy(this.usageResults, 'messages');

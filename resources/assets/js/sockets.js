@@ -2,7 +2,7 @@
 
 window.Fsociety = (() => {
   // Establish Socket.io connection
-  const socket = io.connect('https://bot.fsociety.guru');
+  const socket = io.connect('https://bot.fsociety.online');
   // Announcements
   socket.on('announce', data => {
     if (!data) return;

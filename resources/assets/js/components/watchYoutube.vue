@@ -281,7 +281,7 @@
     }
 </style>
 <script>
-    const socketUrl = 'https://bot.fsociety.guru/youtube';
+    const socketUrl = 'https://bot.fsociety.online/youtube';
 
     // Window Holders
     const _ = window._ || require('lodash');

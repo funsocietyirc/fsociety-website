@@ -203,7 +203,7 @@
         computed: {
             apiRoute: function () {
 
-                return 'https://bot.fsociety.guru/api/usage/channels/available';
+                return 'https://bot.fsociety.online/api/usage/channels/available';
             },
             sortedResults: function () {
                 return _(this.results).mapKeys((value, key) => {

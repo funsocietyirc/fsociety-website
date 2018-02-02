@@ -111,7 +111,7 @@
 </style>
 <script>
     // API route
-    const apiRoute = 'https://bot.fsociety.guru/api/urls?pageSize=100';
+    const apiRoute = 'https://bot.fsociety.online/api/urls?pageSize=100';
     const _ = require('lodash');
 
     export default {
