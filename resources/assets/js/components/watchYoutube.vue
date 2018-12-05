@@ -29,6 +29,8 @@
         </div>
         <!--Controls-->
         <div id="controls" class="noselect">
+            <a v-on:click="playButton"
+               class="uk-icon-button uk-icon-play uk-margin-small-right uk-text-danger uk-display-inline-block"></a>
             <a v-on:click="visibleButton" v-bind:class="ui"
                class="uk-icon-button uk-margin-small-right uk-display-inline-block"></a>
             <div v-if="uiVisible" class="uk-display-inline">
@@ -381,6 +383,13 @@
             likeButton: function () {
                 this.channel.emit('like');
             },
+            playButton: function () {
+                // Hack to have the first synced song seeked to the appropriate time
+                if (this.firstLoad) {
+                    if (this.seekTime !== null) player.seekTo(parseFloat(this.seekTime), true);
+                    this.firstLoad = false;
+                }
+            },
             visibleButton: function () {
                 this.uiVisible = !this.uiVisible;
             },
@@ -400,7 +409,7 @@
             ready: function (player) {
                 // Hold on to the player object
                 this.player = player;
-                // Hack to have the first synced song seem to the appropriate time
+                // // Hack to have the first synced song seeked to the appropriate time
                 if (this.firstLoad) {
                     if (this.seekTime !== null) player.seekTo(parseFloat(this.seekTime), true);
                     this.firstLoad = false;
@@ -510,7 +519,7 @@
             initSocket: function () {
                 const self = this;
 
-                // Subscribe th websocket
+                // Subscribe to webSocket
                 const channel = this.channel = io.connect(socketUrl, {
                     query: `activeChannel=${activeChannel}`
                 });
