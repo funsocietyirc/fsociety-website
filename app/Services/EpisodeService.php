@@ -84,7 +84,7 @@ class EpisodeService
 
 
                 // Grab the images and save if the model does not already exist
-                if (!$model->imageMedium && $episode['image']['medium']) {
+                if ($episode['image']['medium']) {
                     $path = $this->saveImage($episode['image']['medium'], $episode['season'], $episode['number'],
                         'medium');
                     $model->imageMedium = $path;
