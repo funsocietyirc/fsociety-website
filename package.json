@@ -13,7 +13,7 @@
     "laravel-elixir-vue": "^0.1.4",
     "laravel-elixir-vue-2": "^0.3.0",
     "laravel-elixir-webpack-official": "^1.0.10",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "moment": "^2.24.0",
     "slick-carousel": "^1.7.1",
     "typed.js": "^2.0.11",
