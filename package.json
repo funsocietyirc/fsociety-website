@@ -14,7 +14,7 @@
     "laravel-elixir-vue-2": "^0.3.0",
     "laravel-elixir-webpack-official": "^1.0.10",
     "lodash": "^4.17.15",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "slick-carousel": "^1.7.1",
     "typed.js": "^2.0.11",
     "uikit": "^2.27.4",
