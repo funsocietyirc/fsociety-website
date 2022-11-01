@@ -5,7 +5,7 @@
     "dev": "gulp watch"
   },
   "devDependencies": {
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "hover.css": "^2.3.2",
     "jquery": "^3.5.0",
     "jquery-ujs": "^1.2.2",
